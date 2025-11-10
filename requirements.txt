@@ -1,0 +1,23 @@
+# Core Framework
+langgraph==0.2.42
+python-dotenv==1.0.1
+
+# XML Processing
+lxml==5.3.0
+
+# Web Framework
+flask==3.0.3
+flask-cors==4.0.0
+
+# CLI and Display
+rich==13.8.1
+click==8.1.7
+
+# HTTP Requests (for testing)
+requests==2.31.0
+
+# Additional utilities
+uuid==1.30
+
+# Google Gemini API
+google-generativeai==0.3.2

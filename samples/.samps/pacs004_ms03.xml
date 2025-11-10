@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.004.001.09"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <PmtRtr>
+        <GrpHdr>
+            <MsgId>MSGID-PACS004-MS03-001</MsgId>
+            <CreDtTm>2025-01-25T16:45:00</CreDtTm>
+            <NbOfTxs>1</NbOfTxs>
+            <SttlmInf>
+                <SttlmMtd>CLRG</SttlmMtd>
+                <ClrSys>
+                    <Cd>TGT2</Cd>
+                </ClrSys>
+            </SttlmInf>
+        </GrpHdr>
+        <TxInf>
+            <RtrId>RTRID-MS03-001</RtrId>
+            <OrgnlGrpInf>
+                <OrgnlMsgId>MSGID-PACS008-MS03-001</OrgnlMsgId>
+                <OrgnlMsgNmId>pacs.008.001.08</OrgnlMsgNmId>
+            </OrgnlGrpInf>
+            <OrgnlEndToEndId>E2EID-MS03-001</OrgnlEndToEndId>
+            <OrgnlUETR>c3d4e5f6-7g8h-9i0j-1k2l-m3n4o5p6q7r8</OrgnlUETR>
+            <OrgnlIntrBkSttlmDt>2025-01-25</OrgnlIntrBkSttlmDt>
+            <RtrdIntrBkSttlmAmt Ccy="JPY">495000.00</RtrdIntrBkSttlmAmt>
+            <RtrRsnInf>
+                <Rsn>
+                    <Cd>MS03</Cd>
+                </Rsn>
+                <AddtlInf>Reason Not Specified</AddtlInf>
+            </RtrRsnInf>
+            <IntrBkSttlmAmt Ccy="JPY">500000.00</IntrBkSttlmAmt>
+            <IntrBkSttlmDt>2025-01-25</IntrBkSttlmDt>
+            <ReqdExctnDt>2025-01-25</ReqdExctnDt>
+            <CdtrAgt>
+                <FinInstnId>
+                    <BICFI>SMBCJPJTXXX</BICFI>
+                </FinInstnId>
+            </CdtrAgt>
+            <Cdtr>
+                <Pty>
+                    <Nm>Japan Electronics Corp</Nm>
+                </Pty>
+            </Cdtr>
+            <CdtrAcct>
+                <Id>
+                    <IBAN>JP91BANK0000000000000001</IBAN>
+                </Id>
+            </CdtrAcct>
+        </TxInf>
+    </PmtRtr>
+</Document>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.004.001.12" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <PmtRtr>
+    <GrpHdr>
+      <MsgId>MSG-20251008-005</MsgId>
+      <CreDtTm>2025-10-08T17:30:00</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <SttlmInf>
+        <SttlmMtd>INDA</SttlmMtd>
+      </SttlmInf>
+    </GrpHdr>
+    <TxInf>
+      <RtrId>RET-SGD-20251008-005</RtrId>
+      <OrgnlGrpInf>
+        <OrgnlMsgId>MSG-20251008-ORIG-005</OrgnlMsgId>
+        <OrgnlMsgNmId>pacs.008.001.12</OrgnlMsgNmId>
+        <OrgnlCreDtTm>2025-10-08T16:15:00</OrgnlCreDtTm>
+      </OrgnlGrpInf>
+      <OrgnlInstrId>INSTR-20251008-005</OrgnlInstrId>
+      <OrgnlEndToEndId>E2EID-UNMATCHED-001</OrgnlEndToEndId>
+      <OrgnlTxId>def45678-e89b-12d3-a456-426614174004</OrgnlTxId>
+      <OrgnlUETR>def45678-e89b-12d3-a456-426614174004</OrgnlUETR>
+      <RtrdIntrBkSttlmAmt Ccy="SGD">3000.00</RtrdIntrBkSttlmAmt>
+      <IntrBkSttlmDt>2025-10-08</IntrBkSttlmDt>
+      <SttlmPrty>NORM</SttlmPrty>
+      <RtrdInstdAmt Ccy="SGD">3000.00</RtrdInstdAmt>
+      <ChrgBr>DEBT</ChrgBr>
+      <RtrRsnInf>
+        <Orgtr>
+          <Nm>Commonwealth Bank of Australia</Nm>
+          <Id>
+            <OrgId>
+              <Othr>
+                <Id>CBA</Id>
+                <SchmeNm>
+                  <Cd>BANK</Cd>
+                </SchmeNm>
+              </Othr>
+            </OrgId>
+          </Id>
+        </Orgtr>
+        <Rsn>
+          <Cd>AC01</Cd>
+        </Rsn>
+        <AddtlInf>Account closed</AddtlInf>
+      </RtrRsnInf>
+      <OrgnlTxRef>
+        <IntrBkSttlmAmt Ccy="SGD">3000.00</IntrBkSttlmAmt>
+        <IntrBkSttlmDt>2025-10-08</IntrBkSttlmDt>
+        <SttlmPrty>NORM</SttlmPrty>
+        <InstdAmt Ccy="SGD">3000.00</InstdAmt>
+        <ChrgBr>DEBT</ChrgBr>
+        <ChrgsInf>
+          <Amt Ccy="SGD">30.00</Amt>
+          <Agt>
+            <FinInstnId>
+              <BICFI>UBSWCHZH</BICFI>
+            </FinInstnId>
+          </Agt>
+        </ChrgsInf>
+        <PmtTpInf>
+          <SvcLvl>
+            <Cd>SEPA</Cd>
+          </SvcLvl>
+          <LclInstrm>
+            <Cd>WIRE</Cd>
+          </LclInstrm>
+        </PmtTpInf>
+        <RmtInf>
+          <Ustrd>Investment payment</Ustrd>
+        </RmtInf>
+        <UltmtDbtr>
+          <Nm>David Ong</Nm>
+          <Id>
+            <OrgId>
+              <Othr>
+                <Id>8008195062</Id>
+                <SchmeNm>
+                  <Cd>ACCT</Cd>
+                </SchmeNm>
+              </Othr>
+            </OrgId>
+          </Id>
+        </UltmtDbtr>
+        <Dbtr>
+          <Nm>David Ong</Nm>
+          <Id>
+            <OrgId>
+              <Othr>
+                <Id>8008195062</Id>
+                <SchmeNm>
+                  <Cd>ACCT</Cd>
+                </SchmeNm>
+              </Othr>
+            </OrgId>
+          </Id>
+        </Dbtr>
+        <DbtrAcct>
+          <Id>
+            <Othr>
+              <Id>8008195062</Id>
+            </Othr>
+          </Id>
+        </DbtrAcct>
+        <DbtrAgt>
+          <FinInstnId>
+            <BICFI>CBA</BICFI>
+            <Nm>Commonwealth Bank of Australia</Nm>
+          </FinInstnId>
+        </DbtrAgt>
+        <CdtrAgt>
+          <FinInstnId>
+            <BICFI>UBSWCHZH</BICFI>
+            <Nm>UBS Switzerland</Nm>
+          </FinInstnId>
+        </CdtrAgt>
+        <Cdtr>
+          <Nm>Singapore Investment Corp</Nm>
+          <Id>
+            <OrgId>
+              <Othr>
+                <Id>SG03BBRU0000000000000000</Id>
+                <SchmeNm>
+                  <Cd>IBAN</Cd>
+                </SchmeNm>
+              </Othr>
+            </OrgId>
+          </Id>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>SG03BBRU0000000000000000</IBAN>
+          </Id>
+        </CdtrAcct>
+      </OrgnlTxRef>
+    </TxInf>
+  </PmtRtr>
+</Document>

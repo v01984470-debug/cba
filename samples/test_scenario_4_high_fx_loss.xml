@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.004.001.12" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <PmtRtr>
+    <GrpHdr>
+      <MsgId>MSG-20251008-004</MsgId>
+      <CreDtTm>2025-10-08T16:15:00</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <SttlmInf>
+        <SttlmMtd>INDA</SttlmMtd>
+      </SttlmInf>
+    </GrpHdr>
+    <TxInf>
+      <RtrId>RET-EUR-20251008-004</RtrId>
+      <OrgnlGrpInf>
+        <OrgnlMsgId>MSG-20251008-ORIG-004</OrgnlMsgId>
+        <OrgnlMsgNmId>pacs.008.001.12</OrgnlMsgNmId>
+        <OrgnlCreDtTm>2025-10-08T15:00:00</OrgnlCreDtTm>
+      </OrgnlGrpInf>
+      <OrgnlInstrId>INSTR-20251008-004</OrgnlInstrId>
+      <OrgnlEndToEndId>E2EID-HIGH-FX-001</OrgnlEndToEndId>
+      <OrgnlTxId>abc12345-e89b-12d3-a456-426614174003</OrgnlTxId>
+      <OrgnlUETR>abc12345-e89b-12d3-a456-426614174003</OrgnlUETR>
+      <RtrdIntrBkSttlmAmt Ccy="EUR">100.00</RtrdIntrBkSttlmAmt>
+      <IntrBkSttlmDt>2025-10-08</IntrBkSttlmDt>
+      <SttlmPrty>NORM</SttlmPrty>
+      <RtrdInstdAmt Ccy="EUR">100.00</RtrdInstdAmt>
+      <ChrgBr>DEBT</ChrgBr>
+      <RtrRsnInf>
+        <Orgtr>
+          <Nm>Commonwealth Bank of Australia</Nm>
+          <Id>
+            <OrgId>
+              <Othr>
+                <Id>CBA</Id>
+                <SchmeNm>
+                  <Cd>BANK</Cd>
+                </SchmeNm>
+              </Othr>
+            </OrgId>
+          </Id>
+        </Orgtr>
+        <Rsn>
+          <Cd>AC01</Cd>
+        </Rsn>
+        <AddtlInf>Account not found</AddtlInf>
+      </RtrRsnInf>
+      <OrgnlTxRef>
+        <IntrBkSttlmAmt Ccy="EUR">100.00</IntrBkSttlmAmt>
+        <IntrBkSttlmDt>2025-10-08</IntrBkSttlmDt>
+        <SttlmPrty>NORM</SttlmPrty>
+        <InstdAmt Ccy="EUR">100.00</InstdAmt>
+        <ChrgBr>DEBT</ChrgBr>
+        <ChrgsInf>
+          <Amt Ccy="EUR">50.00</Amt>
+          <Agt>
+            <FinInstnId>
+              <BICFI>BNPAFRPP</BICFI>
+            </FinInstnId>
+          </Agt>
+        </ChrgsInf>
+        <PmtTpInf>
+          <SvcLvl>
+            <Cd>SEPA</Cd>
+          </SvcLvl>
+          <LclInstrm>
+            <Cd>WIRE</Cd>
+          </LclInstrm>
+        </PmtTpInf>
+        <RmtInf>
+          <Ustrd>Large business payment</Ustrd>
+        </RmtInf>
+        <UltmtDbtr>
+          <Nm>Carol Tan</Nm>
+          <Id>
+            <OrgId>
+              <Othr>
+                <Id>4004195062</Id>
+                <SchmeNm>
+                  <Cd>ACCT</Cd>
+                </SchmeNm>
+              </Othr>
+            </OrgId>
+          </Id>
+        </UltmtDbtr>
+        <Dbtr>
+          <Nm>Carol Tan</Nm>
+          <Id>
+            <OrgId>
+              <Othr>
+                <Id>4004195062</Id>
+                <SchmeNm>
+                  <Cd>ACCT</Cd>
+                </SchmeNm>
+              </Othr>
+            </OrgId>
+          </Id>
+        </Dbtr>
+        <DbtrAcct>
+          <Id>
+            <Othr>
+              <Id>4004195062</Id>
+            </Othr>
+          </Id>
+        </DbtrAcct>
+        <DbtrAgt>
+          <FinInstnId>
+            <BICFI>CBA</BICFI>
+            <Nm>Commonwealth Bank of Australia</Nm>
+          </FinInstnId>
+        </DbtrAgt>
+        <CdtrAgt>
+          <FinInstnId>
+            <BICFI>BNPAFRPP</BICFI>
+            <Nm>BNP Paribas</Nm>
+          </FinInstnId>
+        </CdtrAgt>
+        <Cdtr>
+          <Nm>European Supplier Ltd</Nm>
+          <Id>
+            <OrgId>
+              <Othr>
+                <Id>FR1420041010050500013M02606</Id>
+                <SchmeNm>
+                  <Cd>IBAN</Cd>
+                </SchmeNm>
+              </Othr>
+            </OrgId>
+          </Id>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>FR1420041010050500013M02606</IBAN>
+          </Id>
+        </CdtrAcct>
+      </OrgnlTxRef>
+    </TxInf>
+  </PmtRtr>
+</Document>

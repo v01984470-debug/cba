@@ -1,0 +1,2323 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Refund Investigations - CBA POC</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        width: 100%;
+        margin: 0;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: none;
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+        color: #ffd700;
+        padding: 56px 48px;
+        text-align: left;
+        border-bottom: 3px solid #ffd700;
+      }
+
+      .header h1 {
+        font-size: 2.4rem;
+        margin-bottom: 8px;
+        font-weight: 600;
+        letter-spacing: 0.2px;
+      }
+
+      .header p {
+        opacity: 0.85;
+        font-size: 1rem;
+      }
+
+      .form-container {
+        padding: 32px 40px 56px 40px;
+        background: #f6f8fb;
+      }
+
+      .form-section {
+        background: #ffffff;
+        border-radius: 14px;
+        padding: 24px;
+        margin-bottom: 24px;
+        border: 1px solid #e5e7eb;
+      }
+
+      .form-section h3 {
+        color: #111827;
+        margin-bottom: 16px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .form-section h3::before {
+        content: "📋";
+        font-size: 1.2rem;
+      }
+
+      .radio-group {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+
+      .radio-option {
+        flex: 1;
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 16px;
+        cursor: pointer;
+        transition: all 0.25s ease;
+      }
+
+      .radio-option:hover {
+        border-color: #ffd700;
+        box-shadow: 0 6px 18px rgba(255, 215, 0, 0.2);
+        transform: translateY(-1px);
+      }
+
+      .radio-option input[type="radio"] {
+        margin-right: 8px;
+      }
+
+      .radio-option.selected {
+        border-color: #ffd700;
+        background: #fff8dc;
+      }
+
+      .file-upload {
+        background: #fcfdff;
+        border: 2px dashed #cbd5e1;
+        border-radius: 12px;
+        padding: 24px;
+        text-align: center;
+        transition: all 0.25s ease;
+        margin-bottom: 0;
+      }
+
+      .file-upload:hover {
+        border-color: #ffd700;
+        background: #fff8dc;
+      }
+
+      .file-upload input[type="file"] {
+        margin: 10px 0;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        width: 100%;
+      }
+
+      .options-grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 20px;
+      }
+
+      .upload-grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 20px;
+        margin-bottom: 16px;
+      }
+      .upload-grid > .file-upload {
+        grid-column: span 6;
+      }
+      @media (max-width: 1024px) {
+        .upload-grid > .file-upload {
+          grid-column: span 12;
+        }
+      }
+
+      .option-item {
+        background: #ffffff;
+        padding: 16px;
+        border-radius: 12px;
+        border: 1px solid #e5e7eb;
+        grid-column: span 6;
+      }
+      @media (max-width: 1024px) {
+        .option-item {
+          grid-column: span 12;
+        }
+      }
+
+      .option-item label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 500;
+        color: #2c3e50;
+      }
+
+      .option-item input[type="number"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-top: 8px;
+      }
+
+      .option-item input[type="checkbox"] {
+        transform: scale(1.2);
+      }
+
+      .submit-btn {
+        background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+        color: white;
+        border: none;
+        padding: 16px 32px;
+        font-size: 1.05rem;
+        border-radius: 12px;
+        cursor: pointer;
+        width: 100%;
+        transition: all 0.25s ease;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(46, 204, 113, 0.3);
+      }
+
+      .submit-btn:active {
+        transform: translateY(0);
+      }
+
+      .info-box {
+        background: #f8fafc;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 18px;
+        margin-top: 20px;
+        color: #334155;
+      }
+
+      .info-box h4 {
+        margin-bottom: 8px;
+        color: #b8860b;
+      }
+
+      /* Email Beautification Styles */
+      .email-container {
+        background: #ffffff;
+        border: 1px solid #e1e5e9;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+      }
+
+      .email-header {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-bottom: 1px solid #dee2e6;
+        padding: 20px;
+      }
+
+      .email-header-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+        min-height: 24px;
+      }
+
+      .email-header-row:last-child {
+        margin-bottom: 0;
+      }
+
+      .email-label {
+        font-weight: 600;
+        color: #495057;
+        min-width: 80px;
+        font-size: 14px;
+      }
+
+      .email-value {
+        flex: 1;
+        color: #212529;
+        font-size: 14px;
+        word-break: break-word;
+      }
+
+      .from-address {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .sender-name {
+        font-weight: 600;
+        color: #0066cc;
+      }
+
+      .sender-email {
+        color: #6c757d;
+        font-size: 13px;
+      }
+
+      .to-address {
+        color: #28a745;
+        font-weight: 500;
+      }
+
+      .subject-line {
+        font-weight: 600;
+        color: #212529;
+        font-size: 15px;
+      }
+
+      .date-time {
+        color: #6c757d;
+        font-size: 13px;
+      }
+
+      .reference {
+        color: #dc3545;
+        font-weight: 500;
+        font-family: monospace;
+        background: #f8f9fa;
+        padding: 2px 6px;
+        border-radius: 4px;
+        display: inline-block;
+      }
+
+      .email-body {
+        padding: 20px;
+        background: #ffffff;
+      }
+
+      .email-body-header {
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #e9ecef;
+      }
+
+      .body-label {
+        font-weight: 600;
+        color: #495057;
+        font-size: 14px;
+      }
+
+      .mt103-container {
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .mt103-content {
+        background: #ffffff;
+        border: none;
+        padding: 16px;
+        margin: 0;
+        font-family: "Courier New", Courier, monospace;
+        font-size: 12px;
+        line-height: 1.4;
+        color: #212529;
+        white-space: pre-wrap;
+        max-height: 300px;
+        overflow-y: auto;
+        border-radius: 0;
+      }
+
+      .email-footer {
+        background: #f8f9fa;
+        border-top: 1px solid #dee2e6;
+        padding: 16px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .email-status {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .status-indicator {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+
+      .status-indicator.sent {
+        background: #28a745;
+        box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.2);
+      }
+
+      .status-indicator.draft {
+        background: #ffc107;
+        box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.2);
+      }
+
+      .status-indicator.pending {
+        background: #17a2b8;
+        box-shadow: 0 0 0 2px rgba(23, 162, 184, 0.2);
+      }
+
+      .status-text {
+        font-size: 13px;
+        color: #495057;
+        font-weight: 500;
+      }
+
+      .email-actions {
+        display: flex;
+        gap: 8px;
+      }
+
+      .action-btn {
+        background: #ffffff;
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
+        padding: 6px 12px;
+        font-size: 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .action-btn:hover {
+        background: #f8f9fa;
+        border-color: #adb5bd;
+        transform: translateY(-1px);
+      }
+
+      .action-btn:disabled {
+        background: #f8f9fa;
+        color: #6c757d;
+        border-color: #dee2e6;
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+
+      .action-btn:disabled:hover {
+        background: #f8f9fa;
+        border-color: #dee2e6;
+        transform: none;
+      }
+
+      .process-btn:hover {
+        background: #d4edda;
+        border-color: #28a745;
+        color: #155724;
+      }
+
+      .draft-btn:hover {
+        background: #fff3cd;
+        border-color: #ffc107;
+        color: #856404;
+      }
+
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(2px);
+      }
+
+      .modal-content {
+        background-color: #ffffff;
+        margin: 5% auto;
+        padding: 0;
+        border-radius: 12px;
+        width: 90%;
+        max-width: 800px;
+        max-height: 80vh;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        animation: modalSlideIn 0.3s ease-out;
+      }
+
+      @keyframes modalSlideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .modal-header {
+        background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+        color: #ffd700;
+        padding: 20px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 3px solid #ffd700;
+      }
+
+      .modal-header h3 {
+        margin: 0;
+        font-size: 1.3rem;
+        font-weight: 600;
+      }
+
+      .modal-close {
+        background: none;
+        border: none;
+        color: #ffd700;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: all 0.2s ease;
+      }
+
+      .modal-close:hover {
+        background: rgba(255, 215, 0, 0.2);
+        transform: scale(1.1);
+      }
+
+      .modal-body {
+        padding: 24px;
+        max-height: 60vh;
+        overflow-y: auto;
+      }
+
+      /* Cases Table Styles */
+      .cases-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .cases-table th,
+      .cases-table td {
+        padding: 12px 16px;
+        text-align: left;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .cases-table th {
+        background: #f8f9fa;
+        font-weight: 600;
+        color: #374151;
+        font-size: 14px;
+      }
+
+      .cases-table td {
+        font-size: 13px;
+        color: #6b7280;
+      }
+
+      .cases-table td:nth-child(4) {
+        text-align: right;
+        font-weight: 600;
+        color: #059669;
+      }
+
+      .cases-table tbody tr:hover {
+        background: #f9fafb;
+      }
+
+      .cases-table tbody tr.selected {
+        background: #eff6ff;
+        border-left: 3px solid #3b82f6;
+      }
+
+      .case-radio {
+        transform: scale(1.2);
+        margin-right: 8px;
+      }
+
+      .case-id {
+        font-family: monospace;
+        font-weight: 600;
+        color: #1f2937;
+      }
+
+      .clickable-case-id {
+        cursor: pointer;
+        color: #3b82f6;
+        text-decoration: underline;
+        transition: all 0.2s ease;
+      }
+
+      .clickable-case-id:hover {
+        color: #1d4ed8;
+        text-decoration: none;
+        background: #eff6ff;
+        padding: 2px 4px;
+        border-radius: 4px;
+      }
+
+      .case-status {
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 500;
+        text-transform: uppercase;
+      }
+
+      .case-status.generated {
+        background: #d1fae5;
+        color: #065f46;
+      }
+
+      .case-status.processing {
+        background: #fef3c7;
+        color: #92400e;
+      }
+
+      .case-status.in-progress {
+        background: #ffc107;
+        color: #856404;
+        font-weight: 600;
+      }
+
+      @keyframes highlight-completed {
+        0% {
+          background: #ffc107;
+          transform: scale(1);
+        }
+        50% {
+          background: #28a745;
+          transform: scale(1.1);
+        }
+        100% {
+          background: #dbeafe;
+          transform: scale(1);
+        }
+      }
+
+      .case-status.completed.highlight {
+        animation: highlight-completed 0.8s ease-out;
+      }
+
+      .case-status.completed {
+        background: #dbeafe;
+        color: #1e40af;
+      }
+
+      /* Status Progress Bar */
+      .status-progress-bar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 0;
+      }
+
+      .status-step {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+      }
+
+      .status-step.todo {
+        background: #f3f4f6;
+        color: #6b7280;
+        border: 1px solid #d1d5db;
+      }
+
+      .status-step.in-progress {
+        background: #fef3c7;
+        color: #92400e;
+        border: 1px solid #f59e0b;
+      }
+
+      .status-step.completed {
+        background: #d1fae5;
+        color: #065f46;
+        border: 1px solid #10b981;
+      }
+
+      .status-step.view-report {
+        background: #dbeafe;
+        color: #1e40af;
+        border: 1px solid #3b82f6;
+      }
+
+      .status-step.approved {
+        background: #d1fae5;
+        color: #065f46;
+        border: 1px solid #10b981;
+      }
+
+      .status-step.needs-clarification {
+        background: #fef3c7;
+        color: #92400e;
+        border: 1px solid #f59e0b;
+      }
+
+      .status-step.human-review {
+        background: #fecaca;
+        color: #991b1b;
+        border: 1px solid #ef4444;
+      }
+
+      .status-step.completed {
+        background: #d1fae5;
+        color: #065f46;
+        border: 1px solid #10b981;
+      }
+
+      .status-step.todo.completed {
+        background: #d1fae5;
+        color: #065f46;
+        border: 1px solid #10b981;
+      }
+
+      .status-step.in-progress.completed {
+        background: #d1fae5;
+        color: #065f46;
+        border: 1px solid #10b981;
+      }
+
+      .status-step.active {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transform: scale(1.05);
+      }
+
+      .status-step.clickable {
+        cursor: pointer;
+      }
+
+      .status-step.clickable:hover {
+        background: #e5e7eb;
+        transform: scale(1.02);
+      }
+
+      .status-arrow {
+        color: #9ca3af;
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      .case-actions {
+        display: flex;
+        gap: 8px;
+      }
+
+      .case-action-btn {
+        background: #ffffff;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        padding: 4px 8px;
+        font-size: 11px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .case-action-btn:hover {
+        background: #f3f4f6;
+        border-color: #9ca3af;
+      }
+
+      .case-action-btn.view {
+        color: #3b82f6;
+        border-color: #3b82f6;
+      }
+
+      .case-action-btn.view:hover {
+        background: #eff6ff;
+      }
+
+      .case-action-btn.delete {
+        color: #ef4444;
+        border-color: #ef4444;
+      }
+
+      .case-action-btn.delete:hover {
+        background: #fef2f2;
+      }
+
+      .upload-status {
+        margin-top: 20px;
+        padding: 16px;
+        border-radius: 8px;
+        font-size: 14px;
+      }
+
+      .upload-status.success {
+        background: #d1fae5;
+        color: #065f46;
+        border: 1px solid #a7f3d0;
+      }
+
+      .upload-status.error {
+        background: #fee2e2;
+        color: #991b1b;
+        border: 1px solid #fca5a5;
+      }
+
+      .upload-status.info {
+        background: #dbeafe;
+        color: #1e40af;
+        border: 1px solid #93c5fd;
+      }
+
+      /* Toast Notification System */
+      .toast-container {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 10000;
+        max-width: 400px;
+      }
+
+      .toast {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        margin-bottom: 12px;
+        padding: 16px 20px;
+        border-left: 4px solid;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .toast.show {
+        transform: translateX(0);
+      }
+
+      .toast.success {
+        border-left-color: #10b981;
+        color: #065f46;
+      }
+
+      .toast.error {
+        border-left-color: #ef4444;
+        color: #991b1b;
+      }
+
+      .toast.info {
+        border-left-color: #3b82f6;
+        color: #1e40af;
+      }
+
+      .toast-icon {
+        font-size: 20px;
+        flex-shrink: 0;
+      }
+
+      .toast-content {
+        flex: 1;
+      }
+
+      .toast-close {
+        background: none;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+        color: #6b7280;
+        padding: 0;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        transition: background-color 0.2s;
+      }
+
+      .toast-close:hover {
+        background-color: #f3f4f6;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .toast-container {
+          top: 10px;
+          right: 10px;
+          left: 10px;
+          max-width: none;
+        }
+        
+        .toast {
+          font-size: 13px;
+          padding: 12px 16px;
+        }
+        
+        .email-header-row {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 4px;
+        }
+
+        .email-label {
+          min-width: auto;
+        }
+
+        .email-footer {
+          flex-direction: column;
+          gap: 12px;
+          align-items: flex-start;
+        }
+
+        .email-actions {
+          width: 100%;
+          justify-content: flex-end;
+        }
+
+        .cases-table {
+          font-size: 12px;
+        }
+
+        .cases-table th,
+        .cases-table td {
+          padding: 8px 12px;
+        }
+
+        .case-actions {
+          flex-direction: column;
+          gap: 4px;
+        }
+      }
+
+      /* Email preview styling */
+      .email-preview-item:hover {
+        border-color: #007bff !important;
+        box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1);
+        transform: translateY(-1px);
+      }
+
+      .email-preview-item.selected {
+        border-color: #28a745 !important;
+        background: #f8fff9 !important;
+      }
+
+      .email-select:checked + div {
+        color: #28a745;
+      }
+
+      /* Upload mode selection styling */
+      input[name="upload_mode"]:checked + div {
+        border-color: #007bff !important;
+        background: #f8f9ff !important;
+      }
+
+      label:hover {
+        border-color: #007bff !important;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
+    
+    <div class="container">
+      <div class="header">
+        <h1>Payment Refund Investigations</h1>
+        <p>Intelligent Payment Processing System</p>
+      </div>
+
+      <div class="form-container">
+
+        <!-- Mode Toggle Section -->
+        <div class="form-section" id="mode-toggle-section">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div id="mode-status" style="font-size: 14px; color: #6c757d; font-weight: 500;">
+              🔧 Manual Mode - Upload files to create cases
+            </div>
+            <div style="display: flex; background: #ffffff; border-radius: 8px; border: 1px solid #dee2e6; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+              <button type="button" id="manual-mode-btn" class="mode-toggle-btn active" style="
+                background: #007bff; color: white; border: none; padding: 10px 20px;
+                cursor: pointer; font-size: 14px; font-weight: 600; transition: all 0.3s ease;
+                min-width: 120px;
+              ">🔧 Manual Mode</button>
+              <button type="button" id="automated-mode-btn" class="mode-toggle-btn" style="
+                background: #ffffff; color: #495057; border: none; padding: 10px 20px;
+                cursor: pointer; font-size: 14px; font-weight: 600; transition: all 0.3s ease;
+                min-width: 120px;
+              ">🤖 Automated Mode</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Enhanced Upload Section -->
+        <div class="form-section" id="preview-upload-section">
+          <h3>📁 Upload PACS XML Files</h3>
+            <p style="margin-bottom: 20px; color: #666">
+            Upload PACS.004 and PACS.008 XML files to preview the generated emails. 
+            You can then select which emails you want to create cases for.
+            </p>
+          
+          <form id="preview-upload-form" method="post" enctype="multipart/form-data" action="/upload-pacs-preview">
+            <div class="upload-grid">
+              <div class="file-upload">
+                <h4>📄 PACS.004 Files</h4>
+                <p style="color: #666; margin-bottom: 10px;">Upload one or more PACS.004 files</p>
+                <input type="file" name="pacs004_files" id="preview_pacs004_files" multiple accept=".xml" required>
+                <div id="preview_pacs004-preview" style="margin-top: 10px; font-size: 12px; color: #666;"></div>
+              </div>
+              
+              <div class="file-upload">
+                <h4>📄 PACS.008 Files</h4>
+                <p style="color: #666; margin-bottom: 10px;">Upload corresponding PACS.008 files</p>
+                <input type="file" name="pacs008_files" id="preview_pacs008_files" multiple accept=".xml" required>
+                <div id="preview_pacs008-preview" style="margin-top: 10px; font-size: 12px; color: #666;"></div>
+              </div>
+            </div>
+            
+            <button type="submit" class="submit-btn" id="preview-upload-btn">📤 Upload & Preview Emails</button>
+          </form>
+        </div>
+
+
+        <!-- Email Preview Section -->
+        <div class="form-section" id="email-preview-section" style="display: none;">
+          <h3>📧 Email Previews</h3>
+          <p style="margin-bottom: 20px; color: #666">
+            Review the generated emails below. Select which ones you want to create cases for.
+          </p>
+          
+          <div id="email-previews-container">
+            <!-- Email previews will be populated here -->
+          </div>
+          
+          <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+            <button type="button" class="submit-btn" id="create-selected-cases-btn" style="display: none; flex: 1; min-width: 200px;">
+              🚀 Create Selected Cases
+            </button>
+            <button type="button" class="submit-btn" id="select-all-emails-btn" style="display: none; background: linear-gradient(135deg, #28a745 0%, #20c997 100%); flex: 1; min-width: 200px;">
+              ✅ Select All
+            </button>
+            <button type="button" class="submit-btn" id="deselect-all-emails-btn" style="display: none; background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%); flex: 1; min-width: 200px;">
+              ❌ Deselect All
+            </button>
+          </div>
+        </div>
+
+        <!-- Case Selection Section -->
+        <div class="form-section" id="case-selection-section" style="display: none;">
+          <h3>Generated Cases</h3>
+          <p style="margin-bottom: 20px; color: #666">
+            Select one or more cases from the generated list to process. 
+            Each case has been created with a unique ID and email.
+          </p>
+          
+          <!-- Selection Info -->
+          <div style="margin-bottom: 20px; padding: 16px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e9ecef;">
+            <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+              <div id="selection-info" style="font-size: 14px; color: #6c757d; font-weight: 500;">
+                Selection Mode: <span id="selection-mode-display">Single</span>
+              </div>
+            </div>
+          </div>
+          
+          <div id="cases-table-container">
+            <!-- Cases table will be populated here -->
+          </div>
+          
+          
+          <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+            <button type="button" class="submit-btn" id="process-selected-btn" style="display: none; flex: 1; min-width: 200px;">
+              🚀 Process Selected Case
+            </button>
+            <button type="button" class="submit-btn" id="select-all-cases-btn" style="display: none; background: linear-gradient(135deg, #28a745 0%, #20c997 100%); flex: 1; min-width: 200px;">
+              ✅ Select All Cases
+            </button>
+            <button type="button" class="submit-btn" id="deselect-all-cases-btn" style="display: none; background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%); flex: 1; min-width: 200px;">
+              ❌ Deselect All Cases
+            </button>
+            <button type="button" class="submit-btn" id="delete-all-btn" style="display: none; background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); flex: 1; min-width: 200px;">
+              🗑️ Delete All Cases
+            </button>
+          </div>
+        </div>
+
+
+          <div class="form-section" id="email-preview" style="display: none">
+            <h3>📧 Prepared Email to Intelli</h3>
+            <p style="margin-bottom: 20px; color: #666">
+              This email will be sent to Intelli for case processing. The data
+              has been anonymized for security.
+            </p>
+
+            <!-- Email Container -->
+            <div class="email-container">
+              <!-- Email Header -->
+              <div class="email-header">
+                <div class="email-header-row">
+                  <div class="email-label">From:</div>
+                  <div class="email-value from-address">
+                    <span class="sender-name">CBA Refund System</span>
+                    <span class="sender-email">&lt;refunds@cba.com.au&gt;</span>
+                  </div>
+                </div>
+                <div class="email-header-row">
+                  <div class="email-label">To:</div>
+                  <div class="email-value to-address" id="email-recipient">
+                    Intelli Processing
+                  </div>
+                </div>
+                <div class="email-header-row">
+                  <div class="email-label">Subject:</div>
+                  <div class="email-value subject-line" id="email-subject">
+                    return of funds
+                  </div>
+                </div>
+                <div class="email-header-row">
+                  <div class="email-label">Date:</div>
+                  <div class="email-value date-time" id="email-date">-</div>
+                </div>
+                <div class="email-header-row">
+                  <div class="email-label">Reference:</div>
+                  <div class="email-value reference" id="email-reference">
+                    -
+                  </div>
+                </div>
+              </div>
+
+              <!-- Email Body -->
+              <div class="email-body">
+                <div class="email-body-header">
+                  <span class="body-label">MT103 Message:</span>
+                </div>
+                <div class="mt103-container">
+                  <pre id="email-body" class="mt103-content"></pre>
+                </div>
+              </div>
+
+              <!-- Email Footer -->
+              <div class="email-footer">
+                <div class="email-status">
+                  <span class="status-indicator sent"></span>
+                  <span class="status-text">Ready to Send</span>
+                </div>
+                <div class="email-actions">
+                  <button class="action-btn process-btn" onclick="processCaseFromEmail()">🚀 Process Case</button>
+                  <button class="action-btn draft-btn">💾 Save Draft</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h3>Investigation Parameters</h3>
+            <div class="options-grid">
+              <div class="option-item">
+                <label>
+                  <input type="checkbox" name="non_branch" checked />
+                  Non-branch Channel
+                </label>
+              </div>
+              <div class="option-item">
+                <label>
+                  <input type="checkbox" name="sanctions" checked />
+                  Sanctions Screening Passed
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn">🚀 Run Investigation</button>
+
+          <div class="info-box">
+            <h4>ℹ️ What happens next?</h4>
+            <p>
+              The system will validate message cross-references, check customer
+              accounts, analyze return reasons, verify eligibility, and
+              determine the refund processing path. All steps are logged for
+              audit compliance.
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Email View Modal -->
+    <div id="emailModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>📧 Email Details</h3>
+          <button class="modal-close" onclick="closeEmailModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="email-container">
+            <!-- Email Header -->
+            <div class="email-header">
+              <div class="email-header-row">
+                <div class="email-label">From:</div>
+                <div class="email-value from-address">
+                  <span class="sender-name">CBA Refund System</span>
+                  <span class="sender-email">&lt;refunds@cba.com.au&gt;</span>
+                </div>
+              </div>
+              <div class="email-header-row">
+                <div class="email-label">To:</div>
+                <div class="email-value to-address" id="modal-email-recipient">
+                  Intelli Processing
+                </div>
+              </div>
+              <div class="email-header-row">
+                <div class="email-label">Subject:</div>
+                <div class="email-value subject-line" id="modal-email-subject">
+                  return of funds
+                </div>
+              </div>
+              <div class="email-header-row">
+                <div class="email-label">Date:</div>
+                <div class="email-value date-time" id="modal-email-date">-</div>
+              </div>
+              <div class="email-header-row">
+                <div class="email-label">Reference:</div>
+                <div class="email-value reference" id="modal-email-reference">
+                  -
+                </div>
+              </div>
+            </div>
+
+            <!-- Email Body -->
+            <div class="email-body">
+              <div class="email-body-header">
+                <span class="body-label">MT103 Message:</span>
+              </div>
+              <div class="mt103-container">
+                <pre id="modal-email-body" class="mt103-content"></pre>
+              </div>
+            </div>
+
+            <!-- Email Footer -->
+            <div class="email-footer">
+              <div class="email-status">
+                <span class="status-indicator sent"></span>
+                <span class="status-text">Ready to Send</span>
+              </div>
+              <div class="email-actions">
+                <button class="action-btn process-btn" onclick="processCaseFromModal()">🚀 Process Case</button>
+                <button class="action-btn draft-btn">💾 Save Draft</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Global variables
+      let generatedCases = [];
+      let selectedCases = [];
+      let emailPreviews = [];
+      let selectedEmailIndices = [];
+      let selectionMode = 'radio'; // 'radio' or 'checkbox'
+      let selectedCaseIds = [];
+      let currentProcessingMode = 'manual'; // 'manual' or 'automated'
+
+      // Load existing cases when page loads
+      document.addEventListener('DOMContentLoaded', function() {
+        loadExistingCases();
+        setupToggleButtons();
+        setupModeToggle();
+        // Initialize with manual mode (single selection)
+        updateModeToggle('manual');
+      });
+
+      // Setup toggle button functionality - REMOVED: No longer needed
+      function setupToggleButtons() {
+        // Toggle buttons removed - selection mode is now controlled by manual/automated mode only
+      }
+
+      function updateToggleButtons() {
+        const radioModeBtn = document.getElementById('radio-mode-btn');
+        const checkboxModeBtn = document.getElementById('checkbox-mode-btn');
+        
+        if (selectionMode === 'radio') {
+          radioModeBtn.style.background = '#007bff';
+          radioModeBtn.style.color = 'white';
+          checkboxModeBtn.style.background = '#ffffff';
+          checkboxModeBtn.style.color = '#495057';
+        } else {
+          radioModeBtn.style.background = '#ffffff';
+          radioModeBtn.style.color = '#495057';
+          checkboxModeBtn.style.background = '#007bff';
+          checkboxModeBtn.style.color = 'white';
+        }
+      }
+
+      function updateSelectionInfo() {
+        const selectionModeDisplay = document.getElementById('selection-mode-display');
+        if (selectionMode === 'radio') {
+          selectionModeDisplay.textContent = 'Single';
+        } else {
+          selectionModeDisplay.textContent = 'Multiple';
+        }
+      }
+
+      // Setup mode toggle functionality
+      function setupModeToggle() {
+        const manualModeBtn = document.getElementById('manual-mode-btn');
+        const automatedModeBtn = document.getElementById('automated-mode-btn');
+
+        manualModeBtn.addEventListener('click', function() {
+          updateModeToggle('manual');
+        });
+
+        automatedModeBtn.addEventListener('click', function() {
+          updateModeToggle('automated');
+        });
+      }
+
+      function updateModeToggle(mode) {
+        const manualModeBtn = document.getElementById('manual-mode-btn');
+        const automatedModeBtn = document.getElementById('automated-mode-btn');
+        const uploadSection = document.getElementById('preview-upload-section');
+        const modeStatus = document.getElementById('mode-status');
+
+        if (mode === 'manual') {
+          manualModeBtn.style.background = '#007bff';
+          manualModeBtn.style.color = 'white';
+          automatedModeBtn.style.background = '#ffffff';
+          automatedModeBtn.style.color = '#495057';
+          // Show upload section for manual mode
+          uploadSection.style.display = 'block';
+          modeStatus.textContent = '🔧 Manual Mode - Upload files to create cases';
+          currentProcessingMode = 'manual';
+          
+          // Force single selection mode for manual mode
+          selectionMode = 'radio';
+          updateSelectionInfo();
+        } else {
+          manualModeBtn.style.background = '#ffffff';
+          manualModeBtn.style.color = '#495057';
+          automatedModeBtn.style.background = '#007bff';
+          automatedModeBtn.style.color = 'white';
+          // Hide upload section for automated mode
+          uploadSection.style.display = 'none';
+          modeStatus.textContent = '🤖 Automated Mode - Work with existing cases';
+          currentProcessingMode = 'automated';
+          
+          // Force multiple selection mode for automated mode
+          selectionMode = 'checkbox';
+          updateSelectionInfo();
+        }
+        
+        // Clear any existing selections when switching modes
+        const allInputs = document.querySelectorAll('.case-select');
+        allInputs.forEach(input => {
+          input.checked = false;
+          if (input.classList.contains('case-radio')) {
+            updateRowSelection(input);
+          } else {
+            updateCheckboxSelection(input);
+          }
+        });
+        displayCasesTable(); // Refresh table with new mode
+      }
+
+
+      function loadExistingCases() {
+        fetch('/api/cases')
+          .then(response => response.json())
+          .then(cases => {
+            if (Array.isArray(cases)) {
+              // Sort by creation time (latest first)
+              generatedCases = cases.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+              if (generatedCases.length > 0) {
+                displayCasesTable();
+              }
+            }
+          })
+          .catch(error => {
+            console.error('Error loading existing cases:', error);
+          });
+      }
+
+
+      // Preview upload file handling
+      document.getElementById('preview_pacs004_files').addEventListener('change', function(e) {
+        updateFilePreview('preview_pacs004-preview', e.target.files);
+      });
+
+      document.getElementById('preview_pacs008_files').addEventListener('change', function(e) {
+        updateFilePreview('preview_pacs008-preview', e.target.files);
+      });
+
+      function updateFilePreview(previewId, files) {
+        const preview = document.getElementById(previewId);
+        if (files.length > 0) {
+          const fileNames = Array.from(files).map(file => file.name).join(', ');
+          preview.innerHTML = `<strong>Selected:</strong> ${files.length} file(s) - ${fileNames}`;
+        } else {
+          preview.innerHTML = '';
+        }
+      }
+
+      // Preview upload form handling
+      document.getElementById('preview-upload-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const uploadBtn = document.getElementById('preview-upload-btn');
+        const originalText = uploadBtn.innerHTML;
+        uploadBtn.innerHTML = '⏳ Processing & Generating Previews...';
+        uploadBtn.disabled = true;
+
+        const formData = new FormData(this);
+        
+        fetch('/upload-pacs-preview', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            emailPreviews = data.email_previews;
+            displayEmailPreviews();
+            showToastNearButton('success', `Successfully processed ${data.email_previews.length} PACS pair(s)!`, uploadBtn);
+          } else {
+            showToastNearButton('error', data.message || 'Upload failed', uploadBtn);
+          }
+        })
+        .catch(error => {
+          console.error('Upload error:', error);
+          showToastNearButton('error', 'Upload failed: ' + error.message, uploadBtn);
+        })
+        .finally(() => {
+          uploadBtn.innerHTML = originalText;
+          uploadBtn.disabled = false;
+        });
+      });
+
+
+      function showUploadStatus(type, message) {
+        // Remove any existing status messages from upload section
+        const existingStatus = document.querySelector('.upload-status');
+        if (existingStatus) {
+          existingStatus.remove();
+        }
+        
+        const statusDiv = document.createElement('div');
+        statusDiv.className = `upload-status ${type}`;
+        statusDiv.textContent = message;
+        
+        const uploadSection = document.querySelector('.form-section');
+        uploadSection.appendChild(statusDiv);
+        
+        // Auto-remove after 5 seconds
+        setTimeout(() => {
+          if (statusDiv.parentNode) {
+            statusDiv.parentNode.removeChild(statusDiv);
+          }
+        }, 5000);
+      }
+
+      function showToast(type, message, duration = 5000) {
+        const toastContainer = document.getElementById('toastContainer');
+        
+        // Create toast element
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        
+        // Set icon based on type
+        let icon = 'ℹ️';
+        if (type === 'success') icon = '✅';
+        else if (type === 'error') icon = '❌';
+        else if (type === 'info') icon = 'ℹ️';
+        
+        toast.innerHTML = `
+          <div class="toast-icon">${icon}</div>
+          <div class="toast-content">${message}</div>
+          <button class="toast-close" onclick="closeToast(this)">&times;</button>
+        `;
+        
+        // Add to container
+        toastContainer.appendChild(toast);
+        
+        // Trigger animation
+        setTimeout(() => {
+          toast.classList.add('show');
+        }, 10);
+        
+        // Auto-remove after duration
+        setTimeout(() => {
+          closeToast(toast.querySelector('.toast-close'));
+        }, duration);
+      }
+
+      function closeToast(closeBtn) {
+        const toast = closeBtn.closest('.toast');
+        if (toast) {
+          toast.classList.remove('show');
+          setTimeout(() => {
+            if (toast.parentNode) {
+              toast.parentNode.removeChild(toast);
+            }
+          }, 300);
+        }
+      }
+
+      function showToastNearButton(type, message, buttonElement, duration = 5000) {
+        // Get button position
+        const rect = buttonElement.getBoundingClientRect();
+        const toastContainer = document.getElementById('toastContainer');
+        
+        // Position toast near the button
+        toastContainer.style.position = 'fixed';
+        toastContainer.style.top = (rect.top - 60) + 'px';
+        toastContainer.style.right = '20px';
+        toastContainer.style.left = 'auto';
+        
+        showToast(type, message, duration);
+        
+        // Reset position after a delay
+        setTimeout(() => {
+          toastContainer.style.position = 'fixed';
+          toastContainer.style.top = '20px';
+          toastContainer.style.right = '20px';
+          toastContainer.style.left = 'auto';
+        }, duration + 1000);
+      }
+
+      // Display email previews
+      function displayEmailPreviews() {
+        const container = document.getElementById('email-previews-container');
+        const previewSection = document.getElementById('email-preview-section');
+        
+        container.innerHTML = '';
+        
+        emailPreviews.forEach((preview, index) => {
+          const previewDiv = document.createElement('div');
+          previewDiv.className = 'email-preview-item';
+          previewDiv.style.cssText = `
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            background: #f9f9f9;
+            transition: all 0.3s ease;
+          `;
+          
+          previewDiv.innerHTML = `
+            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+              <input type="checkbox" class="email-select" data-index="${preview.index}" style="margin-right: 15px; transform: scale(1.2);">
+              <div style="flex: 1;">
+                <h4 style="margin: 0; color: #333;">PACS Pair ${preview.index}</h4>
+                <p style="margin: 5px 0; color: #666; font-size: 14px;">
+                  ${preview.pacs004_filename} + ${preview.pacs008_filename}
+                </p>
+              </div>
+              <div style="text-align: right;">
+                <div style="font-size: 18px; font-weight: bold; color: #2c3e50;">
+                  ${preview.amount} ${preview.currency}
+                </div>
+                <div style="font-size: 12px; color: #666;">
+                  ${preview.debtor_name}
+                </div>
+              </div>
+            </div>
+            
+            <div style="background: white; border-radius: 6px; padding: 15px; border-left: 4px solid #007bff;">
+              <div style="margin-bottom: 10px;">
+                <strong>To:</strong> ${preview.email_recipient}
+              </div>
+              <div style="margin-bottom: 10px;">
+                <strong>Subject:</strong> ${preview.email_subject}
+              </div>
+              <div style="max-height: 100px; overflow-y: auto; font-size: 13px; line-height: 1.4; color: #555; white-space: pre-wrap; word-wrap: break-word;">
+                ${preview.email_body}
+              </div>
+            </div>
+          `;
+          
+          container.appendChild(previewDiv);
+        });
+        
+        // Show the preview section and action buttons
+        previewSection.style.display = 'block';
+        document.getElementById('create-selected-cases-btn').style.display = 'inline-block';
+        document.getElementById('select-all-emails-btn').style.display = 'inline-block';
+        document.getElementById('deselect-all-emails-btn').style.display = 'inline-block';
+        
+        // Setup checkbox handlers
+        setupEmailPreviewHandlers();
+      }
+
+      // Setup email preview handlers
+      function setupEmailPreviewHandlers() {
+        const checkboxes = document.querySelectorAll('.email-select');
+        const createBtn = document.getElementById('create-selected-cases-btn');
+        
+        checkboxes.forEach(checkbox => {
+          checkbox.addEventListener('change', function() {
+            const index = parseInt(this.dataset.index);
+            if (this.checked) {
+              if (!selectedEmailIndices.includes(index)) {
+                selectedEmailIndices.push(index);
+              }
+            } else {
+              selectedEmailIndices = selectedEmailIndices.filter(i => i !== index);
+            }
+            
+            // Update create button state
+            createBtn.style.display = selectedEmailIndices.length > 0 ? 'inline-block' : 'none';
+            createBtn.textContent = `🚀 Create ${selectedEmailIndices.length} Selected Case${selectedEmailIndices.length !== 1 ? 's' : ''}`;
+          });
+        });
+      }
+
+      function formatAmount(amount, emailBody = null) {
+        if (!amount || amount === '0' || amount === 0 || amount === '') {
+          // Try to extract amount from email body if available
+          if (emailBody) {
+            const amountMatch = emailBody.match(/:32A:\d{6}(\w{3})(\d+\.?\d*)/);
+            if (amountMatch) {
+              const extractedAmount = parseFloat(amountMatch[2]);
+              if (!isNaN(extractedAmount) && extractedAmount > 0) {
+                return extractedAmount.toLocaleString('en-US', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                });
+              }
+            }
+          }
+          return 'N/A';
+        }
+        // Convert to number and format with 2 decimal places
+        const numAmount = parseFloat(amount);
+        if (isNaN(numAmount) || numAmount === 0) {
+          return 'N/A';
+        }
+        return numAmount.toLocaleString('en-US', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        });
+      }
+
+      function displayCasesTable() {
+        const container = document.getElementById('cases-table-container');
+        const section = document.getElementById('case-selection-section');
+        
+        if (generatedCases.length === 0) {
+          container.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">No cases generated yet.</p>';
+          section.style.display = 'none';
+          return;
+        }
+
+        // Generate input type based on selection mode
+        const inputType = selectionMode === 'radio' ? 'radio' : 'checkbox';
+        const inputName = selectionMode === 'radio' ? 'case-selection' : 'case-checkbox';
+        const inputClass = selectionMode === 'radio' ? 'case-radio case-select' : 'case-checkbox case-select';
+
+        const table = `
+          <table class="cases-table">
+            <thead>
+              <tr>
+                <th>Select</th>
+                <th>Case ID</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Currency</th>
+                <th>Status</th>
+                <th>Report</th>
+                <th>Created</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${generatedCases.map(case_ => {
+                const hasRunId = case_.run_id !== undefined && case_.run_id !== null;
+                const isCompleted = case_.status === 'completed' || hasRunId;
+                const isProcessing = case_.status === 'processing';
+                
+                return `
+                <tr data-case-id="${case_.case_id}">
+                  <td><input type="${inputType}" name="${inputName}" class="${inputClass}" value="${case_.case_id}"></td>
+                  <td><span class="case-id clickable-case-id" data-case-id="${case_.case_id}" onclick="openCaseReport('${case_.case_id}')" style="cursor: pointer; color: #007bff; text-decoration: underline; ${isCompleted ? 'font-weight: bold;' : ''}" onmouseover="this.style.color='#0056b3'; this.style.textDecoration='none';" onmouseout="this.style.color='#007bff'; this.style.textDecoration='underline';" title="${isCompleted ? 'Click to view report in new tab' : 'Case not processed yet - process first to view report'}">${case_.case_id} ${isCompleted ? '📊' : ''}</span></td>
+                  <td>${case_.description}</td>
+                  <td>${formatAmount(case_.amount, case_.email_body)}</td>
+                  <td>${case_.currency}</td>
+                  <td>
+                    ${isCompleted ? `
+                      <span class="case-status completed">✅ Completed</span>
+                    ` : isProcessing ? `
+                      <span class="case-status in-progress">⚙️ In Progress</span>
+                    ` : `
+                      <span class="case-status generated">📋 To Do</span>
+                    `}
+                  </td>
+                  <td>
+                    ${isCompleted ? `
+                      <button class="status-step view-report clickable" onclick="openCaseReport('${case_.case_id}')" title="Click to view report" style="padding: 6px 12px; border-radius: 6px; border: 1px solid #3b82f6; background: #dbeafe; color: #1e40af; cursor: pointer;">
+                        📊 View Report
+                      </button>
+                    ` : ''}
+                  </td>
+                  <td>${new Date(case_.created_at).toLocaleString()}</td>
+                  <td>
+                    <div class="case-actions">
+                      <button class="case-action-btn view" onclick="viewCase('${case_.case_id}')">👁️ View</button>
+                      <button class="case-action-btn delete" onclick="deleteCase('${case_.case_id}')">🗑️ Delete</button>
+                    </div>
+                  </td>
+                </tr>
+              `;
+              }).join('')}
+            </tbody>
+          </table>
+        `;
+        
+        container.innerHTML = table;
+        section.style.display = 'block';
+        
+        // Add event listeners
+        setupCaseTableEventListeners();
+        
+        // Update buttons
+        updateProcessButton();
+      }
+
+      function setupCaseTableEventListeners() {
+        // Individual case selection (radio or checkbox)
+        document.querySelectorAll('.case-select').forEach(input => {
+          input.addEventListener('change', function(e) {
+            if (selectionMode === 'radio') {
+              // For radio buttons, uncheck all others in the same group
+              const allRadios = document.querySelectorAll('.case-radio');
+              allRadios.forEach(radio => {
+                if (radio !== e.target) {
+                  radio.checked = false;
+                  updateRowSelection(radio);
+                }
+              });
+            updateRowSelection(e.target);
+            } else {
+              updateCheckboxSelection(e.target);
+            }
+            updateProcessButton();
+          });
+        });
+
+        // Clickable case IDs
+        document.querySelectorAll('.clickable-case-id').forEach(caseId => {
+          caseId.addEventListener('click', function(e) {
+            const caseIdValue = this.getAttribute('data-case-id');
+            const input = document.querySelector(`input[name="${selectionMode === 'radio' ? 'case-selection' : 'case-checkbox'}"][value="${caseIdValue}"]`);
+            if (input) {
+              if (selectionMode === 'radio') {
+                // For radio buttons, uncheck all others first
+                const allRadios = document.querySelectorAll('.case-radio');
+                allRadios.forEach(radio => {
+                  if (radio !== input) {
+                    radio.checked = false;
+              updateRowSelection(radio);
+                  }
+                });
+                input.checked = true;
+                updateRowSelection(input);
+              } else {
+                input.checked = !input.checked;
+                updateCheckboxSelection(input);
+              }
+              updateProcessButton();
+            }
+          });
+        });
+      }
+
+      function updateRowSelection(radio) {
+        // Remove selected class from all rows
+        document.querySelectorAll('.cases-table tbody tr').forEach(row => {
+          row.classList.remove('selected');
+        });
+        
+        // Add selected class to the row with checked radio
+        if (radio.checked) {
+          const row = radio.closest('tr');
+          row.classList.add('selected');
+        }
+      }
+
+      function updateCheckboxSelection(checkbox) {
+        const row = checkbox.closest('tr');
+        if (checkbox.checked) {
+          row.classList.add('selected');
+        } else {
+          row.classList.remove('selected');
+        }
+      }
+
+      function updateProcessButton() {
+        const processBtn = document.getElementById('process-selected-btn');
+        const selectAllBtn = document.getElementById('select-all-cases-btn');
+        const deselectAllBtn = document.getElementById('deselect-all-cases-btn');
+        const deleteAllBtn = document.getElementById('delete-all-btn');
+        
+        if (selectionMode === 'radio') {
+          const selectedRadio = document.querySelector('.case-select:checked');
+        if (selectedRadio) {
+          processBtn.style.display = 'block';
+          processBtn.innerHTML = `🚀 Process Selected Case`;
+        } else {
+          processBtn.style.display = 'none';
+          }
+          // Hide bulk action buttons in radio mode
+          selectAllBtn.style.display = 'none';
+          deselectAllBtn.style.display = 'none';
+        } else {
+          // Checkbox mode
+          const selectedCheckboxes = document.querySelectorAll('.case-select:checked');
+          if (selectedCheckboxes.length > 0) {
+            processBtn.style.display = 'block';
+            processBtn.innerHTML = `🚀 Process ${selectedCheckboxes.length} Selected Case${selectedCheckboxes.length !== 1 ? 's' : ''}`;
+          } else {
+            processBtn.style.display = 'none';
+          }
+          // Show bulk action buttons in checkbox mode
+          if (generatedCases.length > 0) {
+            selectAllBtn.style.display = 'block';
+            deselectAllBtn.style.display = 'block';
+          } else {
+            selectAllBtn.style.display = 'none';
+            deselectAllBtn.style.display = 'none';
+          }
+        }
+        
+        // Show delete all button if there are any cases
+        if (generatedCases.length > 0) {
+          deleteAllBtn.style.display = 'block';
+          deleteAllBtn.innerHTML = `🗑️ Delete All ${generatedCases.length} Cases`;
+        } else {
+          deleteAllBtn.style.display = 'none';
+        }
+      }
+
+      function viewCase(caseId) {
+        // Fetch full case data from the server
+        fetch(`/api/cases/${caseId}`)
+          .then(response => response.json())
+          .then(caseData => {
+            if (caseData.error) {
+              console.error('Error fetching case:', caseData.error);
+              alert('Error loading case details');
+              return;
+            }
+            // Show email preview in modal for this case
+            showEmailModal(caseData);
+          })
+          .catch(error => {
+            console.error('Error fetching case:', error);
+            alert('Error loading case details');
+          });
+      }
+
+      function deleteCase(caseId) {
+        if (confirm(`Are you sure you want to delete case ${caseId}?`)) {
+          // Delete from server
+          fetch(`/api/cases/${caseId}`, {
+            method: 'DELETE'
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              // Remove from local array
+              generatedCases = generatedCases.filter(c => c.case_id !== caseId);
+              displayCasesTable();
+              showToast('success', 'Case deleted successfully');
+            } else {
+              showToast('error', data.error || 'Failed to delete case');
+            }
+          })
+          .catch(error => {
+            console.error('Error deleting case:', error);
+            showToast('error', 'Failed to delete case');
+          });
+        }
+      }
+
+      // Global variable to store current case data for modal
+      let currentModalCase = null;
+
+      function showEmailModal(case_) {
+        currentModalCase = case_;
+        
+        // Extract email data from the case structure
+        const emailData = case_.email_data || {};
+        const emailPayload = emailData.email_payload || {};
+        
+        // Get email content from the correct structure
+        const emailSubject = emailPayload.subject || emailData.email_subject || case_.email_subject || 'return of funds';
+        const emailRecipient = emailData.email_recipient || case_.email_recipient || 'Intelli Processing';
+        const emailBody = emailPayload.body || emailData.email_body || case_.email_body || 'Email content not available';
+        
+        // Update modal email content
+        document.getElementById('modal-email-subject').textContent = emailSubject;
+        document.getElementById('modal-email-recipient').textContent = emailRecipient;
+        document.getElementById('modal-email-reference').textContent = case_.case_id;
+        document.getElementById('modal-email-date').textContent = new Date(case_.created_at).toLocaleString();
+        document.getElementById('modal-email-body').textContent = emailBody;
+        document.getElementById('modal-email-body').style.whiteSpace = 'pre-wrap';
+        document.getElementById('modal-email-body').style.wordWrap = 'break-word';
+        
+        // Show the modal
+        document.getElementById('emailModal').style.display = 'block';
+      }
+
+      function closeEmailModal() {
+        document.getElementById('emailModal').style.display = 'none';
+        currentModalCase = null;
+      }
+
+      function processCaseFromEmail() {
+        // This function is called from the inline email preview
+        // We need to find the case ID from the current context
+        const emailPreview = document.getElementById('email-preview');
+        if (emailPreview.style.display === 'block') {
+          // Find the case ID from the email reference
+          const caseId = document.getElementById('email-reference').textContent;
+          if (caseId && caseId !== '-') {
+            processCaseById(caseId);
+          } else {
+            alert('Unable to determine case ID for processing');
+          }
+        }
+      }
+
+      function processCaseFromModal() {
+        // This function is called from the modal
+        if (currentModalCase && currentModalCase.case_id) {
+          processCaseById(currentModalCase.case_id);
+          closeEmailModal();
+        } else {
+          alert('Unable to determine case ID for processing');
+        }
+      }
+
+      function processCaseById(caseId) {
+        // Check if case is already processed
+        const caseData = generatedCases.find(c => c.case_id === caseId);
+        if (caseData && caseData.run_id) {
+          // Already processed - redirect immediately without showing processing state
+          window.location.href = `/report/${caseData.run_id}?mode=${currentProcessingMode}`;
+          return;
+        }
+
+        // Show loading state
+        const processBtn = event.target;
+        const originalText = processBtn.innerHTML;
+        processBtn.innerHTML = '⏳ Processing...';
+        processBtn.disabled = true;
+
+        // Create form data
+        const formData = new FormData();
+        formData.append('case_ids', caseId);
+
+        // Make AJAX request
+        fetch('/process-cases', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success && data.processed_cases && data.processed_cases.length > 0) {
+            const runId = data.processed_cases[0].run_id;
+            if (runId) {
+              // Redirect directly to report
+              window.location.href = `/report/${runId}?mode=${currentProcessingMode}`;
+            } else {
+              alert('Error: No run_id received from server');
+            }
+          } else {
+            alert('Error processing case: ' + (data.message || 'Unknown error'));
+          }
+        })
+        .catch(error => {
+          console.error('Error processing case:', error);
+          alert('Error processing case: ' + error.message);
+        })
+        .finally(() => {
+          // Restore button state
+          processBtn.innerHTML = originalText;
+          processBtn.disabled = false;
+        });
+      }
+
+      // Close modal when clicking outside of it
+      window.onclick = function(event) {
+        const modal = document.getElementById('emailModal');
+        if (event.target === modal) {
+          closeEmailModal();
+        }
+      }
+
+      // Close modal with Escape key
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+          closeEmailModal();
+        }
+      });
+
+      // Process selected case(s)
+      document.getElementById('process-selected-btn').addEventListener('click', function() {
+        let selectedCases = [];
+        
+        if (selectionMode === 'radio') {
+          const selectedRadio = document.querySelector('.case-select:checked');
+        if (!selectedRadio) {
+          alert('Please select a case to process.');
+          return;
+          }
+          selectedCases = [selectedRadio.value];
+        } else {
+          const selectedCheckboxes = document.querySelectorAll('.case-select:checked');
+          if (selectedCheckboxes.length === 0) {
+            alert('Please select at least one case to process.');
+            return;
+          }
+          selectedCases = Array.from(selectedCheckboxes).map(cb => cb.value);
+        }
+
+        // Check if any selected cases already have run_id (already processed)
+        const alreadyProcessedCases = selectedCases.filter(caseId => {
+          const caseData = generatedCases.find(c => c.case_id === caseId);
+          return caseData && caseData.run_id;
+        });
+
+        // If all cases are already processed, skip simulation
+        if (alreadyProcessedCases.length === selectedCases.length) {
+          // Skip simulation, just reload to show completed state
+          loadExistingCases();
+          return;
+        }
+
+        // Show loading state
+        const processBtn = this;
+        const originalText = processBtn.innerHTML;
+        processBtn.innerHTML = '⏳ Processing...';
+        processBtn.disabled = true;
+
+        // Update UI to show "In Progress" status immediately
+        selectedCases.forEach(caseId => {
+          const caseData = generatedCases.find(c => c.case_id === caseId);
+          if (!caseData || !caseData.run_id) {
+            // Only simulate for non-processed cases
+            const statusCell = document.querySelector(`tr[data-case-id="${caseId}"] td:nth-child(6)`);
+            if (statusCell) {
+              statusCell.innerHTML = '<span class="case-status in-progress">⚙️ In Progress</span>';
+            }
+          }
+        });
+
+        // Simulate 6-step progression (~6 seconds total)
+        let stepCount = 0;
+        const maxSteps = 6;
+        const simulationInterval = setInterval(() => {
+          stepCount++;
+          if (stepCount >= maxSteps) {
+            clearInterval(simulationInterval);
+            
+            // Now make the actual API call
+            const formData = new FormData();
+            selectedCases.forEach(caseId => {
+              formData.append('case_ids', caseId);
+            });
+
+            fetch('/process-cases', {
+              method: 'POST',
+              body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+              if (data.success && data.processed_cases && data.processed_cases.length > 0) {
+                // Update status to completed in UI with highlight animation
+                selectedCases.forEach(caseId => {
+                  const statusCell = document.querySelector(`tr[data-case-id="${caseId}"] td:nth-child(6)`);
+                  const reportCell = document.querySelector(`tr[data-case-id="${caseId}"] td:nth-child(7)`);
+                  if (statusCell) {
+                    statusCell.innerHTML = '<span class="case-status completed highlight">✅ Completed</span>';
+                    // Remove highlight class after animation completes
+                    setTimeout(() => {
+                      const completedBadge = statusCell.querySelector('.completed');
+                      if (completedBadge) {
+                        completedBadge.classList.remove('highlight');
+                      }
+                    }, 800);
+                  }
+                  if (reportCell) {
+                    reportCell.innerHTML = '<button class="status-step view-report clickable" onclick="openCaseReport(\'' + caseId + '\')" title="Click to view report" style="padding: 6px 12px; border-radius: 6px; border: 1px solid #3b82f6; background: #dbeafe; color: #1e40af; cursor: pointer;">📊 View Report</button>';
+                  }
+                });
+                
+                // Update the generatedCases array with new run_ids
+                data.processed_cases.forEach(processedCase => {
+                  const caseIndex = generatedCases.findIndex(c => c.case_id === processedCase.case_id);
+                  if (caseIndex !== -1) {
+                    generatedCases[caseIndex].run_id = processedCase.run_id;
+                    generatedCases[caseIndex].status = 'completed';
+                  }
+                });
+              } else {
+                alert('Error processing case(s): ' + (data.message || 'Unknown error'));
+                loadExistingCases(); // Refresh the cases list
+              }
+            })
+            .catch(error => {
+              console.error('Error processing case(s):', error);
+              alert('Error processing case(s): ' + error.message);
+              loadExistingCases(); // Refresh the cases list
+            })
+            .finally(() => {
+              // Restore button state
+              processBtn.innerHTML = originalText;
+              processBtn.disabled = false;
+            });
+          }
+        }, 1000); // 1 second per step
+      });
+
+      // Select all cases (checkbox mode only)
+      document.getElementById('select-all-cases-btn').addEventListener('click', function() {
+        if (selectionMode === 'checkbox') {
+          const checkboxes = document.querySelectorAll('.case-select');
+          checkboxes.forEach(checkbox => {
+            checkbox.checked = true;
+            updateCheckboxSelection(checkbox);
+          });
+          updateProcessButton();
+        }
+      });
+
+      // Deselect all cases (checkbox mode only)
+      document.getElementById('deselect-all-cases-btn').addEventListener('click', function() {
+        if (selectionMode === 'checkbox') {
+          const checkboxes = document.querySelectorAll('.case-select');
+          checkboxes.forEach(checkbox => {
+            checkbox.checked = false;
+            updateCheckboxSelection(checkbox);
+          });
+          updateProcessButton();
+        }
+      });
+
+
+      // Function to open case report in new tab
+      function openCaseReport(caseId) {
+        console.log('Opening case report for:', caseId);
+        
+        // Find case data from generatedCases array
+        const caseData = generatedCases.find(c => c.case_id === caseId);
+        
+        // Check if case is currently being processed
+        const row = document.querySelector(`tr[data-case-id="${caseId}"]`);
+        const statusCell = row ? row.querySelector('td:nth-child(6)') : null;
+        const isCurrentlyProcessing = statusCell && statusCell.textContent.includes('In Progress');
+        
+        if (caseData && caseData.run_id) {
+          // Case has been processed
+          let reportUrl = `/report/${caseData.run_id}`;
+          
+          // Add case_id and mode parameters
+          const params = new URLSearchParams();
+          params.append('case_id', caseId);
+          if (isCurrentlyProcessing) {
+            params.append('mode', 'inprogress');
+          }
+          reportUrl += '?' + params.toString();
+          
+          console.log('Opening report URL:', reportUrl);
+          
+          // Open in new tab
+          const newTab = window.open(reportUrl, '_blank');
+          
+          // Show message to user
+          console.log('Report opened in new tab' + (isCurrentlyProcessing ? ' with in-progress delays' : ''));
+        } else if (isCurrentlyProcessing) {
+          // Case is currently being processed but no run_id yet - try to process first
+          console.log('Case is in progress, attempting to process...');
+          
+          // Trigger the processing
+          const formData = new FormData();
+          formData.append('case_ids', caseId);
+          
+          fetch('/process-cases', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success && data.processed_cases && data.processed_cases.length > 0) {
+              const runId = data.processed_cases[0].run_id;
+              if (runId) {
+                // Update local data
+                const caseIndex = generatedCases.findIndex(c => c.case_id === caseId);
+                if (caseIndex !== -1) {
+                  generatedCases[caseIndex].run_id = runId;
+                  generatedCases[caseIndex].status = 'completed';
+                }
+                
+                // Open report with inprogress mode and case_id
+                const reportUrl = `/report/${runId}?case_id=${caseId}&mode=inprogress`;
+                window.open(reportUrl, '_blank');
+              }
+            }
+          })
+          .catch(error => {
+            console.error('Error processing case:', error);
+            alert('Error opening case report. Please try again.');
+          });
+        } else {
+          // Case hasn't been processed yet
+          console.log('Case not processed or no run_id:', caseData);
+          alert('This case has not been processed yet. Please process the case first to view the report.');
+        }
+      }
+
+      // Create selected cases from email previews
+      document.getElementById('create-selected-cases-btn').addEventListener('click', function() {
+        if (selectedEmailIndices.length === 0) {
+          alert('Please select at least one email to create a case for.');
+          return;
+        }
+
+        const createBtn = this;
+        const originalText = createBtn.innerHTML;
+        createBtn.innerHTML = '⏳ Creating Cases...';
+        createBtn.disabled = true;
+
+        const requestData = {
+          selected_indices: selectedEmailIndices,
+          email_previews: emailPreviews
+        };
+
+        fetch('/create-cases-from-emails', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestData)
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            // Append new cases to existing ones
+            generatedCases = [...generatedCases, ...data.cases];
+            generatedCases.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+            displayCasesTable();
+            
+            // Clear email previews and reset state
+            emailPreviews = [];
+            selectedEmailIndices = [];
+            document.getElementById('email-preview-section').style.display = 'none';
+            document.getElementById('email-previews-container').innerHTML = '';
+            
+            showToastNearButton('success', `Successfully created ${data.cases.length} case(s)!`, createBtn);
+          } else {
+            showToastNearButton('error', data.message || 'Case creation failed', createBtn);
+          }
+        })
+        .catch(error => {
+          console.error('Create cases error:', error);
+          showToastNearButton('error', 'Case creation failed: ' + error.message, createBtn);
+        })
+        .finally(() => {
+          createBtn.innerHTML = originalText;
+          createBtn.disabled = false;
+        });
+      });
+
+      // Select all emails
+      document.getElementById('select-all-emails-btn').addEventListener('click', function() {
+        const checkboxes = document.querySelectorAll('.email-select');
+        checkboxes.forEach(checkbox => {
+          checkbox.checked = true;
+          const index = parseInt(checkbox.dataset.index);
+          if (!selectedEmailIndices.includes(index)) {
+            selectedEmailIndices.push(index);
+          }
+        });
+        
+        const createBtn = document.getElementById('create-selected-cases-btn');
+        createBtn.style.display = 'inline-block';
+        createBtn.textContent = `🚀 Create ${selectedEmailIndices.length} Selected Cases`;
+      });
+
+      // Deselect all emails
+      document.getElementById('deselect-all-emails-btn').addEventListener('click', function() {
+        const checkboxes = document.querySelectorAll('.email-select');
+        checkboxes.forEach(checkbox => {
+          checkbox.checked = false;
+        });
+        
+        selectedEmailIndices = [];
+        const createBtn = document.getElementById('create-selected-cases-btn');
+        createBtn.style.display = 'none';
+      });
+
+      // Delete all cases
+      document.getElementById('delete-all-btn').addEventListener('click', function() {
+        if (confirm(`Are you sure you want to delete ALL ${generatedCases.length} cases? This action cannot be undone.`)) {
+          // Delete all cases from server
+          const deletePromises = generatedCases.map(case_ => 
+            fetch(`/api/cases/${case_.case_id}`, { method: 'DELETE' })
+          );
+          
+          Promise.all(deletePromises)
+            .then(responses => {
+              // Check if all deletions were successful
+              const allSuccessful = responses.every(response => response.ok);
+              if (allSuccessful) {
+                // Clear local array
+                generatedCases = [];
+                displayCasesTable();
+                showToast('success', 'All cases deleted successfully');
+              } else {
+                showToast('error', 'Some cases could not be deleted');
+              }
+            })
+            .catch(error => {
+              console.error('Error deleting all cases:', error);
+              showToast('error', 'Failed to delete all cases');
+            });
+        }
+      });
+
+    </script>
+  </body>
+</html>

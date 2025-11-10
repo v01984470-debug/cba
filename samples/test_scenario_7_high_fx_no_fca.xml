@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.004.001.09" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <PmtRtr>
+    <GrpHdr>
+      <MsgId>MSG-HIGH-FX-NO-FCA-001</MsgId>
+      <CreDtTm>2025-01-15T10:30:00</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <SttlmInf>
+        <SttlmMtd>CLRG</SttlmMtd>
+        <ClrSys>
+          <Cd>TGT2</Cd>
+        </ClrSys>
+      </SttlmInf>
+      <InstgAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFF</BICFI>
+        </FinInstnId>
+      </InstgAgt>
+      <InstdAgt>
+        <FinInstnId>
+          <BICFI>COMMAU2S</BICFI>
+        </FinInstnId>
+      </InstdAgt>
+    </GrpHdr>
+    <TxInf>
+      <RtrId>RTRID-HIGH-FX-NO-FCA-001</RtrId>
+      <OrgnlGrpInf>
+        <OrgnlMsgId>MSG-HIGH-FX-NO-FCA-001</OrgnlMsgId>
+        <OrgnlMsgNmId>pacs.008.001.08</OrgnlMsgNmId>
+      </OrgnlGrpInf>
+      <OrgnlEndToEndId>E2EID-HIGH-FX-NO-FCA-001</OrgnlEndToEndId>
+      <OrgnlUETR>UETR-HIGH-FX-NO-FCA-001</OrgnlUETR>
+      <RtrRsnInf>
+        <Rsn>
+          <Cd>AC01</Cd>
+        </Rsn>
+        <AddtlInf>Return due to invalid account</AddtlInf>
+      </RtrRsnInf>
+      <OrgnlIntrBkSttlmDt>2025-01-15</OrgnlIntrBkSttlmDt>
+      <OrgnlTxRef>
+        <IntrBkSttlmAmt>
+          <Amt Ccy="USD">100.00</Amt>
+        </IntrBkSttlmAmt>
+        <IntrBkSttlmDt>2025-01-15</IntrBkSttlmDt>
+        <SttlmPrty>NORM</SttlmPrty>
+        <SttlmMtd>INDA</SttlmMtd>
+        <MndtRltdInf>
+          <MndtId>MANDATE-HIGH-FX-NO-FCA-001</MndtId>
+          <DtOfSgntr>2025-01-10</DtOfSgntr>
+        </MndtRltdInf>
+        <RmtInf>
+          <Ustrd>Return due to invalid account - High FX Loss Test</Ustrd>
+        </RmtInf>
+        <Dbtr>
+          <Nm>Alice Smith</Nm>
+          <Id>
+            <OrgId>
+              <Othr>
+                <Id>GB29NWBK60161331926819</Id>
+                <SchmeNm>
+                  <Cd>CUST</Cd>
+                </SchmeNm>
+              </Othr>
+            </OrgId>
+          </Id>
+        </Dbtr>
+        <DbtrAcct>
+          <Id>
+            <IBAN>GB29NWBK60161331926819</IBAN>
+          </Id>
+        </DbtrAcct>
+        <DbtrAgt>
+          <FinInstnId>
+            <BICFI>NWBKGB2L</BICFI>
+          </FinInstnId>
+        </DbtrAgt>
+        <CdtrAgt>
+          <FinInstnId>
+            <BICFI>DEUTDEFF</BICFI>
+          </FinInstnId>
+        </CdtrAgt>
+        <Cdtr>
+          <Nm>Test Recipient</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>DE89370400440532013000</IBAN>
+          </Id>
+        </CdtrAcct>
+      </OrgnlTxRef>
+      <RtrdIntrBkSttlmAmt Ccy="USD">100.00</RtrdIntrBkSttlmAmt>
+    </TxInf>
+  </PmtRtr>
+</Document>

@@ -1,0 +1,303 @@
+{
+  "run_id": "3ad06a02-063e-4fe8-921c-60197bc9a18a",
+  "timestamp": "2025-11-06T12:46:52.217496",
+  "transaction_id": "E2EID-HIGH-FX-NO-FCA-001",
+  "uetr": "UETR-HIGH-FX-NO-FCA-001",
+  "summary": {
+    "can_process": false,
+    "reason": "",
+    "credit_account_iban": "",
+    "decision_path": [],
+    "d1_d9_decisions": {},
+    "account_operations_count": 0
+  },
+  "parsed_data": {
+    "pacs004": {
+      "e2e": "E2EID-HIGH-FX-NO-FCA-001",
+      "uetr": "UETR-HIGH-FX-NO-FCA-001",
+      "cdtr_name": "Test Recipient",
+      "cdtr_iban": "DE89370400440532013000",
+      "dbtr_iban": "GB29NWBK60161331926819",
+      "rtr_ccy": "USD",
+      "rtr_amount": 100.0,
+      "rsn": "AC01",
+      "rsn_info": "Return due to invalid account"
+    },
+    "pacs008": {
+      "e2e": "E2EID-HIGH-FX-NO-FCA-001",
+      "uetr": "UETR-HIGH-FX-NO-FCA-001",
+      "dbtr_name": "Alice Smith",
+      "dbtr_iban": "GB29NWBK60161331926819",
+      "ccy": "USD",
+      "amount": 500.0
+    }
+  },
+  "investigation": {
+    "eligibility": {
+      "is_aud_refund": false,
+      "fx_loss_aud": 616.92,
+      "fx_loss_within_limit": false,
+      "non_branch": true,
+      "sanctions_ok": true,
+      "reason": "AC01",
+      "reason_info": "Return due to invalid account",
+      "reason_analysis": {
+        "code": "AC01",
+        "label": "Incorrect Account Number",
+        "action": "alternate_account",
+        "auto_refund_eligible": true,
+        "details": "Return due to invalid account"
+      },
+      "reason_supports_auto_refund": true,
+      "currency_mismatch": false,
+      "mt103_status": {
+        "available": true,
+        "status": "NULL_AND_VOID"
+      },
+      "account_status": "Active",
+      "eligible_auto_refund": false,
+      "original_amount": 500.0,
+      "original_currency": "USD",
+      "returned_amount": 100.0,
+      "returned_currency": "USD",
+      "original_amount_aud": 771.15,
+      "returned_amount_aud": 154.23,
+      "original_aud_rate": 1.5423,
+      "returned_aud_rate": 1.5423
+    },
+    "csv_validation": {
+      "ok": true,
+      "customer": {
+        "customer_name": "Alice Smith",
+        "account_name": "Alice Smith IBAN Account",
+        "account_number": "GB29NWBK60161331926819",
+        "account_type": "Customer-FCA",
+        "ledger_balance": "USD 8000.00",
+        "available_balance": "USD 7800.00",
+        "account_status": "Active",
+        "email": "alice.smith@example.com"
+      },
+      "iban": "GB29NWBK60161331926819",
+      "holder_name": "Alice Smith",
+      "ccy": "USD"
+    },
+    "cross_errors": []
+  },
+  "flow_checklist": {
+    "checks": {
+      "payments_team_rejection_email": false,
+      "correct_payment_attached": true,
+      "has_mt103_and_202": false,
+      "is_aud_payment": false,
+      "amendment_previously_sent": false,
+      "returned_due_to_cba_fca": false,
+      "no_funds_due_to_charges": false,
+      "return_reason_clear": true,
+      "is_markets": false,
+      "remitter_account_closed": false,
+      "returned_due_to_value_date": false,
+      "ofi_advised_iban_invalid": false,
+      "reason_internal_policy": false,
+      "reason_correspondent_issue": false,
+      "reason_wrong_currency": false,
+      "client_amending_instructions": false
+    },
+    "decision_path": [
+      "FX loss check: EXCEEDS $300 → MANUAL REVIEW REQUIRED",
+      "Email rejection check: NO",
+      "Correct payment attached: YES",
+      "Has MT103 and MT202: NO",
+      "Is AUD payment: NO",
+      "Amendment previously sent: NO",
+      "Returned due to CBA FCA: NO",
+      "No funds due to charges: NO",
+      "Return reason clear: YES",
+      "Is Markets: NO",
+      "Remitter account closed: NO",
+      "Returned due to value date: NO",
+      "OFI advised IBAN invalid: NO",
+      "Reason internal policy: NO",
+      "Reason correspondent issue: NO",
+      "Reason wrong currency: NO",
+      "Client amending instructions: NO",
+      "→ MANUAL REVIEW REQUIRED"
+    ],
+    "manual_review_required": true,
+    "review_reason": "FX loss $616.92 exceeds $300.0 limit and no FCA account found - submitting to pending for 5 business days"
+  },
+  "fx_calculation": {
+    "loss_aud": 616.92,
+    "original_amount_aud": 771.15,
+    "returned_amount_aud": 154.23,
+    "original_amount": 500.0,
+    "returned_amount": 100.0,
+    "original_currency": "USD",
+    "returned_currency": "USD",
+    "calculation_method": "aud_conversion",
+    "threshold_aud": 300.0,
+    "exceeds_limit": true,
+    "fca_account_found": false
+  },
+  "verification": {
+    "verifier_summary": {},
+    "nostro_result": {}
+  },
+  "refund_processing": {
+    "refund_decision": {},
+    "enhanced_refund_decision": {},
+    "account_operations": []
+  },
+  "refund_flow": {
+    "decision_path": [],
+    "final_decision": "Not processed"
+  },
+  "account_operations": [],
+  "balance_changes_summary": {
+    "accounts_affected": 0,
+    "total_debits": 0,
+    "total_credits": 0,
+    "net_change": 0
+  },
+  "manual_review_case": {
+    "case_id": "REVIEW-UNKNOWN-UNKNOWN",
+    "status": "PENDING_5_BUSINESS_DAYS",
+    "review_reason": "FX loss $616.92 exceeds $300.0 limit and no FCA account found - submitting to pending for 5 business days",
+    "created_timestamp": "",
+    "transaction_id": "",
+    "uetr": "",
+    "checklist_results": {
+      "payments_team_rejection_email": false,
+      "correct_payment_attached": true,
+      "has_mt103_and_202": false,
+      "is_aud_payment": false,
+      "amendment_previously_sent": false,
+      "returned_due_to_cba_fca": false,
+      "no_funds_due_to_charges": false,
+      "return_reason_clear": true,
+      "is_markets": false,
+      "remitter_account_closed": false,
+      "returned_due_to_value_date": false,
+      "ofi_advised_iban_invalid": false,
+      "reason_internal_policy": false,
+      "reason_correspondent_issue": false,
+      "reason_wrong_currency": false,
+      "client_amending_instructions": false
+    },
+    "fx_results": {
+      "loss_aud": 616.92,
+      "original_amount_aud": 771.15,
+      "returned_amount_aud": 154.23,
+      "original_amount": 500.0,
+      "returned_amount": 100.0,
+      "original_currency": "USD",
+      "returned_currency": "USD",
+      "calculation_method": "aud_conversion",
+      "threshold_aud": 300.0,
+      "exceeds_limit": true,
+      "fca_account_found": false
+    },
+    "requires_human_intervention": false,
+    "priority": "HIGH",
+    "pending_until": "2025-11-13",
+    "case_type": "FX_LOSS_NO_FCA"
+  },
+  "processing_status": "PENDING_5_BUSINESS_DAYS",
+  "communications": {
+    "communication_templates": {}
+  },
+  "prep_logger": {
+    "email_payload": {
+      "subject": "return of funds",
+      "reference": "E2EID-HIGH-FX-NO-FCA-001",
+      "customer_name": "A*********h",
+      "customer_email": "customer@example.com",
+      "body": "Reference: CASE-20251106124632-USD500.00-9DBEF87C\nSubject: return of funds\nTransaction reference: E2EID-HIGH-FX-NO-FCA-001\n\n:20:E2EID-HIGH-FX-NO-FCA-001\n:23B:CRED\n:32A:251106USD100.00\n:33B:USD100.00\n:50K:A*********h\n:52A:BOSPGBPMXXXX\n:57A:CBAAU2SXXXX\n:59A:CBAAU2SXXXX\n:71F:USD0,00\n:71F:USD0,00\n:72:/BEN/99\n/R99/MS01/MREF/E2EID-HIGH-FX-NO-FCA-001/TEX\n/MREF/OL_REFERENCE\n/TEXT/IT/Return due to invalid account",
+      "case_id": "CASE-20251106124632-USD500.00-9DBEF87C",
+      "uetr": "UETR-HIGH-FX-NO-FCA-001",
+      "amount": 100.0,
+      "currency": "USD",
+      "return_reason": "AC01",
+      "return_reason_info": "Return due to invalid account"
+    },
+    "case_id": "CASE-20251106124632-USD500.00-9DBEF87C",
+    "anonymized_data": {
+      "anonymized_creditor_name": "T************t",
+      "anonymized_debtor_name": "A*********h",
+      "original_creditor_name": "Test Recipient",
+      "original_debtor_name": "Alice Smith",
+      "creditor_iban": "DE89370400440532013000",
+      "debtor_iban": "GB29NWBK60161331926819",
+      "amount": 100.0,
+      "currency": "USD",
+      "return_reason": "AC01",
+      "return_reason_info": "Return due to invalid account"
+    },
+    "processing_timestamp": "2025-11-06T12:46:49.466364"
+  },
+  "audit_events": [
+    {
+      "timestamp": "2025-11-06T12:46:52.217496",
+      "transaction_id": "E2EID-HIGH-FX-NO-FCA-001",
+      "event_type": "INVESTIGATION",
+      "actor": "investigator",
+      "action": "eligibility_check",
+      "details": {
+        "eligibility": {
+          "is_aud_refund": false,
+          "fx_loss_aud": 616.92,
+          "fx_loss_within_limit": false,
+          "non_branch": true,
+          "sanctions_ok": true,
+          "reason": "AC01",
+          "reason_info": "Return due to invalid account",
+          "reason_analysis": {
+            "code": "AC01",
+            "label": "Incorrect Account Number",
+            "action": "alternate_account",
+            "auto_refund_eligible": true,
+            "details": "Return due to invalid account"
+          },
+          "reason_supports_auto_refund": true,
+          "currency_mismatch": false,
+          "mt103_status": {
+            "available": true,
+            "status": "NULL_AND_VOID"
+          },
+          "account_status": "Active",
+          "eligible_auto_refund": false,
+          "original_amount": 500.0,
+          "original_currency": "USD",
+          "returned_amount": 100.0,
+          "returned_currency": "USD",
+          "original_amount_aud": 771.15,
+          "returned_amount_aud": 154.23,
+          "original_aud_rate": 1.5423,
+          "returned_aud_rate": 1.5423
+        },
+        "csv_validation": {
+          "ok": true,
+          "customer": {
+            "customer_name": "Alice Smith",
+            "account_name": "Alice Smith IBAN Account",
+            "account_number": "GB29NWBK60161331926819",
+            "account_type": "Customer-FCA",
+            "ledger_balance": "USD 8000.00",
+            "available_balance": "USD 7800.00",
+            "account_status": "Active",
+            "email": "alice.smith@example.com"
+          },
+          "iban": "GB29NWBK60161331926819",
+          "holder_name": "Alice Smith",
+          "ccy": "USD"
+        },
+        "cross_errors": []
+      },
+      "level": "INFO"
+    }
+  ],
+  "metadata": {
+    "processing_time": "2025-11-06T12:46:52.217496",
+    "version": "1.0",
+    "system": "CBA Refund Processing System"
+  }
+}

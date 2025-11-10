@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08">
+  <FIToFICstmrCdtTrf>
+    <GrpHdr>
+      <MsgId>MSGID20250928001</MsgId>
+      <CreDtTm>2025-09-28T12:00:00Z</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <IntrBkSttlmDt>2025-09-29</IntrBkSttlmDt>
+      <SttlmInf>
+        <SttlmMtd>CLRG</SttlmMtd>
+        <ClrSys>
+          <Cd>EBA</Cd>
+        </ClrSys>
+      </SttlmInf>
+    </GrpHdr>
+    <CdtTrfTxInf>
+      <PmtId>
+        <InstrId>INSTRID12345</InstrId>
+        <EndToEndId>E2EID67890</EndToEndId>
+        <UETR>e8b2f9c4-0e7d-4b8a-8c7c-4f5d6e7f8a9b</UETR>
+      </PmtId>
+      <PmtTpInf>
+        <CtgyPurp>
+          <Cd>CASH</Cd>
+        </CtgyPurp>
+      </PmtTpInf>
+      <IntrBkSttlmAmt Ccy="EUR">1000.00</IntrBkSttlmAmt>
+      <ChrgBr>DEBT</ChrgBr>
+      <InstgAgt>
+        <FinInstnId>
+          <BICFI>BANKAADEFF</BICFI>
+        </FinInstnId>
+      </InstgAgt>
+      <InstdAgt>
+        <FinInstnId>
+          <BICFI>BANKBBEEFF</BICFI>
+        </FinInstnId>
+      </InstdAgt>
+      <Dbtr>
+        <Nm>Debtor Name</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+      </DbtrAcct>
+      <Cdtr>
+        <Nm>Creditor Name</Nm>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <IBAN>FR7630006000011234567890189</IBAN>
+        </Id>
+      </CdtrAcct>
+      <RmtInf>
+        <Ustrd>Invoice 2025-001 for goods</Ustrd>
+      </RmtInf>
+    </CdtTrfTxInf>
+  </FIToFICstmrCdtTrf>
+</Document>

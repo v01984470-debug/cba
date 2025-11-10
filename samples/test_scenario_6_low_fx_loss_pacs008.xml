@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.12" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FIToFICstmrCdtTrf>
+    <GrpHdr>
+      <MsgId>MSG-20251008-ORIG-006</MsgId>
+      <CreDtTm>2025-10-08T17:30:00</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <SttlmInf>
+        <SttlmMtd>INDA</SttlmMtd>
+      </SttlmInf>
+    </GrpHdr>
+    <CdtTrfTxInf>
+      <PmtId>
+        <InstrId>INSTR-20251008-006</InstrId>
+        <EndToEndId>E2EID-LOW-FX-001</EndToEndId>
+        <TxId>ghi78901-e89b-12d3-a456-426614174005</TxId>
+        <UETR>ghi78901-e89b-12d3-a456-426614174005</UETR>
+      </PmtId>
+      <IntrBkSttlmAmt Ccy="USD">200.00</IntrBkSttlmAmt>
+      <IntrBkSttlmDt>2025-10-08</IntrBkSttlmDt>
+      <SttlmPrty>NORM</SttlmPrty>
+      <InstdAmt Ccy="USD">200.00</InstdAmt>
+      <ChrgBr>DEBT</ChrgBr>
+      <ChrgsInf>
+        <Amt Ccy="USD">5.00</Amt>
+        <Agt>
+          <FinInstnId>
+            <BICFI>CHASUS33XXX</BICFI>
+          </FinInstnId>
+        </Agt>
+      </ChrgsInf>
+      <PmtTpInf>
+        <SvcLvl>
+          <Cd>SEPA</Cd>
+        </SvcLvl>
+        <LclInstrm>
+          <Cd>WIRE</Cd>
+        </LclInstrm>
+      </PmtTpInf>
+      <RmtInf>
+        <Ustrd>Small payment</Ustrd>
+      </RmtInf>
+      <UltmtDbtr>
+        <Nm>Alice Smith</Nm>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>GB29NWBK60161331926819</Id>
+              <SchmeNm>
+                <Cd>IBAN</Cd>
+              </SchmeNm>
+            </Othr>
+          </OrgId>
+        </Id>
+      </UltmtDbtr>
+      <Dbtr>
+        <Nm>Alice Smith</Nm>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>GB29NWBK60161331926819</Id>
+              <SchmeNm>
+                <Cd>IBAN</Cd>
+              </SchmeNm>
+            </Othr>
+          </OrgId>
+        </Id>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>GB29NWBK60161331926819</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>NWBKGB2L</BICFI>
+          <Nm>NatWest Bank</Nm>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtrAgt>
+        <FinInstnId>
+          <BICFI>CHASUS33XXX</BICFI>
+          <Nm>JPMorgan Chase Bank</Nm>
+        </FinInstnId>
+      </CdtrAgt>
+      <Cdtr>
+        <Nm>Small Business Inc</Nm>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>US64SVBKUS6S3300958879</Id>
+              <SchmeNm>
+                <Cd>USABA</Cd>
+              </SchmeNm>
+            </Othr>
+          </OrgId>
+        </Id>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <Othr>
+            <Id>US64SVBKUS6S3300958879</Id>
+          </Othr>
+        </Id>
+      </CdtrAcct>
+    </CdtTrfTxInf>
+  </FIToFICstmrCdtTrf>
+</Document>

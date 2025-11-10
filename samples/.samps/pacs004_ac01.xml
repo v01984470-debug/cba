@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.004.001.09"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <PmtRtr>
+        <GrpHdr>
+            <MsgId>MSGID-PACS004-AC01-001</MsgId>
+            <CreDtTm>2025-01-15T14:30:00</CreDtTm>
+            <NbOfTxs>1</NbOfTxs>
+            <SttlmInf>
+                <SttlmMtd>CLRG</SttlmMtd>
+                <ClrSys>
+                    <Cd>TGT2</Cd>
+                </ClrSys>
+            </SttlmInf>
+        </GrpHdr>
+        <TxInf>
+            <RtrId>RTRID-AC01-001</RtrId>
+            <OrgnlGrpInf>
+                <OrgnlMsgId>MSGID-PACS008-AC01-001</OrgnlMsgId>
+                <OrgnlMsgNmId>pacs.008.001.08</OrgnlMsgNmId>
+            </OrgnlGrpInf>
+            <OrgnlEndToEndId>E2EID-AC01-001</OrgnlEndToEndId>
+            <OrgnlUETR>a1b2c3d4-5e6f-7g8h-9i0j-k1l2m3n4o5p6</OrgnlUETR>
+            <OrgnlIntrBkSttlmDt>2025-01-15</OrgnlIntrBkSttlmDt>
+            <RtrdIntrBkSttlmAmt Ccy="USD">2475.00</RtrdIntrBkSttlmAmt>
+            <RtrRsnInf>
+                <Rsn>
+                    <Cd>AC01</Cd>
+                </Rsn>
+                <AddtlInf>Incorrect Account Number</AddtlInf>
+            </RtrRsnInf>
+            <IntrBkSttlmAmt Ccy="USD">2500.00</IntrBkSttlmAmt>
+            <IntrBkSttlmDt>2025-01-15</IntrBkSttlmDt>
+            <ReqdExctnDt>2025-01-15</ReqdExctnDt>
+            <CdtrAgt>
+                <FinInstnId>
+                    <BICFI>CHASUS33XXX</BICFI>
+                </FinInstnId>
+            </CdtrAgt>
+            <Cdtr>
+                <Pty>
+                    <Nm>US Corporation Ltd</Nm>
+                </Pty>
+            </Cdtr>
+            <CdtrAcct>
+                <Id>
+                    <IBAN>US64SVBKUS6S3300958879</IBAN>
+                </Id>
+            </CdtrAcct>
+        </TxInf>
+    </PmtRtr>
+</Document>

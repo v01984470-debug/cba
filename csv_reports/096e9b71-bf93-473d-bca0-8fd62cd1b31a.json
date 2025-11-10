@@ -1,0 +1,303 @@
+{
+  "run_id": "096e9b71-bf93-473d-bca0-8fd62cd1b31a",
+  "timestamp": "2025-11-06T12:40:58.900747",
+  "transaction_id": "E2EID-HIGH-FX-001",
+  "uetr": "abc12345-e89b-12d3-a456-426614174003",
+  "summary": {
+    "can_process": false,
+    "reason": "",
+    "credit_account_iban": "",
+    "decision_path": [],
+    "d1_d9_decisions": {},
+    "account_operations_count": 0
+  },
+  "parsed_data": {
+    "pacs004": {
+      "e2e": "E2EID-HIGH-FX-001",
+      "uetr": "abc12345-e89b-12d3-a456-426614174003",
+      "cdtr_name": "European Supplier Ltd",
+      "cdtr_iban": "FR1420041010050500013M02606",
+      "dbtr_iban": "4004195062",
+      "rtr_ccy": "EUR",
+      "rtr_amount": 100.0,
+      "rsn": "AC01",
+      "rsn_info": "Account not found"
+    },
+    "pacs008": {
+      "e2e": "E2EID-HIGH-FX-001",
+      "uetr": "abc12345-e89b-12d3-a456-426614174003",
+      "dbtr_name": "Carol Tan",
+      "dbtr_iban": "4004195062",
+      "ccy": "EUR",
+      "amount": 400.0
+    }
+  },
+  "investigation": {
+    "eligibility": {
+      "is_aud_refund": false,
+      "fx_loss_aud": 534.1999999999999,
+      "fx_loss_within_limit": false,
+      "non_branch": true,
+      "sanctions_ok": true,
+      "reason": "AC01",
+      "reason_info": "Account not found",
+      "reason_analysis": {
+        "code": "AC01",
+        "label": "Incorrect Account Number",
+        "action": "alternate_account",
+        "auto_refund_eligible": true,
+        "details": "Account not found"
+      },
+      "reason_supports_auto_refund": true,
+      "currency_mismatch": false,
+      "mt103_status": {
+        "available": true,
+        "status": "NULL_AND_VOID"
+      },
+      "account_status": "Active",
+      "eligible_auto_refund": false,
+      "original_amount": 400.0,
+      "original_currency": "EUR",
+      "returned_amount": 100.0,
+      "returned_currency": "EUR",
+      "original_amount_aud": 711.4399999999999,
+      "returned_amount_aud": 177.24,
+      "original_aud_rate": 1.7786,
+      "returned_aud_rate": 1.7724
+    },
+    "csv_validation": {
+      "ok": true,
+      "customer": {
+        "customer_name": "Carol Tan",
+        "account_name": "Carol Tan FCA EUR",
+        "account_number": "4004195062",
+        "account_type": "Customer-FCA",
+        "ledger_balance": "EUR 6700.00",
+        "available_balance": "EUR 6500.00",
+        "account_status": "Active",
+        "email": "carol.tan@example.com"
+      },
+      "iban": "4004195062",
+      "holder_name": "Carol Tan",
+      "ccy": "EUR"
+    },
+    "cross_errors": []
+  },
+  "flow_checklist": {
+    "checks": {
+      "payments_team_rejection_email": false,
+      "correct_payment_attached": true,
+      "has_mt103_and_202": false,
+      "is_aud_payment": false,
+      "amendment_previously_sent": false,
+      "returned_due_to_cba_fca": false,
+      "no_funds_due_to_charges": false,
+      "return_reason_clear": true,
+      "is_markets": false,
+      "remitter_account_closed": false,
+      "returned_due_to_value_date": false,
+      "ofi_advised_iban_invalid": false,
+      "reason_internal_policy": false,
+      "reason_correspondent_issue": false,
+      "reason_wrong_currency": false,
+      "client_amending_instructions": false
+    },
+    "decision_path": [
+      "FX loss check: EXCEEDS $300 → MANUAL REVIEW REQUIRED",
+      "Email rejection check: NO",
+      "Correct payment attached: YES",
+      "Has MT103 and MT202: NO",
+      "Is AUD payment: NO",
+      "Amendment previously sent: NO",
+      "Returned due to CBA FCA: NO",
+      "No funds due to charges: NO",
+      "Return reason clear: YES",
+      "Is Markets: NO",
+      "Remitter account closed: NO",
+      "Returned due to value date: NO",
+      "OFI advised IBAN invalid: NO",
+      "Reason internal policy: NO",
+      "Reason correspondent issue: NO",
+      "Reason wrong currency: NO",
+      "Client amending instructions: NO",
+      "→ MANUAL REVIEW REQUIRED"
+    ],
+    "manual_review_required": true,
+    "review_reason": "FX loss $534.20 exceeds $300.0 limit and no FCA account found - submitting to pending for 5 business days"
+  },
+  "fx_calculation": {
+    "loss_aud": 534.2,
+    "original_amount_aud": 711.4399999999999,
+    "returned_amount_aud": 177.24,
+    "original_amount": 400.0,
+    "returned_amount": 100.0,
+    "original_currency": "EUR",
+    "returned_currency": "EUR",
+    "calculation_method": "aud_conversion",
+    "threshold_aud": 300.0,
+    "exceeds_limit": true,
+    "fca_account_found": false
+  },
+  "verification": {
+    "verifier_summary": {},
+    "nostro_result": {}
+  },
+  "refund_processing": {
+    "refund_decision": {},
+    "enhanced_refund_decision": {},
+    "account_operations": []
+  },
+  "refund_flow": {
+    "decision_path": [],
+    "final_decision": "Not processed"
+  },
+  "account_operations": [],
+  "balance_changes_summary": {
+    "accounts_affected": 0,
+    "total_debits": 0,
+    "total_credits": 0,
+    "net_change": 0
+  },
+  "manual_review_case": {
+    "case_id": "REVIEW-UNKNOWN-UNKNOWN",
+    "status": "PENDING_5_BUSINESS_DAYS",
+    "review_reason": "FX loss $534.20 exceeds $300.0 limit and no FCA account found - submitting to pending for 5 business days",
+    "created_timestamp": "",
+    "transaction_id": "",
+    "uetr": "",
+    "checklist_results": {
+      "payments_team_rejection_email": false,
+      "correct_payment_attached": true,
+      "has_mt103_and_202": false,
+      "is_aud_payment": false,
+      "amendment_previously_sent": false,
+      "returned_due_to_cba_fca": false,
+      "no_funds_due_to_charges": false,
+      "return_reason_clear": true,
+      "is_markets": false,
+      "remitter_account_closed": false,
+      "returned_due_to_value_date": false,
+      "ofi_advised_iban_invalid": false,
+      "reason_internal_policy": false,
+      "reason_correspondent_issue": false,
+      "reason_wrong_currency": false,
+      "client_amending_instructions": false
+    },
+    "fx_results": {
+      "loss_aud": 534.2,
+      "original_amount_aud": 711.4399999999999,
+      "returned_amount_aud": 177.24,
+      "original_amount": 400.0,
+      "returned_amount": 100.0,
+      "original_currency": "EUR",
+      "returned_currency": "EUR",
+      "calculation_method": "aud_conversion",
+      "threshold_aud": 300.0,
+      "exceeds_limit": true,
+      "fca_account_found": false
+    },
+    "requires_human_intervention": false,
+    "priority": "HIGH",
+    "pending_until": "2025-11-13",
+    "case_type": "FX_LOSS_NO_FCA"
+  },
+  "processing_status": "PENDING_5_BUSINESS_DAYS",
+  "communications": {
+    "communication_templates": {}
+  },
+  "prep_logger": {
+    "email_payload": {
+      "subject": "return of funds",
+      "reference": "E2EID-HIGH-FX-001",
+      "customer_name": "C*******n",
+      "customer_email": "customer@example.com",
+      "body": "Reference: CASE-20251106124039-USD400.00-095612B6\nSubject: return of funds\nTransaction reference: E2EID-HIGH-FX-001\n\n:20:E2EID-HIGH-FX-001\n:23B:CRED\n:32A:251106EUR100.00\n:33B:EUR100.00\n:50K:C*******n\n:52A:BOSPGBPMXXXX\n:57A:CBAAU2SXXXX\n:59A:CBAAU2SXXXX\n:71F:EUR0,00\n:71F:USD0,00\n:72:/BEN/99\n/R99/MS01/MREF/E2EID-HIGH-FX-001/TEX\n/MREF/OL_REFERENCE\n/TEXT/IT/Account not found",
+      "case_id": "CASE-20251106124039-USD400.00-095612B6",
+      "uetr": "abc12345-e89b-12d3-a456-426614174003",
+      "amount": 100.0,
+      "currency": "EUR",
+      "return_reason": "AC01",
+      "return_reason_info": "Account not found"
+    },
+    "case_id": "CASE-20251106124039-USD400.00-095612B6",
+    "anonymized_data": {
+      "anonymized_creditor_name": "E*******************d",
+      "anonymized_debtor_name": "C*******n",
+      "original_creditor_name": "European Supplier Ltd",
+      "original_debtor_name": "Carol Tan",
+      "creditor_iban": "FR1420041010050500013M02606",
+      "debtor_iban": "4004195062",
+      "amount": 100.0,
+      "currency": "EUR",
+      "return_reason": "AC01",
+      "return_reason_info": "Account not found"
+    },
+    "processing_timestamp": "2025-11-06T12:40:45.903237"
+  },
+  "audit_events": [
+    {
+      "timestamp": "2025-11-06T12:40:58.900747",
+      "transaction_id": "E2EID-HIGH-FX-001",
+      "event_type": "INVESTIGATION",
+      "actor": "investigator",
+      "action": "eligibility_check",
+      "details": {
+        "eligibility": {
+          "is_aud_refund": false,
+          "fx_loss_aud": 534.1999999999999,
+          "fx_loss_within_limit": false,
+          "non_branch": true,
+          "sanctions_ok": true,
+          "reason": "AC01",
+          "reason_info": "Account not found",
+          "reason_analysis": {
+            "code": "AC01",
+            "label": "Incorrect Account Number",
+            "action": "alternate_account",
+            "auto_refund_eligible": true,
+            "details": "Account not found"
+          },
+          "reason_supports_auto_refund": true,
+          "currency_mismatch": false,
+          "mt103_status": {
+            "available": true,
+            "status": "NULL_AND_VOID"
+          },
+          "account_status": "Active",
+          "eligible_auto_refund": false,
+          "original_amount": 400.0,
+          "original_currency": "EUR",
+          "returned_amount": 100.0,
+          "returned_currency": "EUR",
+          "original_amount_aud": 711.4399999999999,
+          "returned_amount_aud": 177.24,
+          "original_aud_rate": 1.7786,
+          "returned_aud_rate": 1.7724
+        },
+        "csv_validation": {
+          "ok": true,
+          "customer": {
+            "customer_name": "Carol Tan",
+            "account_name": "Carol Tan FCA EUR",
+            "account_number": "4004195062",
+            "account_type": "Customer-FCA",
+            "ledger_balance": "EUR 6700.00",
+            "available_balance": "EUR 6500.00",
+            "account_status": "Active",
+            "email": "carol.tan@example.com"
+          },
+          "iban": "4004195062",
+          "holder_name": "Carol Tan",
+          "ccy": "EUR"
+        },
+        "cross_errors": []
+      },
+      "level": "INFO"
+    }
+  ],
+  "metadata": {
+    "processing_time": "2025-11-06T12:40:58.900747",
+    "version": "1.0",
+    "system": "CBA Refund Processing System"
+  }
+}

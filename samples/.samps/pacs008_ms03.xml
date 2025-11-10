@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08">
+  <FIToFICstmrCdtTrf>
+    <GrpHdr>
+      <MsgId>MSGID20250125001</MsgId>
+      <CreDtTm>2025-01-25T14:00:00Z</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <IntrBkSttlmDt>2025-01-25</IntrBkSttlmDt>
+      <SttlmInf>
+        <SttlmMtd>CLRG</SttlmMtd>
+        <ClrSys>
+          <Cd>EBA</Cd>
+        </ClrSys>
+      </SttlmInf>
+    </GrpHdr>
+    <CdtTrfTxInf>
+      <PmtId>
+        <InstrId>INSTRID-MS03-001</InstrId>
+        <EndToEndId>E2EID-MS03-001</EndToEndId>
+        <UETR>c3d4e5f6-7g8h-9i0j-1k2l-m3n4o5p6q7r8</UETR>
+      </PmtId>
+      <PmtTpInf>
+        <CtgyPurp>
+          <Cd>CASH</Cd>
+        </CtgyPurp>
+      </PmtTpInf>
+      <IntrBkSttlmAmt Ccy="JPY">500000.00</IntrBkSttlmAmt>
+      <ChrgBr>DEBT</ChrgBr>
+      <InstgAgt>
+        <FinInstnId>
+          <BICFI>SMBCJPJTXXX</BICFI>
+        </FinInstnId>
+      </InstgAgt>
+      <InstdAgt>
+        <FinInstnId>
+          <BICFI>BANKAADEFF</BICFI>
+        </FinInstnId>
+      </InstdAgt>
+      <Dbtr>
+        <Nm>Japan Electronics Corp</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>JP91BANK0000000000000001</IBAN>
+        </Id>
+      </DbtrAcct>
+      <Cdtr>
+        <Nm>European Distributor SA</Nm>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+      </CdtrAcct>
+      <RmtInf>
+        <Ustrd>Payment for electronic components - Invoice 2025-003</Ustrd>
+      </RmtInf>
+    </CdtTrfTxInf>
+  </FIToFICstmrCdtTrf>
+</Document>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.004.001.09"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <PmtRtr>
+        <GrpHdr>
+            <MsgId>MSGID-PACS004-12345</MsgId>
+            <CreDtTm>2025-09-26T10:00:00</CreDtTm>
+            <NbOfTxs>1</NbOfTxs>
+            <SttlmInf>
+                <SttlmMtd>CLRG</SttlmMtd>
+                <ClrSys>
+                    <Cd>TGT2</Cd>
+                </ClrSys>
+            </SttlmInf>
+        </GrpHdr>
+        <TxInf>
+            <RtrId>RTRID-123456789</RtrId>
+            <OrgnlGrpInf>
+                <OrgnlMsgId>MSGID-PACS008-ABCDE</OrgnlMsgId>
+                <OrgnlMsgNmId>pacs.008.001.08</OrgnlMsgNmId>
+            </OrgnlGrpInf>
+            <OrgnlEndToEndId>E2EID67890</OrgnlEndToEndId>
+            <OrgnlUETR>e8b2f9c4-0e7d-4b8a-8c7c-4f5d6e7f8a9b</OrgnlUETR>
+            <OrgnlIntrBkSttlmDt>2025-09-25</OrgnlIntrBkSttlmDt>
+            <RtrdIntrBkSttlmAmt Ccy="EUR">970.00</RtrdIntrBkSttlmAmt>
+            <RtrRsnInf>
+                <Rsn>
+                    <Cd>AC01</Cd>
+                </Rsn>
+                <AddtlInf>Incorrect Account Number</AddtlInf>
+            </RtrRsnInf>
+            <IntrBkSttlmAmt Ccy="EUR">1000.00</IntrBkSttlmAmt>
+            <IntrBkSttlmDt>2025-09-25</IntrBkSttlmDt>
+            <ReqdExctnDt>2025-09-25</ReqdExctnDt>
+            <CdtrAgt>
+                <FinInstnId>
+                    <BICFI>BANKAABBXX</BICFI>
+                </FinInstnId>
+            </CdtrAgt>
+            <Cdtr>
+                <Pty>
+                    <Nm>Original Creditor Name</Nm>
+                </Pty>
+            </Cdtr>
+            <CdtrAcct>
+                <Id>
+                    <IBAN>DE89370400440532013000</IBAN>
+                </Id>
+            </CdtrAcct>
+        </TxInf>
+    </PmtRtr>
+</Document>

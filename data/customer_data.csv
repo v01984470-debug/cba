@@ -1,0 +1,7 @@
+Customer Name,Account Name,Account Number,Account Type,Ledger Balance,Available Balance,Account Status,e-mail
+Alice Smith,Alice Smith Everyday Account,1001195062,Customer-Cheque,AUD 12500.00,AUD 12000.00,Active,alice.smith@example.com
+Alice Smith,Alice Smith FCA USD,2002195062,Customer-FCA,USD 8000.00,USD 7800.00,Active,alice.smith@example.com
+Alice Smith,Alice Smith IBAN Account,GB29NWBK60161331926819,Customer-FCA,USD 8000.00,USD 7800.00,Active,alice.smith@example.com
+Bob Lee,Bob Lee Everyday Account,3003195062,Customer-Savings,AUD 9250.00,AUD 9000.00,Active,bob.lee@example.com
+Carol Tan,Carol Tan FCA EUR,4004195062,Customer-FCA,EUR 6700.00,EUR 6500.00,Active,carol.tan@example.com
+David Ong,David Ong FCA SGD,8008195062,Customer-FCA,SGD 10500.00,SGD 10200.00,Active,david.ong@example.com

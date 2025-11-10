@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08">
+  <FIToFICstmrCdtTrf>
+    <GrpHdr>
+      <MsgId>MSGID20250115001</MsgId>
+      <CreDtTm>2025-01-15T12:00:00Z</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <IntrBkSttlmDt>2025-01-15</IntrBkSttlmDt>
+      <SttlmInf>
+        <SttlmMtd>CLRG</SttlmMtd>
+        <ClrSys>
+          <Cd>EBA</Cd>
+        </ClrSys>
+      </SttlmInf>
+    </GrpHdr>
+    <CdtTrfTxInf>
+      <PmtId>
+        <InstrId>INSTRID-AC01-001</InstrId>
+        <EndToEndId>E2EID-AC01-001</EndToEndId>
+        <UETR>a1b2c3d4-5e6f-7g8h-9i0j-k1l2m3n4o5p6</UETR>
+      </PmtId>
+      <PmtTpInf>
+        <CtgyPurp>
+          <Cd>CASH</Cd>
+        </CtgyPurp>
+      </PmtTpInf>
+      <IntrBkSttlmAmt Ccy="USD">2500.00</IntrBkSttlmAmt>
+      <ChrgBr>DEBT</ChrgBr>
+      <InstgAgt>
+        <FinInstnId>
+          <BICFI>CHASUS33XXX</BICFI>
+        </FinInstnId>
+      </InstgAgt>
+      <InstdAgt>
+        <FinInstnId>
+          <BICFI>BANKAADEFF</BICFI>
+        </FinInstnId>
+      </InstdAgt>
+      <Dbtr>
+        <Nm>US Corporation Ltd</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>US64SVBKUS6S3300958879</IBAN>
+        </Id>
+      </DbtrAcct>
+      <Cdtr>
+        <Nm>European Supplier GmbH</Nm>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+      </CdtrAcct>
+      <RmtInf>
+        <Ustrd>Payment for software license - Invoice 2025-001</Ustrd>
+      </RmtInf>
+    </CdtTrfTxInf>
+  </FIToFICstmrCdtTrf>
+</Document>

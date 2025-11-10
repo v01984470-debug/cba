@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.004.001.12" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <PmtRtr>
+    <GrpHdr>
+      <MsgId>MSG-20251008-006</MsgId>
+      <CreDtTm>2025-10-08T18:45:00</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <SttlmInf>
+        <SttlmMtd>INDA</SttlmMtd>
+      </SttlmInf>
+    </GrpHdr>
+    <TxInf>
+      <RtrId>RET-USD-20251008-006</RtrId>
+      <OrgnlGrpInf>
+        <OrgnlMsgId>MSG-20251008-ORIG-006</OrgnlMsgId>
+        <OrgnlMsgNmId>pacs.008.001.12</OrgnlMsgNmId>
+        <OrgnlCreDtTm>2025-10-08T17:30:00</OrgnlCreDtTm>
+      </OrgnlGrpInf>
+      <OrgnlInstrId>INSTR-20251008-006</OrgnlInstrId>
+      <OrgnlEndToEndId>E2EID-LOW-FX-001</OrgnlEndToEndId>
+      <OrgnlTxId>ghi78901-e89b-12d3-a456-426614174005</OrgnlTxId>
+      <OrgnlUETR>ghi78901-e89b-12d3-a456-426614174005</OrgnlUETR>
+      <RtrdIntrBkSttlmAmt Ccy="USD">195.00</RtrdIntrBkSttlmAmt>
+      <IntrBkSttlmDt>2025-10-08</IntrBkSttlmDt>
+      <SttlmPrty>NORM</SttlmPrty>
+      <RtrdInstdAmt Ccy="USD">195.00</RtrdInstdAmt>
+      <ChrgBr>DEBT</ChrgBr>
+      <RtrRsnInf>
+        <Orgtr>
+          <Nm>Commonwealth Bank of Australia</Nm>
+          <Id>
+            <OrgId>
+              <Othr>
+                <Id>CBA</Id>
+                <SchmeNm>
+                  <Cd>BANK</Cd>
+                </SchmeNm>
+              </Othr>
+            </OrgId>
+          </Id>
+        </Orgtr>
+        <Rsn>
+          <Cd>AC01</Cd>
+        </Rsn>
+        <AddtlInf>Invalid account</AddtlInf>
+      </RtrRsnInf>
+      <OrgnlTxRef>
+        <IntrBkSttlmAmt Ccy="USD">195.00</IntrBkSttlmAmt>
+        <IntrBkSttlmDt>2025-10-08</IntrBkSttlmDt>
+        <SttlmPrty>NORM</SttlmPrty>
+        <InstdAmt Ccy="USD">195.00</InstdAmt>
+        <ChrgBr>DEBT</ChrgBr>
+        <ChrgsInf>
+          <Amt Ccy="USD">5.00</Amt>
+          <Agt>
+            <FinInstnId>
+              <BICFI>CHASUS33XXX</BICFI>
+            </FinInstnId>
+          </Agt>
+        </ChrgsInf>
+        <PmtTpInf>
+          <SvcLvl>
+            <Cd>SEPA</Cd>
+          </SvcLvl>
+          <LclInstrm>
+            <Cd>WIRE</Cd>
+          </LclInstrm>
+        </PmtTpInf>
+        <RmtInf>
+          <Ustrd>Small payment</Ustrd>
+        </RmtInf>
+        <UltmtDbtr>
+          <Nm>Alice Smith</Nm>
+          <Id>
+            <OrgId>
+              <Othr>
+                <Id>GB29NWBK60161331926819</Id>
+                <SchmeNm>
+                  <Cd>IBAN</Cd>
+                </SchmeNm>
+              </Othr>
+            </OrgId>
+          </Id>
+        </UltmtDbtr>
+        <Dbtr>
+          <Nm>Alice Smith</Nm>
+          <Id>
+            <OrgId>
+              <Othr>
+                <Id>GB29NWBK60161331926819</Id>
+                <SchmeNm>
+                  <Cd>IBAN</Cd>
+                </SchmeNm>
+              </Othr>
+            </OrgId>
+          </Id>
+        </Dbtr>
+        <DbtrAcct>
+          <Id>
+            <IBAN>GB29NWBK60161331926819</IBAN>
+          </Id>
+        </DbtrAcct>
+        <DbtrAgt>
+          <FinInstnId>
+            <BICFI>NWBKGB2L</BICFI>
+            <Nm>NatWest Bank</Nm>
+          </FinInstnId>
+        </DbtrAgt>
+        <CdtrAgt>
+          <FinInstnId>
+            <BICFI>CHASUS33XXX</BICFI>
+            <Nm>JPMorgan Chase Bank</Nm>
+          </FinInstnId>
+        </CdtrAgt>
+        <Cdtr>
+          <Nm>Small Business Inc</Nm>
+          <Id>
+            <OrgId>
+              <Othr>
+                <Id>US64SVBKUS6S3300958879</Id>
+                <SchmeNm>
+                  <Cd>USABA</Cd>
+                </SchmeNm>
+              </Othr>
+            </OrgId>
+          </Id>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <Othr>
+              <Id>US64SVBKUS6S3300958879</Id>
+            </Othr>
+          </Id>
+        </CdtrAcct>
+      </OrgnlTxRef>
+    </TxInf>
+  </PmtRtr>
+</Document>

@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agent Processing - CBA POC</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        width: 100%;
+        margin: 0;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: none;
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+        color: #ffd700;
+        padding: 20px 48px;
+        text-align: left;
+        border-bottom: 3px solid #ffd700;
+        margin-top: 100px;
+      }
+
+      .header h1 {
+        font-size: 1.5rem;
+        margin-bottom: 4px;
+        font-weight: 600;
+        letter-spacing: 0.2px;
+      }
+
+      .header p {
+        opacity: 0.85;
+        font-size: 1rem;
+      }
+
+      .content-section {
+        padding: 120px 40px 56px 40px;
+        background: #f6f8fb;
+      }
+
+      .progress-container {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 800px;
+        background: #ffd700;
+        border-radius: 15px;
+        padding: 20px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+      }
+
+      /* Agent Progress Steps */
+      .agent-progress-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: #ffffff;
+        border-radius: 0 0 12px 12px;
+        padding: 20px 25px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+      }
+
+      .agent-progress-bar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 30px 0;
+      }
+
+      .cylindrical-progress-container {
+        position: relative;
+        width: 100%;
+        height: 50px;
+        background: #e5e7eb;
+        border-radius: 25px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 15px;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        border: 2px solid #d1d5db;
+      }
+
+      .cylindrical-progress-fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background: linear-gradient(90deg, #3b82f6 0%, #1d4ed8 100%);
+        border-radius: 25px;
+        transition: width 0.8s ease;
+        overflow: hidden;
+        width: 0%;
+        z-index: 1;
+      }
+
+      .progress-step {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 3;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        width: 35px;
+        height: 35px;
+      }
+
+      .progress-step:hover .step-number {
+        transform: scale(1.1);
+      }
+
+      .step-number {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background: #ffffff;
+        color: #6b7280;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        border: 2px solid #e5e7eb;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: relative;
+        z-index: 4;
+      }
+
+      /* Progress Step States */
+      .progress-step.active .step-number {
+        background: #3b82f6;
+        color: white;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+      }
+
+      .progress-step.active .step-label {
+        color: #3b82f6;
+        font-weight: 700;
+      }
+
+      .progress-step.completed .step-number {
+        background: #10b981;
+        color: white;
+        border-color: #10b981;
+      }
+
+      .progress-step.completed .step-label {
+        color: #10b981;
+        font-weight: 600;
+      }
+
+      .progress-step.completed .step-number::after {
+        content: "";
+      }
+
+      /* Selected Step State */
+      .progress-step.selected .step-number {
+        background: #8b5cf6;
+        color: white;
+        border-color: #8b5cf6;
+        box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
+        transform: scale(1.1);
+      }
+
+      .progress-step.selected .step-label {
+        color: #8b5cf6;
+        font-weight: 700;
+      }
+
+      .progress-step.selected {
+        transform: scale(1.05);
+      }
+
+      /* Agent Content Highlight */
+      .agent-step.highlighted {
+        background: #f0f9ff;
+        border: 2px solid #0ea5e9;
+        box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
+        transform: scale(1.02);
+        transition: all 0.3s ease;
+      }
+
+      .agent-step.highlighted .agent-header {
+        background: #e0f2fe;
+        border-radius: 8px;
+        padding: 20px;
+      }
+
+      .progress-line.active {
+        background: #3b82f6;
+      }
+
+      .progress-line.completed {
+        background: #10b981;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 12px;
+        background: #ffffff;
+        border: 2px solid #000000;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-bottom: 20px;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: relative;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #000000, #1a1a1a);
+        width: 0%;
+        transition: width 0.5s ease;
+        border-radius: 4px;
+        position: relative;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+      }
+
+      .progress-fill::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.2) 50%,
+          transparent 100%
+        );
+        animation: shimmer 2s infinite;
+      }
+
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      .progress-text {
+        text-align: center;
+        font-size: 1.1rem;
+        color: #000000;
+        font-weight: 600;
+      }
+
+      .agent-flow {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 20px;
+        padding-bottom: 150px;
+      }
+
+      .agent-step {
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 8px;
+        padding: 15px;
+        border: 2px solid transparent;
+        transition: all 0.5s ease;
+        opacity: 0.3;
+        transform: translateX(-20px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 10px;
+        position: relative;
+      }
+
+      .agent-step:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        left: 14px;
+        top: 100%;
+        width: 2px;
+        height: 20px;
+        background: linear-gradient(to bottom, #28a745, #20c997);
+        z-index: 5;
+      }
+
+      .agent-step.last-step.completed::after {
+        content: "✓";
+        position: absolute;
+        left: 14px;
+        top: 100%;
+        width: 28px;
+        height: 28px;
+        background: #28a745;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 14px;
+        z-index: 10;
+        box-shadow: 0 2px 4px rgba(40, 167, 69, 0.3);
+      }
+
+      .agent-step.active {
+        opacity: 1;
+        transform: translateX(0);
+        border-color: #ffd700;
+        background: rgba(255, 215, 0, 0.1);
+        box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+      }
+
+      .agent-step.completed {
+        opacity: 0.8;
+        border-color: #28a745;
+        background: rgba(40, 167, 69, 0.1);
+      }
+
+      .agent-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+        position: relative;
+      }
+
+      .agent-step-number {
+        position: absolute;
+        top: -8px;
+        left: -8px;
+        background: #28a745;
+        color: white;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 12px;
+        box-shadow: 0 2px 6px rgba(40, 167, 69, 0.4);
+        z-index: 10;
+        border: 2px solid #ffffff;
+      }
+
+      .agent-icon {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+
+      .agent-step.active .agent-icon {
+        background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+        color: #000;
+        animation: pulse 2s infinite;
+      }
+
+      .agent-step.completed .agent-icon {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: #fff;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .agent-info h3 {
+        font-size: 1.1rem;
+        margin-bottom: 3px;
+        color: #212529;
+      }
+
+      .agent-info p {
+        color: #6c757d;
+        font-size: 0.8rem;
+      }
+
+      .agent-status {
+        margin-left: auto;
+        padding: 6px 12px;
+        border-radius: 15px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      .status-pending {
+        background: rgba(108, 117, 125, 0.3);
+        color: #6c757d;
+      }
+
+      .status-processing {
+        background: rgba(255, 193, 7, 0.3);
+        color: #ffc107;
+        animation: blink 1s infinite;
+      }
+
+      .status-completed {
+        background: rgba(40, 167, 69, 0.3);
+        color: #28a745;
+      }
+
+      @keyframes blink {
+        0%,
+        50% {
+          opacity: 1;
+        }
+        51%,
+        100% {
+          opacity: 0.5;
+        }
+      }
+
+      .agent-output {
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 6px;
+        padding: 10px;
+        margin-top: 10px;
+        border-left: 3px solid #ffd700;
+        font-family: "Courier New", monospace;
+        font-size: 0.8rem;
+        line-height: 1.3;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease, padding 0.5s ease;
+        color: #212529;
+      }
+
+      .agent-step.active .agent-output,
+      .agent-step.completed .agent-output {
+        max-height: 300px;
+        padding: 10px;
+      }
+
+      /* Sub-agent styles */
+      .sub-agents {
+        margin-top: 15px;
+        padding-left: 20px;
+        border-left: 2px solid #e5e7eb;
+      }
+
+      .sub-agent {
+        background: rgba(248, 249, 250, 0.8);
+        border-radius: 6px;
+        padding: 12px;
+        margin-bottom: 8px;
+        border: 1px solid #e5e7eb;
+        transition: all 0.3s ease;
+        opacity: 0.5;
+      }
+
+      .sub-agent.active {
+        opacity: 1;
+        border-color: #ffd700;
+        background: rgba(255, 215, 0, 0.1);
+      }
+
+      .sub-agent.completed {
+        opacity: 0.8;
+        border-color: #28a745;
+        background: rgba(40, 167, 69, 0.1);
+      }
+
+      .sub-agent-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+
+      .sub-agent-icon {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+
+      .sub-agent.active .sub-agent-icon {
+        background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+        color: #000;
+        animation: pulse 2s infinite;
+      }
+
+      .sub-agent.completed .sub-agent-icon {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: #fff;
+      }
+
+      .sub-agent-info h4 {
+        font-size: 0.9rem;
+        margin: 0;
+        color: #212529;
+      }
+
+      .sub-agent-info p {
+        font-size: 0.7rem;
+        color: #6c757d;
+        margin: 0;
+      }
+
+      .sub-agent-status {
+        margin-left: auto;
+        padding: 4px 8px;
+        border-radius: 10px;
+        font-size: 0.6rem;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      .sub-agent-output {
+        background: rgba(0, 0, 0, 0.03);
+        border-radius: 4px;
+        padding: 8px;
+        margin-top: 8px;
+        border-left: 2px solid #ffd700;
+        font-family: "Courier New", monospace;
+        font-size: 0.7rem;
+        line-height: 1.2;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+        color: #212529;
+      }
+
+      .sub-agent.active .sub-agent-output,
+      .sub-agent.completed .sub-agent-output {
+        max-height: 200px;
+        padding: 8px;
+      }
+
+      .loading-dots {
+        display: inline-block;
+      }
+
+      .loading-dots::after {
+        content: "";
+        animation: dots 1.5s infinite;
+      }
+
+      @keyframes dots {
+        0%,
+        20% {
+          content: "";
+        }
+        40% {
+          content: ".";
+        }
+        60% {
+          content: "..";
+        }
+        80%,
+        100% {
+          content: "...";
+        }
+      }
+
+      .error-message {
+        background: rgba(220, 53, 69, 0.1);
+        border: 2px solid #dc3545;
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        color: #dc3545;
+        margin: 20px 0;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 10px;
+        }
+
+        .header h1 {
+          font-size: 2rem;
+        }
+
+        .agent-step {
+          padding: 20px;
+        }
+
+        .agent-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+        }
+
+        .agent-status {
+          margin-left: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="content-section">
+        <!-- Agent Progress Steps -->
+        <div class="agent-progress-container">
+          <div class="agent-progress-bar">
+            <div class="cylindrical-progress-container">
+              <div
+                class="cylindrical-progress-fill"
+                id="cylindricalProgressFill"
+              ></div>
+              <div
+                class="progress-step"
+                id="step-1"
+                onclick="showStepDetails(1)"
+              >
+                <div class="step-number">1</div>
+              </div>
+              <div
+                class="progress-step"
+                id="step-2"
+                onclick="showStepDetails(2)"
+              >
+                <div class="step-number">2</div>
+              </div>
+              <div
+                class="progress-step"
+                id="step-3"
+                onclick="showStepDetails(3)"
+              >
+                <div class="step-number">3</div>
+              </div>
+              <div
+                class="progress-step"
+                id="step-4"
+                onclick="showStepDetails(4)"
+              >
+                <div class="step-number">4</div>
+              </div>
+              <div
+                class="progress-step"
+                id="step-5"
+                onclick="showStepDetails(5)"
+              >
+                <div class="step-number">5</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <div class="progress-text" id="progressText">
+            Initializing agents...
+          </div>
+          <div
+            id="completionSection"
+            style="display: none; text-align: center; margin-top: 15px"
+          >
+            <button
+              class="redirect-btn"
+              onclick="redirectToReport()"
+              style="
+                background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+                color: white;
+                border: none;
+                padding: 10px 25px;
+                border-radius: 8px;
+                font-size: 0.9rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+              "
+            >
+              View Full Report
+            </button>
+          </div>
+        </div>
+
+        <div class="agent-flow" id="agentFlow">
+          <!-- Agent steps will be dynamically populated -->
+        </div>
+
+        <div class="error-message" id="errorMessage" style="display: none">
+          <h3>❌ Error</h3>
+          <p id="errorText">An error occurred during processing.</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Fixed agent flow configuration with 5 numbered steps
+      const FIXED_AGENT_STEPS = [
+        {
+          step: 1,
+          id: "logger",
+          name: "Logger Agent",
+          description: "Prepared",
+          icon: "📝",
+          duration: 2000,
+        },
+        {
+          step: 2,
+          id: "investigator",
+          name: "Investigation Agent",
+          description: "PASS",
+          icon: "🔍",
+          duration: 3000,
+        },
+        {
+          step: 3,
+          id: "actioning",
+          name: "Actioning Agent",
+          description: "Processing",
+          icon: "⚙️",
+          duration: 4000,
+        },
+        {
+          step: 4,
+          id: "verifier",
+          name: "Verifier Agent",
+          description: "PASS",
+          icon: "✅",
+          duration: 2500,
+        },
+        {
+          step: 5,
+          id: "communications",
+          name: "Communications Agent",
+          description: "PREPARED",
+          icon: "📧",
+          duration: 2500,
+        },
+      ];
+
+      let AGENT_FLOW = [];
+
+      let currentStep = 0;
+      let reportData = null;
+      let runId = null;
+
+      // Initialize the processing
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get run_id from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        runId = urlParams.get("run_id");
+
+        if (!runId) {
+          showError("No run_id provided in URL parameters");
+          return;
+        }
+
+        // Load the report data
+        loadReportData();
+      });
+
+      async function loadReportData() {
+        try {
+          updateProgress(0, "Loading report data...");
+
+          const response = await fetch(`/api/report/${runId}`);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          reportData = await response.json();
+
+          // Build the agent flow based on the data
+          buildAgentFlow();
+
+          // Initialize the agent flow display
+          initializeAgentFlow();
+
+          // Start the processing
+          setTimeout(() => {
+            startProcessing();
+          }, 1000);
+        } catch (error) {
+          console.error("Error loading report data:", error);
+          showError("Failed to load report data: " + error.message);
+        }
+      }
+
+      function buildAgentFlow() {
+        // Use the fixed agent flow configuration
+        AGENT_FLOW = [...FIXED_AGENT_STEPS];
+
+        console.log(
+          "Built fixed agent flow:",
+          AGENT_FLOW.map((a) => `${a.step}. ${a.name}`)
+        );
+      }
+
+      function initializeAgentFlow() {
+        const agentFlow = document.getElementById("agentFlow");
+        agentFlow.innerHTML = "";
+
+        AGENT_FLOW.forEach((agent, index) => {
+          const agentStep = document.createElement("div");
+          agentStep.className = "agent-step";
+          agentStep.id = `agent-${agent.id}`;
+
+          // Add special class for the last step
+          if (index === AGENT_FLOW.length - 1) {
+            agentStep.classList.add("last-step");
+          }
+
+          let subAgentsHTML = "";
+          if (agent.subAgents) {
+            subAgentsHTML = `
+               <div class="sub-agents">
+                 ${agent.subAgents
+                   .map(
+                     (subAgent) => `
+                   <div class="sub-agent" id="sub-agent-${subAgent.id}">
+                     <div class="sub-agent-header">
+                       <div class="sub-agent-icon">${subAgent.icon}</div>
+                       <div class="sub-agent-info">
+                         <h4>${subAgent.name}</h4>
+                         <p>${subAgent.description}</p>
+                       </div>
+                       <div class="sub-agent-status status-pending">Pending</div>
+                     </div>
+                     <div class="sub-agent-output">
+                       <div class="loading-dots">Processing</div>
+                     </div>
+                   </div>
+                 `
+                   )
+                   .join("")}
+               </div>
+             `;
+          }
+
+          agentStep.innerHTML = `
+                     <div class="agent-header">
+                         <div class="agent-step-number">${agent.step}</div>
+                         <div class="agent-icon">${agent.icon}</div>
+                         <div class="agent-info">
+                             <h3>${agent.name}</h3>
+                             <p>${agent.description}</p>
+                         </div>
+                         <div class="agent-status status-pending">Pending</div>
+                     </div>
+                     <div class="agent-output">
+                         <div class="loading-dots">Processing</div>
+                     </div>
+                 `;
+
+          agentFlow.appendChild(agentStep);
+        });
+      }
+
+      function startProcessing() {
+        updateProgress(10, "Starting agent processing...");
+
+        // Process each agent step
+        processNextAgent();
+      }
+
+      let currentSubStep = 0;
+
+      function processNextAgent() {
+        if (currentStep >= AGENT_FLOW.length) {
+          // All agents completed
+          completeProcessing();
+          return;
+        }
+
+        const agent = AGENT_FLOW[currentStep];
+        const agentElement = document.getElementById(`agent-${agent.id}`);
+        const statusElement = agentElement.querySelector(".agent-status");
+        const outputElement = agentElement.querySelector(".agent-output");
+
+        // Update progress bar
+        updateProgressBar(currentStep);
+
+        // Activate current agent
+        agentElement.classList.add("active");
+        statusElement.textContent = "Processing";
+        statusElement.className = "agent-status status-processing";
+
+        // Auto-scroll to current agent
+        agentElement.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+
+        // Update progress
+        const progress = ((currentStep + 1) / AGENT_FLOW.length) * 80 + 10; // 10-90%
+        updateProgress(progress, `${agent.name} is processing...`);
+
+        // Process the fixed step agent
+        setTimeout(() => {
+          // Complete current agent
+          agentElement.classList.remove("active");
+          agentElement.classList.add("completed");
+          statusElement.textContent = "Completed";
+          statusElement.className = "agent-status status-completed";
+
+          // Update progress bar - mark current step as completed
+          updateProgressBar(currentStep, true);
+
+          // Show agent output
+          const output = generateAgentOutput(agent.id);
+          outputElement.innerHTML = `<pre>${output}</pre>`;
+
+          // Move to next agent
+          currentStep++;
+          setTimeout(() => {
+            processNextAgent();
+          }, 500);
+        }, agent.duration);
+      }
+
+      function updateProgressBar(stepIndex, completed = false) {
+        // Update all steps up to current step
+        for (let i = 0; i <= stepIndex; i++) {
+          const stepElement = document.getElementById(`step-${i + 1}`);
+
+          if (stepElement) {
+            if (i < stepIndex || completed) {
+              stepElement.classList.add("completed");
+              stepElement.classList.remove("active");
+            } else if (i === stepIndex) {
+              stepElement.classList.add("active");
+              stepElement.classList.remove("completed");
+            }
+          }
+        }
+
+        // Update cylindrical progress fill
+        const cylindricalFill = document.getElementById(
+          "cylindricalProgressFill"
+        );
+        if (cylindricalFill) {
+          let progressPercentage;
+          if (completed && stepIndex === 4) {
+            // All steps completed - 100%
+            progressPercentage = 100;
+          } else {
+            // Current step progress
+            progressPercentage = ((stepIndex + 1) / 5) * 100;
+          }
+          cylindricalFill.style.width = `${progressPercentage}%`;
+        }
+      }
+
+      function showStepDetails(stepNumber) {
+        // Remove selected class from all steps
+        const allSteps = document.querySelectorAll(".progress-step");
+        allSteps.forEach((step) => {
+          step.classList.remove("selected");
+        });
+
+        // Remove highlighted class from all agent steps
+        const allAgentSteps = document.querySelectorAll(".agent-step");
+        allAgentSteps.forEach((step) => {
+          step.classList.remove("highlighted");
+        });
+
+        // Add selected class to clicked step
+        const clickedStep = document.getElementById(`step-${stepNumber}`);
+        if (clickedStep) {
+          clickedStep.classList.add("selected");
+        }
+
+        // Navigate to the corresponding agent step in the agent flow
+        const agentElement = document.getElementById(
+          `agent-${getAgentIdByStep(stepNumber)}`
+        );
+        if (agentElement) {
+          // Add highlighted class to the agent content
+          agentElement.classList.add("highlighted");
+
+          // Scroll to the agent section
+          agentElement.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+
+          // Remove highlight after 3 seconds
+          setTimeout(() => {
+            agentElement.classList.remove("highlighted");
+          }, 3000);
+        }
+      }
+
+      function getAgentIdByStep(stepNumber) {
+        const stepToAgent = {
+          1: "logger",
+          2: "investigator",
+          3: "actioning",
+          4: "verifier",
+          5: "communications",
+        };
+        return stepToAgent[stepNumber] || "logger";
+      }
+
+      function processSubAgents(agent, agentElement) {
+        currentSubStep = 0;
+        processNextSubAgent(agent, agentElement);
+      }
+
+      function processNextSubAgent(agent, agentElement) {
+        if (currentSubStep >= agent.subAgents.length) {
+          // All sub-agents completed, complete the main agent
+          const statusElement = agentElement.querySelector(".agent-status");
+          const outputElement = agentElement.querySelector(".agent-output");
+
+          agentElement.classList.remove("active");
+          agentElement.classList.add("completed");
+          statusElement.textContent = "Completed";
+          statusElement.className = "agent-status status-completed";
+
+          // Show agent output
+          const output = generateAgentOutput(agent.id);
+          outputElement.innerHTML = `<pre>${output}</pre>`;
+
+          // Move to next agent
+          currentStep++;
+          setTimeout(() => {
+            processNextAgent();
+          }, 500);
+          return;
+        }
+
+        const subAgent = agent.subAgents[currentSubStep];
+        const subAgentElement = agentElement.querySelector(
+          `#sub-agent-${subAgent.id}`
+        );
+        const subStatusElement =
+          subAgentElement.querySelector(".sub-agent-status");
+        const subOutputElement =
+          subAgentElement.querySelector(".sub-agent-output");
+
+        // Activate current sub-agent
+        subAgentElement.classList.add("active");
+        subStatusElement.textContent = "Processing";
+        subStatusElement.className = "sub-agent-status status-processing";
+
+        // Auto-scroll to current sub-agent
+        subAgentElement.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+
+        // Simulate processing time
+        setTimeout(() => {
+          // Complete current sub-agent
+          subAgentElement.classList.remove("active");
+          subAgentElement.classList.add("completed");
+          subStatusElement.textContent = "Completed";
+          subStatusElement.className = "sub-agent-status status-completed";
+
+          // Show sub-agent output
+          const output = generateAgentOutput(subAgent.id);
+          subOutputElement.innerHTML = `<pre>${output}</pre>`;
+
+          // Move to next sub-agent
+          currentSubStep++;
+          setTimeout(() => {
+            processNextSubAgent(agent, agentElement);
+          }, 300);
+        }, subAgent.duration);
+      }
+
+      function generateAgentOutput(agentId) {
+        if (!reportData) {
+          return "Processing completed successfully";
+        }
+
+        // Extract real data from the report based on agent type
+        try {
+          switch (agentId) {
+            case "logger":
+              const emailData = reportData.communications || {};
+              const emailPayload = emailData.email_payload || {};
+              return `Subject: ${emailPayload.subject || "return of funds"}
+Reference: ${reportData.transaction_id || "E2EID-FCA-001"}
+Recipient: ${emailData.email_recipient || "A*********h <customer@example.com>"}
+Email Body: ${
+                emailPayload.body ||
+                "Reference: CASE-20251016162522-USD0-1B9495B0..."
+              }`;
+
+            case "investigator":
+              const invData = reportData.investigation || {};
+              const summary = invData.summary || {};
+              return `UETR: ${
+                reportData.uetr || "abc12345-e89b-12d3-a456-426614174abc"
+              }
+E2E ID: ${reportData.transaction_id || "E2EID-FCA-001"}
+IBAN: ${summary.customer_account || "DE89370400440532013000"}
+Return Reason: ${summary.return_reason || "AC04"}
+Reason Info: ${summary.return_reason_info || "Account closed"}
+Auto Refund Eligible: ${summary.auto_refund_eligible ? "Yes" : "No"}
+Customer Valid: ${summary.customer_valid ? "Yes" : "No"}
+Cross Checks: ${summary.cross_checks || "OK"}
+Currency Mismatch: ${summary.currency_mismatch ? "Yes" : "No"}`;
+
+            case "actioning":
+              return `FX Calculation
+Original Amount: ${reportData.fx_calculation?.original_amount || "800.0 USD"}
+Returned Amount: ${reportData.fx_calculation?.returned_amount || "650.0 USD"}
+Original AUD: $${reportData.fx_calculation?.original_aud || "1210.56"}
+Returned AUD: $${reportData.fx_calculation?.returned_aud || "997.685"}
+FX Loss AUD: $${reportData.fx_calculation?.fx_loss_aud || "212.88"}
+Exceeds $300: ${
+                (reportData.fx_calculation?.fx_loss_aud || 0) > 300
+                  ? "Yes"
+                  : "No"
+              }
+FCA Account Found: ${
+                reportData.fx_calculation?.fca_account_found ? "Yes" : "No"
+              }
+Calculation Method: ${
+                reportData.fx_calculation?.calculation_method ||
+                "aud_conversion"
+              }`;
+
+            case "checklist":
+              const checklist = reportData.flow_checklist || {};
+              return `Email Rejection: ${
+                checklist.email_rejection ? "Yes" : "No"
+              }
+Correct Payment: ${checklist.correct_payment ? "Yes" : "No"}
+Has MT103/202: ${checklist.has_mt103_202 ? "Yes" : "No"}
+AUD Payment: ${checklist.aud_payment ? "Yes" : "No"}
+Amendment Sent: ${checklist.amendment_sent ? "Yes" : "No"}
+CBA FCA Return: ${checklist.cba_fca_return ? "Yes" : "No"}
+No Funds Due Charges: ${checklist.no_funds_due_charges ? "Yes" : "No"}
+Return Reason Clear: ${checklist.return_reason_clear ? "Yes" : "No"}
+Manual Review Required: ${checklist.manual_review_required ? "Yes" : "No"}`;
+
+            case "nostro":
+              const nostroData =
+                reportData.verification?.verifier_summary || {};
+              const checks = nostroData.checks || {};
+              return `Match Found: ${checks.nostro_match_found ? "Yes" : "No"}
+Match Type: ${checks.match_type || "partial"}
+Nostro Entry: ${
+                checks.nostro_entry ||
+                "StatementEntry(statement_id='NST-USD-20251002-02'...)"
+              }`;
+
+            case "refund":
+              const refundData = reportData.enhanced_refund_decision || {};
+              return `Can Process: ${refundData.can_process ? "Yes" : "No"}
+Final Action: ${refundData.final_action || "SUBMIT_CASE_TO_CLOSED"}
+Account Operations: ${reportData.account_operations?.length || "2"}
+Credit Account IBAN: ${refundData.credit_account_iban || "2002195062"}`;
+
+            case "verifier":
+              const verifierData = reportData.verification || {};
+              const decision = verifierData.decision || "approve_and_process";
+              const decisionReason =
+                verifierData.decision_reason ||
+                "All verification checks passed";
+
+              let decisionText = "";
+              if (decision === "approve_and_process") {
+                decisionText = "✅ DECISION: Approve and Process Refund";
+              } else if (decision === "resend_to_investigator") {
+                decisionText =
+                  "❓ DECISION: Resend to Investigator for Clarification";
+              } else if (decision === "human_intervention") {
+                decisionText = "👤 DECISION: Pass for Human Intervention";
+              }
+
+              return `Reconciliation OK: ${
+                verifierData.reconciliation_ok ? "Yes" : "No"
+              }
+Sequence OK: ${verifierData.sequence_ok ? "Yes" : "No"}
+Cross Checks OK: ${verifierData.cross_checks_ok ? "Yes" : "No"}
+CSV Validation OK: ${verifierData.csv_validation_ok ? "Yes" : "No"}
+Non Branch OK: ${verifierData.non_branch_ok ? "Yes" : "No"}
+Sanctions OK: ${verifierData.sanctions_ok ? "Yes" : "No"}
+FX Loss Within Limit: ${verifierData.fx_loss_within_limit ? "Yes" : "No"}
+Nostro Match Found: ${verifierData.nostro_match_found ? "Yes" : "No"}
+Process Flow OK: ${verifierData.process_flow_ok ? "Yes" : "No"}
+
+${decisionText}
+Reason: ${decisionReason}`;
+
+            case "communications":
+              const commData = reportData.communications || {};
+              const templates = reportData.communication_templates || [];
+              return `Templates Generated: ${templates.length}
+Customer Notification: ${commData.customer_notification || "SENT"}
+Branch Advisory: ${commData.branch_advisory || "Prepared"}
+Ops Advisory Priority: ${commData.ops_advisory_priority || "Normal"}
+Decision Summary: ${commData.decision_summary || "SUBMIT_CASE_TO_CLOSED"}
+Account Ops Count: ${reportData.account_operations?.length || "2"}`;
+
+            default:
+              return "Processing completed successfully";
+          }
+        } catch (error) {
+          console.error("Error generating output for agent:", agentId, error);
+          return "Processing completed successfully";
+        }
+      }
+
+      function completeProcessing() {
+        updateProgress(
+          100,
+          "✅ Processing Complete! All agents have completed their tasks successfully."
+        );
+
+        // Show completion button in progress container
+        setTimeout(() => {
+          document.getElementById("completionSection").style.display = "block";
+        }, 1000);
+      }
+
+      function updateProgress(percentage, text) {
+        document.getElementById("progressFill").style.width = percentage + "%";
+        document.getElementById(
+          "progressText"
+        ).textContent = `${text} (${percentage}%)`;
+      }
+
+      function redirectToReport() {
+        window.location.href = `/report/${runId}`;
+      }
+
+      function showError(message) {
+        document.getElementById("errorText").textContent = message;
+        document.getElementById("errorMessage").style.display = "block";
+      }
+    </script>
+  </body>
+</html>

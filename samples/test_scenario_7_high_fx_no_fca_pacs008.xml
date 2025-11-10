@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FIToFICstmrCdtTrf>
+    <GrpHdr>
+      <MsgId>MSG-HIGH-FX-NO-FCA-001</MsgId>
+      <CreDtTm>2025-01-15T10:30:00</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <SttlmInf>
+        <SttlmMtd>INDA</SttlmMtd>
+      </SttlmInf>
+      <InstgAgt>
+        <FinInstnId>
+          <BICFI>NWBKGB2L</BICFI>
+        </FinInstnId>
+      </InstgAgt>
+      <InstdAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFF</BICFI>
+        </FinInstnId>
+      </InstdAgt>
+    </GrpHdr>
+    <CdtTrfTxInf>
+      <PmtId>
+        <InstrId>INSTR-HIGH-FX-NO-FCA-001</InstrId>
+        <EndToEndId>E2EID-HIGH-FX-NO-FCA-001</EndToEndId>
+        <UETR>UETR-HIGH-FX-NO-FCA-001</UETR>
+      </PmtId>
+      <IntrBkSttlmAmt Ccy="USD">500.00</IntrBkSttlmAmt>
+      <IntrBkSttlmDt>2025-01-15</IntrBkSttlmDt>
+      <SttlmPrty>NORM</SttlmPrty>
+      <SttlmMtd>INDA</SttlmMtd>
+      <MndtRltdInf>
+        <MndtId>MANDATE-HIGH-FX-NO-FCA-001</MndtId>
+        <DtOfSgntr>2025-01-10</DtOfSgntr>
+      </MndtRltdInf>
+      <ChrgBr>SLEV</ChrgBr>
+      <Dbtr>
+        <Nm>Alice Smith</Nm>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>GB29NWBK60161331926819</Id>
+              <SchmeNm>
+                <Cd>CUST</Cd>
+              </SchmeNm>
+            </Othr>
+          </OrgId>
+        </Id>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>GB29NWBK60161331926819</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>NWBKGB2L</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtrAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFF</BICFI>
+        </FinInstnId>
+      </CdtrAgt>
+      <Cdtr>
+        <Nm>Test Recipient</Nm>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+      </CdtrAcct>
+      <RmtInf>
+        <Ustrd>High FX Loss Test - No FCA Account</Ustrd>
+      </RmtInf>
+    </CdtTrfTxInf>
+  </FIToFICstmrCdtTrf>
+</Document>

@@ -1,0 +1,5 @@
+{
+  "name": "Payment Refund Investigations",
+  "description": "A React-based frontend for the Payment Refund Investigations system, allowing users to upload payment files, manage investigation cases, and view detailed processing reports and simulations.",
+  "requestFramePermissions": []
+}

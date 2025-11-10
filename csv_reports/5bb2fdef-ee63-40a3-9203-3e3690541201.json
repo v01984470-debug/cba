@@ -1,0 +1,1196 @@
+{
+  "run_id": "5bb2fdef-ee63-40a3-9203-3e3690541201",
+  "timestamp": "2025-11-06T11:27:16.881028",
+  "transaction_id": "E2EID-MATCHED-001",
+  "uetr": "123e4567-e89b-12d3-a456-426614174000",
+  "summary": {
+    "can_process": true,
+    "reason": "SUBMIT_CASE_TO_CLOSED",
+    "credit_account_iban": "",
+    "decision_path": [
+      "Currency USD is foreign",
+      "Nostro item found",
+      "FCA refund not required",
+      "Payment is client payment",
+      "Markets case (POC default: NO)",
+      "Client has valid email"
+    ],
+    "d1_d9_decisions": {
+      "D1": {
+        "decision": "Yes",
+        "statement": "Currency USD is foreign"
+      },
+      "D2": {
+        "decision": "Yes",
+        "statement": "Nostro item found"
+      },
+      "D3": {
+        "decision": "No",
+        "statement": "FCA refund not required"
+      },
+      "D4": {
+        "decision": "Yes",
+        "statement": "Payment is client payment"
+      },
+      "D5": {
+        "decision": "N/A",
+        "statement": "Not processed"
+      },
+      "D6": {
+        "decision": "N/A",
+        "statement": "Not processed"
+      },
+      "D7": {
+        "decision": "N/A",
+        "statement": "Not processed"
+      },
+      "D8": {
+        "decision": "No",
+        "statement": "Markets case (POC default: NO)"
+      },
+      "D9": {
+        "decision": "Yes",
+        "statement": "Client has valid email"
+      }
+    },
+    "account_operations_count": 2
+  },
+  "parsed_data": {
+    "pacs004": {
+      "e2e": "E2EID-MATCHED-001",
+      "uetr": "123e4567-e89b-12d3-a456-426614174000",
+      "cdtr_name": "John Doe",
+      "cdtr_iban": "US64SVBKUS6S3300958879",
+      "dbtr_iban": "GB29NWBK60161331926819",
+      "rtr_ccy": "USD",
+      "rtr_amount": 1000.0,
+      "rsn": "AC01",
+      "rsn_info": "Return due to invalid account"
+    },
+    "pacs008": {
+      "e2e": "E2EID-MATCHED-001",
+      "uetr": "123e4567-e89b-12d3-a456-426614174000",
+      "dbtr_name": "Alice Smith",
+      "dbtr_iban": "GB29NWBK60161331926819",
+      "ccy": "USD",
+      "amount": 1000.0
+    }
+  },
+  "investigation": {
+    "eligibility": {
+      "is_aud_refund": false,
+      "fx_loss_aud": 0.0,
+      "fx_loss_within_limit": true,
+      "non_branch": true,
+      "sanctions_ok": true,
+      "reason": "AC01",
+      "reason_info": "Return due to invalid account",
+      "reason_analysis": {
+        "code": "AC01",
+        "label": "Incorrect Account Number",
+        "action": "alternate_account",
+        "auto_refund_eligible": true,
+        "details": "Return due to invalid account"
+      },
+      "reason_supports_auto_refund": true,
+      "currency_mismatch": false,
+      "mt103_status": {
+        "available": true,
+        "status": "SENT"
+      },
+      "account_status": "Active",
+      "eligible_auto_refund": false,
+      "original_amount": 1000.0,
+      "original_currency": "USD",
+      "returned_amount": 1000.0,
+      "returned_currency": "USD",
+      "original_amount_aud": 1542.3,
+      "returned_amount_aud": 1542.3,
+      "original_aud_rate": 1.5423,
+      "returned_aud_rate": 1.5423
+    },
+    "csv_validation": {
+      "ok": true,
+      "customer": {
+        "customer_name": "Alice Smith",
+        "account_name": "Alice Smith IBAN Account",
+        "account_number": "GB29NWBK60161331926819",
+        "account_type": "Customer-FCA",
+        "ledger_balance": "USD 8000.00",
+        "available_balance": "USD 7800.00",
+        "account_status": "Active",
+        "email": "alice.smith@example.com"
+      },
+      "iban": "GB29NWBK60161331926819",
+      "holder_name": "Alice Smith",
+      "ccy": "USD"
+    },
+    "cross_errors": []
+  },
+  "flow_checklist": {
+    "checks": {
+      "payments_team_rejection_email": false,
+      "correct_payment_attached": true,
+      "has_mt103_and_202": false,
+      "is_aud_payment": false,
+      "amendment_previously_sent": false,
+      "returned_due_to_cba_fca": false,
+      "no_funds_due_to_charges": false,
+      "return_reason_clear": true,
+      "is_markets": false,
+      "remitter_account_closed": false,
+      "returned_due_to_value_date": false,
+      "ofi_advised_iban_invalid": false,
+      "reason_internal_policy": false,
+      "reason_correspondent_issue": false,
+      "reason_wrong_currency": false,
+      "client_amending_instructions": false
+    },
+    "decision_path": [
+      "Email rejection check: NO",
+      "Correct payment attached: YES",
+      "Has MT103 and MT202: NO",
+      "Is AUD payment: NO",
+      "Amendment previously sent: NO",
+      "Returned due to CBA FCA: NO",
+      "No funds due to charges: NO",
+      "Return reason clear: YES",
+      "Is Markets: NO",
+      "Remitter account closed: NO",
+      "Returned due to value date: NO",
+      "OFI advised IBAN invalid: NO",
+      "Reason internal policy: NO",
+      "Reason correspondent issue: NO",
+      "Reason wrong currency: NO",
+      "Client amending instructions: NO",
+      "All pre-flow checks passed",
+      "→ Proceed to refund processing"
+    ],
+    "manual_review_required": false,
+    "review_reason": null
+  },
+  "fx_calculation": {
+    "loss_aud": 0.0,
+    "original_amount_aud": 1542.3,
+    "returned_amount_aud": 1542.3,
+    "original_amount": 1000.0,
+    "returned_amount": 1000.0,
+    "original_currency": "USD",
+    "returned_currency": "USD",
+    "calculation_method": "aud_conversion",
+    "threshold_aud": 300.0,
+    "exceeds_limit": false,
+    "fca_account_found": false
+  },
+  "verification": {
+    "verifier_summary": {
+      "checks": {
+        "sequence_ok": true,
+        "cross_checks_ok": true,
+        "csv_validation_ok": true,
+        "non_branch_ok": true,
+        "sanctions_ok": true,
+        "fx_loss_within_limit": true,
+        "nostro_match_found": true,
+        "nostro_match_type": "partial",
+        "process_flow_ok": true
+      },
+      "reconciliation_ok": true,
+      "eligibility_flags": {
+        "is_aud_refund": false,
+        "fx_loss_aud": 0.0,
+        "fx_loss_within_limit": true,
+        "non_branch": true,
+        "sanctions_ok": true,
+        "reason": "AC01",
+        "reason_info": "Return due to invalid account",
+        "reason_analysis": {
+          "code": "AC01",
+          "label": "Incorrect Account Number",
+          "action": "alternate_account",
+          "auto_refund_eligible": true,
+          "details": "Return due to invalid account"
+        },
+        "reason_supports_auto_refund": true,
+        "currency_mismatch": false,
+        "mt103_status": {
+          "available": true,
+          "status": "SENT"
+        },
+        "account_status": "Active",
+        "eligible_auto_refund": false,
+        "original_amount": 1000.0,
+        "original_currency": "USD",
+        "returned_amount": 1000.0,
+        "returned_currency": "USD",
+        "original_amount_aud": 1542.3,
+        "returned_amount_aud": 1542.3,
+        "original_aud_rate": 1.5423,
+        "returned_aud_rate": 1.5423
+      },
+      "nostro_result": {
+        "found": true,
+        "match_type": "partial",
+        "nostro_entry": "StatementEntry(statement_id='NST-USD-20251002-01', value_date='2025-10-02', currency='USD', amount='1000.00', dr_cr='CR', description=':61:2510021002C1000', reference='00NTRFNONREF :86:/TRN/E2EID-MATCHED-001/UETR/123e4567-e89b-12d3-a456-426614174000/REMI/Return due to invalid account')"
+      },
+      "decision": "approve_and_process",
+      "decision_reason": "All verification checks passed",
+      "process_flow_expected": {
+        "payments_team_rejection_email": false,
+        "correct_payment_attached": true,
+        "has_mt103_message": false,
+        "has_202_message": false,
+        "is_aud_payment": false,
+        "amendment_previously_sent": false,
+        "returned_due_to_cba_fca": false,
+        "charges_prevent_return": false,
+        "return_reason_clear": true,
+        "is_markets_payment": false,
+        "remitter_account_closed": false,
+        "returned_due_to_value_date": false,
+        "ofi_advised_iban_invalid": false,
+        "reason_internal_policy": false,
+        "reason_correspondent_issue": false,
+        "reason_wrong_currency": false,
+        "client_amending_instructions": false,
+        "loss_amount_gt_300": false
+      },
+      "process_flow_actual": {
+        "payments_team_rejection_email": false,
+        "correct_payment_attached": true,
+        "has_mt103_message": false,
+        "has_202_message": false,
+        "is_aud_payment": false,
+        "amendment_previously_sent": false,
+        "returned_due_to_cba_fca": false,
+        "charges_prevent_return": false,
+        "return_reason_clear": true,
+        "is_markets_payment": false,
+        "remitter_account_closed": false,
+        "returned_due_to_value_date": false,
+        "ofi_advised_iban_invalid": false,
+        "reason_internal_policy": false,
+        "reason_correspondent_issue": false,
+        "reason_wrong_currency": false,
+        "client_amending_instructions": false,
+        "loss_amount_gt_300": false
+      },
+      "process_flow_diffs": [],
+      "process_flow_checks": [
+        {
+          "key": "payments_team_rejection_email",
+          "label": "Payments team advised rejection",
+          "ok": true,
+          "actual": false,
+          "expected": false
+        },
+        {
+          "key": "correct_payment_attached",
+          "label": "Correct payment attached",
+          "ok": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "key": "has_mt103_message",
+          "label": "MT103 present",
+          "ok": true,
+          "actual": false,
+          "expected": false
+        },
+        {
+          "key": "has_202_message",
+          "label": "202 present",
+          "ok": true,
+          "actual": false,
+          "expected": false
+        },
+        {
+          "key": "is_aud_payment",
+          "label": "AUD payment",
+          "ok": true,
+          "actual": false,
+          "expected": false
+        },
+        {
+          "key": "amendment_previously_sent",
+          "label": "Amendment previously sent",
+          "ok": true,
+          "actual": false,
+          "expected": false
+        },
+        {
+          "key": "returned_due_to_cba_fca",
+          "label": "Return due to CBA FCA",
+          "ok": true,
+          "actual": false,
+          "expected": false
+        },
+        {
+          "key": "charges_prevent_return",
+          "label": "No funds due to charges",
+          "ok": true,
+          "actual": false,
+          "expected": false
+        },
+        {
+          "key": "return_reason_clear",
+          "label": "Return reason clear",
+          "ok": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "key": "is_markets_payment",
+          "label": "Markets payment",
+          "ok": true,
+          "actual": false,
+          "expected": false
+        },
+        {
+          "key": "remitter_account_closed",
+          "label": "Remitter account closed",
+          "ok": true,
+          "actual": false,
+          "expected": false
+        },
+        {
+          "key": "returned_due_to_value_date",
+          "label": "Return due to Value Date",
+          "ok": true,
+          "actual": false,
+          "expected": false
+        },
+        {
+          "key": "ofi_advised_iban_invalid",
+          "label": "OFI advised IBAN invalid",
+          "ok": true,
+          "actual": false,
+          "expected": false
+        },
+        {
+          "key": "reason_internal_policy",
+          "label": "Reason: Internal policy",
+          "ok": true,
+          "actual": false,
+          "expected": false
+        },
+        {
+          "key": "reason_correspondent_issue",
+          "label": "Reason: Correspondent issue",
+          "ok": true,
+          "actual": false,
+          "expected": false
+        },
+        {
+          "key": "reason_wrong_currency",
+          "label": "Reason: Wrong currency",
+          "ok": true,
+          "actual": false,
+          "expected": false
+        },
+        {
+          "key": "client_amending_instructions",
+          "label": "Client provided amending instructions",
+          "ok": true,
+          "actual": false,
+          "expected": false
+        },
+        {
+          "key": "loss_amount_gt_300",
+          "label": "Loss amount > 300 AUD",
+          "ok": true,
+          "actual": false,
+          "expected": false
+        }
+      ]
+    },
+    "nostro_result": {
+      "found": true,
+      "match_type": "partial",
+      "nostro_entry": "StatementEntry(statement_id='NST-USD-20251002-01', value_date='2025-10-02', currency='USD', amount='1000.00', dr_cr='CR', description=':61:2510021002C1000', reference='00NTRFNONREF :86:/TRN/E2EID-MATCHED-001/UETR/123e4567-e89b-12d3-a456-426614174000/REMI/Return due to invalid account')"
+    }
+  },
+  "refund_processing": {
+    "refund_decision": {
+      "can_process": true,
+      "reason": "SUBMIT_CASE_TO_CLOSED",
+      "credit_account_iban": "",
+      "decision_path": [
+        "Currency USD is foreign",
+        "Nostro item found",
+        "FCA refund not required",
+        "Payment is client payment",
+        "Markets case (POC default: NO)",
+        "Client has valid email"
+      ],
+      "account_operations": [
+        {
+          "operation_type": "DEBIT",
+          "account_number": "5005195062",
+          "account_name": "USD Nostro Account",
+          "account_type": "Nostro",
+          "currency": "USD",
+          "amount": 1000.0,
+          "balance_before": "USD 78,630.00",
+          "balance_after": "USD 77,630.00",
+          "reason": "Return processing - nostro debit",
+          "reference": "E2EID-MATCHED-001",
+          "uetr": "123e4567-e89b-12d3-a456-426614174000"
+        },
+        {
+          "operation_type": "CREDIT",
+          "account_number": "GB29NWBK60161331926819",
+          "account_name": "Alice Smith",
+          "account_type": "Client",
+          "currency": "USD",
+          "amount": 1000.0,
+          "balance_before": "USD 15,975.00",
+          "balance_after": "USD 16,975.00",
+          "reason": "Return processing - credit client original account",
+          "reference": "E2EID-MATCHED-001",
+          "uetr": "123e4567-e89b-12d3-a456-426614174000"
+        }
+      ],
+      "d1_d9_decisions": {
+        "D1": {
+          "decision": "Yes",
+          "statement": "Currency USD is foreign"
+        },
+        "D2": {
+          "decision": "Yes",
+          "statement": "Nostro item found"
+        },
+        "D3": {
+          "decision": "No",
+          "statement": "FCA refund not required"
+        },
+        "D4": {
+          "decision": "Yes",
+          "statement": "Payment is client payment"
+        },
+        "D5": {
+          "decision": "N/A",
+          "statement": "Not processed"
+        },
+        "D6": {
+          "decision": "N/A",
+          "statement": "Not processed"
+        },
+        "D7": {
+          "decision": "N/A",
+          "statement": "Not processed"
+        },
+        "D8": {
+          "decision": "No",
+          "statement": "Markets case (POC default: NO)"
+        },
+        "D9": {
+          "decision": "Yes",
+          "statement": "Client has valid email"
+        }
+      }
+    },
+    "enhanced_refund_decision": {
+      "can_process": true,
+      "reason": "SUBMIT_CASE_TO_CLOSED",
+      "credit_account_iban": "",
+      "decision_path": [
+        "Currency USD is foreign",
+        "Nostro item found",
+        "FCA refund not required",
+        "Payment is client payment",
+        "Markets case (POC default: NO)",
+        "Client has valid email"
+      ],
+      "account_operations": [
+        {
+          "operation_type": "DEBIT",
+          "account_number": "5005195062",
+          "account_name": "USD Nostro Account",
+          "account_type": "Nostro",
+          "currency": "USD",
+          "amount": 1000.0,
+          "balance_before": "USD 78,630.00",
+          "balance_after": "USD 77,630.00",
+          "reason": "Return processing - nostro debit",
+          "reference": "E2EID-MATCHED-001",
+          "uetr": "123e4567-e89b-12d3-a456-426614174000"
+        },
+        {
+          "operation_type": "CREDIT",
+          "account_number": "GB29NWBK60161331926819",
+          "account_name": "Alice Smith",
+          "account_type": "Client",
+          "currency": "USD",
+          "amount": 1000.0,
+          "balance_before": "USD 15,975.00",
+          "balance_after": "USD 16,975.00",
+          "reason": "Return processing - credit client original account",
+          "reference": "E2EID-MATCHED-001",
+          "uetr": "123e4567-e89b-12d3-a456-426614174000"
+        }
+      ],
+      "d1_d9_decisions": {
+        "D1": {
+          "decision": "Yes",
+          "statement": "Currency USD is foreign"
+        },
+        "D2": {
+          "decision": "Yes",
+          "statement": "Nostro item found"
+        },
+        "D3": {
+          "decision": "No",
+          "statement": "FCA refund not required"
+        },
+        "D4": {
+          "decision": "Yes",
+          "statement": "Payment is client payment"
+        },
+        "D5": {
+          "decision": "N/A",
+          "statement": "Not processed"
+        },
+        "D6": {
+          "decision": "N/A",
+          "statement": "Not processed"
+        },
+        "D7": {
+          "decision": "N/A",
+          "statement": "Not processed"
+        },
+        "D8": {
+          "decision": "No",
+          "statement": "Markets case (POC default: NO)"
+        },
+        "D9": {
+          "decision": "Yes",
+          "statement": "Client has valid email"
+        }
+      },
+      "processing_details": {
+        "nostro_result": {
+          "found": true,
+          "match_type": "partial",
+          "nostro_entry": "StatementEntry(statement_id='NST-USD-20251002-01', value_date='2025-10-02', currency='USD', amount='1000.00', dr_cr='CR', description=':61:2510021002C1000', reference='00NTRFNONREF :86:/TRN/E2EID-MATCHED-001/UETR/123e4567-e89b-12d3-a456-426614174000/REMI/Return due to invalid account')"
+        },
+        "decision_engine_result": "RefundProcessingResult(success=True, decision_path=[DecisionResult(node=<DecisionNode.D1_FOREIGN_CURRENCY: 'D1'>, decision=True, reason='Currency USD is foreign', next_node=<DecisionNode.D2_NOSTRO_FOUND: 'D2'>, action_taken='ATTACH_SC_LC', data=None), DecisionResult(node=<DecisionNode.D2_NOSTRO_FOUND: 'D2'>, decision=True, reason='Nostro item found', next_node=<DecisionNode.D3_FCA_REFUND: 'D3'>, action_taken=None, data={'nostro_result': ReconciliationResult(found=True, match_type='exact', nostro_entry={'Statement ID': 'NST-USD-20251002-01', 'Value Date': '2025-10-02', 'Currency': 'USD', 'Amount': '1000.00', 'DR / CR': 'CR', 'Description': ':61:2510021002C1000', 'Reference': '00NTRFNONREF :86:/TRN/E2EID-MATCHED-001/UETR/123e4567-e89b-12d3-a456-426614174000/REMI/Return due to invalid account', None: ['/TRN/E2EID-MATCHED-001']}, vostro_entry=None, internal_entry=None, match_details={'reference_match': True, 'uetr_match': True, 'amount_match': True, 'currency_match': True, 'credit_match': True}, error=None)}), DecisionResult(node=<DecisionNode.D3_FCA_REFUND: 'D3'>, decision=False, reason='FCA refund not required', next_node=<DecisionNode.D7_BRANCH_PAYMENT: 'D7'>, action_taken='DEBIT_NOSTRO_PAYMENT_INPUT', data=None), DecisionResult(node=<DecisionNode.D7_BRANCH_PAYMENT: 'D7'>, decision=False, reason='Payment is client payment', next_node=<DecisionNode.D8_MARKETS_FINAL: 'D8'>, action_taken='CREDIT_CLIENT_ORIGINAL', data=None), DecisionResult(node=<DecisionNode.D8_MARKETS_FINAL: 'D8'>, decision=False, reason='Markets case (POC default: NO)', next_node=<DecisionNode.D9_VALID_EMAIL: 'D9'>, action_taken=None, data=None), DecisionResult(node=<DecisionNode.D9_VALID_EMAIL: 'D9'>, decision=True, reason='Client has valid email', next_node=None, action_taken='SUBMIT_CASE_TO_CLOSED', data=None)], final_action='SUBMIT_CASE_TO_CLOSED', accounts_affected=[], account_operations=[{'operation_type': 'DEBIT', 'account_number': '5005195062', 'account_name': 'USD Nostro Account', 'account_type': 'Nostro', 'currency': 'USD', 'amount': 1000.0, 'balance_before': 'USD 78,630.00', 'balance_after': 'USD 77,630.00', 'reason': 'Return processing - nostro debit', 'reference': 'E2EID-MATCHED-001', 'uetr': '123e4567-e89b-12d3-a456-426614174000'}, {'operation_type': 'CREDIT', 'account_number': 'GB29NWBK60161331926819', 'account_name': 'Alice Smith', 'account_type': 'Client', 'currency': 'USD', 'amount': 1000.0, 'balance_before': 'USD 15,975.00', 'balance_after': 'USD 16,975.00', 'reason': 'Return processing - credit client original account', 'reference': 'E2EID-MATCHED-001', 'uetr': '123e4567-e89b-12d3-a456-426614174000'}], audit_trail=[{'timestamp': '2025-11-06T11:27:16.871010', 'type': 'ACTION', 'action': 'ATTACH_SC_LC', 'description': 'Attached SC, LC, and supporting documents via Intellimatch'}, {'timestamp': '2025-11-06T11:27:16.871010', 'type': 'DECISION', 'node': 'D1', 'decision': True, 'reason': 'Currency USD is foreign', 'next_node': 'D2'}, {'timestamp': '2025-11-06T11:27:16.873023', 'type': 'DECISION', 'node': 'D2', 'decision': True, 'reason': 'Nostro item found', 'next_node': 'D3'}, {'timestamp': '2025-11-06T11:27:16.878032', 'type': 'ACTION', 'action': 'DEBIT_NOSTRO', 'description': 'Debited USD 1000.0 from nostro account 5005195062 (USD Nostro Account)'}, {'timestamp': '2025-11-06T11:27:16.878032', 'type': 'ACTION', 'action': 'DEBIT_NOSTRO_PAYMENT_INPUT', 'description': 'Processed payment input screen per SOP - nostro debit: True'}, {'timestamp': '2025-11-06T11:27:16.878032', 'type': 'ACTION', 'action': 'UPDATE_SNDR_REF', 'description': 'Updated SNDR reference: E2EID-MATCHED-001'}, {'timestamp': '2025-11-06T11:27:16.878032', 'type': 'DECISION', 'node': 'D3', 'decision': False, 'reason': 'FCA refund not required', 'next_node': 'D7'}, {'timestamp': '2025-11-06T11:27:16.880030', 'type': 'ACTION', 'action': 'CREDIT_CLIENT_ORIGINAL', 'description': 'Credited USD 1000.0 to client account GB29NWBK60161331926819 (Alice Smith)'}, {'timestamp': '2025-11-06T11:27:16.880030', 'type': 'DECISION', 'node': 'D7', 'decision': False, 'reason': 'Payment is client payment', 'next_node': 'D8'}, {'timestamp': '2025-11-06T11:27:16.880030', 'type': 'DECISION', 'node': 'D8', 'decision': False, 'reason': 'Markets case (POC default: NO)', 'next_node': 'D9'}, {'timestamp': '2025-11-06T11:27:16.880030', 'type': 'ACTION', 'action': 'SEND_REFUND_DAILY_LIST', 'description': 'Sent Refund Daily List/Full List (Saved_Name: 26)'}, {'timestamp': '2025-11-06T11:27:16.880030', 'type': 'ACTION', 'action': 'UPDATE_QF', 'description': 'Updated QF screen as per SOP'}, {'timestamp': '2025-11-06T11:27:16.880030', 'type': 'ACTION', 'action': 'SUBMIT_CASE_TO_CLOSED', 'description': 'Submitted case to closed - END OF THE PROCESS'}, {'timestamp': '2025-11-06T11:27:16.880030', 'type': 'DECISION', 'node': 'D9', 'decision': True, 'reason': 'Client has valid email', 'next_node': None}], error=None)"
+      }
+    },
+    "account_operations": [
+      {
+        "operation_type": "DEBIT",
+        "account_number": "5005195062",
+        "account_name": "USD Nostro Account",
+        "account_type": "Nostro",
+        "currency": "USD",
+        "amount": 1000.0,
+        "balance_before": "USD 78,630.00",
+        "balance_after": "USD 77,630.00",
+        "reason": "Return processing - nostro debit",
+        "reference": "E2EID-MATCHED-001",
+        "uetr": "123e4567-e89b-12d3-a456-426614174000"
+      },
+      {
+        "operation_type": "CREDIT",
+        "account_number": "GB29NWBK60161331926819",
+        "account_name": "Alice Smith",
+        "account_type": "Client",
+        "currency": "USD",
+        "amount": 1000.0,
+        "balance_before": "USD 15,975.00",
+        "balance_after": "USD 16,975.00",
+        "reason": "Return processing - credit client original account",
+        "reference": "E2EID-MATCHED-001",
+        "uetr": "123e4567-e89b-12d3-a456-426614174000"
+      }
+    ]
+  },
+  "refund_flow": {
+    "decision_path": [
+      "Currency USD is foreign",
+      "Nostro item found",
+      "FCA refund not required",
+      "Payment is client payment",
+      "Markets case (POC default: NO)",
+      "Client has valid email"
+    ],
+    "final_decision": "Not processed"
+  },
+  "account_operations": [
+    {
+      "operation_type": "DEBIT",
+      "account_number": "5005195062",
+      "account_name": "USD Nostro Account",
+      "account_type": "Nostro",
+      "currency": "USD",
+      "amount": 1000.0,
+      "balance_before": "USD 78,630.00",
+      "balance_after": "USD 77,630.00",
+      "reason": "Return processing - nostro debit",
+      "reference": "E2EID-MATCHED-001",
+      "uetr": "123e4567-e89b-12d3-a456-426614174000"
+    },
+    {
+      "operation_type": "CREDIT",
+      "account_number": "GB29NWBK60161331926819",
+      "account_name": "Alice Smith",
+      "account_type": "Client",
+      "currency": "USD",
+      "amount": 1000.0,
+      "balance_before": "USD 15,975.00",
+      "balance_after": "USD 16,975.00",
+      "reason": "Return processing - credit client original account",
+      "reference": "E2EID-MATCHED-001",
+      "uetr": "123e4567-e89b-12d3-a456-426614174000"
+    }
+  ],
+  "balance_changes_summary": {
+    "accounts_affected": 2,
+    "total_debits": 0,
+    "total_credits": 0,
+    "net_change": 0
+  },
+  "manual_review_case": {},
+  "processing_status": "Unknown",
+  "communications": {
+    "communication_templates": {}
+  },
+  "prep_logger": {
+    "email_payload": {
+      "subject": "return of funds",
+      "reference": "E2EID-MATCHED-001",
+      "customer_name": "A*********h",
+      "customer_email": "customer@example.com",
+      "body": "Reference: CASE-20251106112705-USD1000.00-4218E539\nSubject: return of funds\nTransaction reference: E2EID-MATCHED-001\n\n:20:E2EID-MATCHED-001\n:23B:CRED\n:32A:251106USD1000.00\n:33B:USD1000.00\n:50K:A*********h\n:52A:BOSPGBPMXXXX\n:57A:CBAAU2SXXXX\n:59A:CBAAU2SXXXX\n:71F:USD0,00\n:71F:USD0,00\n:72:/BEN/99\n/R99/MS01/MREF/E2EID-MATCHED-001/TEX\n/MREF/OL_REFERENCE\n/TEXT/IT/Return due to invalid account",
+      "case_id": "CASE-20251106112705-USD1000.00-4218E539",
+      "uetr": "123e4567-e89b-12d3-a456-426614174000",
+      "amount": 1000.0,
+      "currency": "USD",
+      "return_reason": "AC01",
+      "return_reason_info": "Return due to invalid account"
+    },
+    "case_id": "CASE-20251106112705-USD1000.00-4218E539",
+    "anonymized_data": {
+      "anonymized_creditor_name": "J******e",
+      "anonymized_debtor_name": "A*********h",
+      "original_creditor_name": "John Doe",
+      "original_debtor_name": "Alice Smith",
+      "creditor_iban": "US64SVBKUS6S3300958879",
+      "debtor_iban": "GB29NWBK60161331926819",
+      "amount": 1000.0,
+      "currency": "USD",
+      "return_reason": "AC01",
+      "return_reason_info": "Return due to invalid account"
+    },
+    "processing_timestamp": "2025-11-06T11:27:14.773819"
+  },
+  "audit_events": [
+    {
+      "timestamp": "2025-11-06T11:27:16.881028",
+      "transaction_id": "E2EID-MATCHED-001",
+      "event_type": "INVESTIGATION",
+      "actor": "investigator",
+      "action": "eligibility_check",
+      "details": {
+        "eligibility": {
+          "is_aud_refund": false,
+          "fx_loss_aud": 0.0,
+          "fx_loss_within_limit": true,
+          "non_branch": true,
+          "sanctions_ok": true,
+          "reason": "AC01",
+          "reason_info": "Return due to invalid account",
+          "reason_analysis": {
+            "code": "AC01",
+            "label": "Incorrect Account Number",
+            "action": "alternate_account",
+            "auto_refund_eligible": true,
+            "details": "Return due to invalid account"
+          },
+          "reason_supports_auto_refund": true,
+          "currency_mismatch": false,
+          "mt103_status": {
+            "available": true,
+            "status": "SENT"
+          },
+          "account_status": "Active",
+          "eligible_auto_refund": false,
+          "original_amount": 1000.0,
+          "original_currency": "USD",
+          "returned_amount": 1000.0,
+          "returned_currency": "USD",
+          "original_amount_aud": 1542.3,
+          "returned_amount_aud": 1542.3,
+          "original_aud_rate": 1.5423,
+          "returned_aud_rate": 1.5423
+        },
+        "csv_validation": {
+          "ok": true,
+          "customer": {
+            "customer_name": "Alice Smith",
+            "account_name": "Alice Smith IBAN Account",
+            "account_number": "GB29NWBK60161331926819",
+            "account_type": "Customer-FCA",
+            "ledger_balance": "USD 8000.00",
+            "available_balance": "USD 7800.00",
+            "account_status": "Active",
+            "email": "alice.smith@example.com"
+          },
+          "iban": "GB29NWBK60161331926819",
+          "holder_name": "Alice Smith",
+          "ccy": "USD"
+        },
+        "cross_errors": []
+      },
+      "level": "INFO"
+    },
+    {
+      "timestamp": "2025-11-06T11:27:16.881028",
+      "transaction_id": "E2EID-MATCHED-001",
+      "event_type": "VERIFICATION",
+      "actor": "verifier",
+      "action": "reconciliation_check",
+      "details": {
+        "verifier_summary": {
+          "checks": {
+            "sequence_ok": true,
+            "cross_checks_ok": true,
+            "csv_validation_ok": true,
+            "non_branch_ok": true,
+            "sanctions_ok": true,
+            "fx_loss_within_limit": true,
+            "nostro_match_found": true,
+            "nostro_match_type": "partial",
+            "process_flow_ok": true
+          },
+          "reconciliation_ok": true,
+          "eligibility_flags": {
+            "is_aud_refund": false,
+            "fx_loss_aud": 0.0,
+            "fx_loss_within_limit": true,
+            "non_branch": true,
+            "sanctions_ok": true,
+            "reason": "AC01",
+            "reason_info": "Return due to invalid account",
+            "reason_analysis": {
+              "code": "AC01",
+              "label": "Incorrect Account Number",
+              "action": "alternate_account",
+              "auto_refund_eligible": true,
+              "details": "Return due to invalid account"
+            },
+            "reason_supports_auto_refund": true,
+            "currency_mismatch": false,
+            "mt103_status": {
+              "available": true,
+              "status": "SENT"
+            },
+            "account_status": "Active",
+            "eligible_auto_refund": false,
+            "original_amount": 1000.0,
+            "original_currency": "USD",
+            "returned_amount": 1000.0,
+            "returned_currency": "USD",
+            "original_amount_aud": 1542.3,
+            "returned_amount_aud": 1542.3,
+            "original_aud_rate": 1.5423,
+            "returned_aud_rate": 1.5423
+          },
+          "nostro_result": {
+            "found": true,
+            "match_type": "partial",
+            "nostro_entry": "StatementEntry(statement_id='NST-USD-20251002-01', value_date='2025-10-02', currency='USD', amount='1000.00', dr_cr='CR', description=':61:2510021002C1000', reference='00NTRFNONREF :86:/TRN/E2EID-MATCHED-001/UETR/123e4567-e89b-12d3-a456-426614174000/REMI/Return due to invalid account')"
+          },
+          "decision": "approve_and_process",
+          "decision_reason": "All verification checks passed",
+          "process_flow_expected": {
+            "payments_team_rejection_email": false,
+            "correct_payment_attached": true,
+            "has_mt103_message": false,
+            "has_202_message": false,
+            "is_aud_payment": false,
+            "amendment_previously_sent": false,
+            "returned_due_to_cba_fca": false,
+            "charges_prevent_return": false,
+            "return_reason_clear": true,
+            "is_markets_payment": false,
+            "remitter_account_closed": false,
+            "returned_due_to_value_date": false,
+            "ofi_advised_iban_invalid": false,
+            "reason_internal_policy": false,
+            "reason_correspondent_issue": false,
+            "reason_wrong_currency": false,
+            "client_amending_instructions": false,
+            "loss_amount_gt_300": false
+          },
+          "process_flow_actual": {
+            "payments_team_rejection_email": false,
+            "correct_payment_attached": true,
+            "has_mt103_message": false,
+            "has_202_message": false,
+            "is_aud_payment": false,
+            "amendment_previously_sent": false,
+            "returned_due_to_cba_fca": false,
+            "charges_prevent_return": false,
+            "return_reason_clear": true,
+            "is_markets_payment": false,
+            "remitter_account_closed": false,
+            "returned_due_to_value_date": false,
+            "ofi_advised_iban_invalid": false,
+            "reason_internal_policy": false,
+            "reason_correspondent_issue": false,
+            "reason_wrong_currency": false,
+            "client_amending_instructions": false,
+            "loss_amount_gt_300": false
+          },
+          "process_flow_diffs": [],
+          "process_flow_checks": [
+            {
+              "key": "payments_team_rejection_email",
+              "label": "Payments team advised rejection",
+              "ok": true,
+              "actual": false,
+              "expected": false
+            },
+            {
+              "key": "correct_payment_attached",
+              "label": "Correct payment attached",
+              "ok": true,
+              "actual": true,
+              "expected": true
+            },
+            {
+              "key": "has_mt103_message",
+              "label": "MT103 present",
+              "ok": true,
+              "actual": false,
+              "expected": false
+            },
+            {
+              "key": "has_202_message",
+              "label": "202 present",
+              "ok": true,
+              "actual": false,
+              "expected": false
+            },
+            {
+              "key": "is_aud_payment",
+              "label": "AUD payment",
+              "ok": true,
+              "actual": false,
+              "expected": false
+            },
+            {
+              "key": "amendment_previously_sent",
+              "label": "Amendment previously sent",
+              "ok": true,
+              "actual": false,
+              "expected": false
+            },
+            {
+              "key": "returned_due_to_cba_fca",
+              "label": "Return due to CBA FCA",
+              "ok": true,
+              "actual": false,
+              "expected": false
+            },
+            {
+              "key": "charges_prevent_return",
+              "label": "No funds due to charges",
+              "ok": true,
+              "actual": false,
+              "expected": false
+            },
+            {
+              "key": "return_reason_clear",
+              "label": "Return reason clear",
+              "ok": true,
+              "actual": true,
+              "expected": true
+            },
+            {
+              "key": "is_markets_payment",
+              "label": "Markets payment",
+              "ok": true,
+              "actual": false,
+              "expected": false
+            },
+            {
+              "key": "remitter_account_closed",
+              "label": "Remitter account closed",
+              "ok": true,
+              "actual": false,
+              "expected": false
+            },
+            {
+              "key": "returned_due_to_value_date",
+              "label": "Return due to Value Date",
+              "ok": true,
+              "actual": false,
+              "expected": false
+            },
+            {
+              "key": "ofi_advised_iban_invalid",
+              "label": "OFI advised IBAN invalid",
+              "ok": true,
+              "actual": false,
+              "expected": false
+            },
+            {
+              "key": "reason_internal_policy",
+              "label": "Reason: Internal policy",
+              "ok": true,
+              "actual": false,
+              "expected": false
+            },
+            {
+              "key": "reason_correspondent_issue",
+              "label": "Reason: Correspondent issue",
+              "ok": true,
+              "actual": false,
+              "expected": false
+            },
+            {
+              "key": "reason_wrong_currency",
+              "label": "Reason: Wrong currency",
+              "ok": true,
+              "actual": false,
+              "expected": false
+            },
+            {
+              "key": "client_amending_instructions",
+              "label": "Client provided amending instructions",
+              "ok": true,
+              "actual": false,
+              "expected": false
+            },
+            {
+              "key": "loss_amount_gt_300",
+              "label": "Loss amount > 300 AUD",
+              "ok": true,
+              "actual": false,
+              "expected": false
+            }
+          ]
+        },
+        "nostro_result": {
+          "found": true,
+          "match_type": "partial",
+          "nostro_entry": "StatementEntry(statement_id='NST-USD-20251002-01', value_date='2025-10-02', currency='USD', amount='1000.00', dr_cr='CR', description=':61:2510021002C1000', reference='00NTRFNONREF :86:/TRN/E2EID-MATCHED-001/UETR/123e4567-e89b-12d3-a456-426614174000/REMI/Return due to invalid account')"
+        }
+      },
+      "level": "INFO"
+    },
+    {
+      "timestamp": "2025-11-06T11:27:16.881028",
+      "transaction_id": "E2EID-MATCHED-001",
+      "event_type": "REFUND_PROCESSING",
+      "actor": "refund",
+      "action": "decision_processing",
+      "details": {
+        "refund_decision": {
+          "can_process": true,
+          "reason": "SUBMIT_CASE_TO_CLOSED",
+          "credit_account_iban": "",
+          "decision_path": [
+            "Currency USD is foreign",
+            "Nostro item found",
+            "FCA refund not required",
+            "Payment is client payment",
+            "Markets case (POC default: NO)",
+            "Client has valid email"
+          ],
+          "account_operations": [
+            {
+              "operation_type": "DEBIT",
+              "account_number": "5005195062",
+              "account_name": "USD Nostro Account",
+              "account_type": "Nostro",
+              "currency": "USD",
+              "amount": 1000.0,
+              "balance_before": "USD 78,630.00",
+              "balance_after": "USD 77,630.00",
+              "reason": "Return processing - nostro debit",
+              "reference": "E2EID-MATCHED-001",
+              "uetr": "123e4567-e89b-12d3-a456-426614174000"
+            },
+            {
+              "operation_type": "CREDIT",
+              "account_number": "GB29NWBK60161331926819",
+              "account_name": "Alice Smith",
+              "account_type": "Client",
+              "currency": "USD",
+              "amount": 1000.0,
+              "balance_before": "USD 15,975.00",
+              "balance_after": "USD 16,975.00",
+              "reason": "Return processing - credit client original account",
+              "reference": "E2EID-MATCHED-001",
+              "uetr": "123e4567-e89b-12d3-a456-426614174000"
+            }
+          ],
+          "d1_d9_decisions": {
+            "D1": {
+              "decision": "Yes",
+              "statement": "Currency USD is foreign"
+            },
+            "D2": {
+              "decision": "Yes",
+              "statement": "Nostro item found"
+            },
+            "D3": {
+              "decision": "No",
+              "statement": "FCA refund not required"
+            },
+            "D4": {
+              "decision": "Yes",
+              "statement": "Payment is client payment"
+            },
+            "D5": {
+              "decision": "N/A",
+              "statement": "Not processed"
+            },
+            "D6": {
+              "decision": "N/A",
+              "statement": "Not processed"
+            },
+            "D7": {
+              "decision": "N/A",
+              "statement": "Not processed"
+            },
+            "D8": {
+              "decision": "No",
+              "statement": "Markets case (POC default: NO)"
+            },
+            "D9": {
+              "decision": "Yes",
+              "statement": "Client has valid email"
+            }
+          }
+        },
+        "enhanced_refund_decision": {
+          "can_process": true,
+          "reason": "SUBMIT_CASE_TO_CLOSED",
+          "credit_account_iban": "",
+          "decision_path": [
+            "Currency USD is foreign",
+            "Nostro item found",
+            "FCA refund not required",
+            "Payment is client payment",
+            "Markets case (POC default: NO)",
+            "Client has valid email"
+          ],
+          "account_operations": [
+            {
+              "operation_type": "DEBIT",
+              "account_number": "5005195062",
+              "account_name": "USD Nostro Account",
+              "account_type": "Nostro",
+              "currency": "USD",
+              "amount": 1000.0,
+              "balance_before": "USD 78,630.00",
+              "balance_after": "USD 77,630.00",
+              "reason": "Return processing - nostro debit",
+              "reference": "E2EID-MATCHED-001",
+              "uetr": "123e4567-e89b-12d3-a456-426614174000"
+            },
+            {
+              "operation_type": "CREDIT",
+              "account_number": "GB29NWBK60161331926819",
+              "account_name": "Alice Smith",
+              "account_type": "Client",
+              "currency": "USD",
+              "amount": 1000.0,
+              "balance_before": "USD 15,975.00",
+              "balance_after": "USD 16,975.00",
+              "reason": "Return processing - credit client original account",
+              "reference": "E2EID-MATCHED-001",
+              "uetr": "123e4567-e89b-12d3-a456-426614174000"
+            }
+          ],
+          "d1_d9_decisions": {
+            "D1": {
+              "decision": "Yes",
+              "statement": "Currency USD is foreign"
+            },
+            "D2": {
+              "decision": "Yes",
+              "statement": "Nostro item found"
+            },
+            "D3": {
+              "decision": "No",
+              "statement": "FCA refund not required"
+            },
+            "D4": {
+              "decision": "Yes",
+              "statement": "Payment is client payment"
+            },
+            "D5": {
+              "decision": "N/A",
+              "statement": "Not processed"
+            },
+            "D6": {
+              "decision": "N/A",
+              "statement": "Not processed"
+            },
+            "D7": {
+              "decision": "N/A",
+              "statement": "Not processed"
+            },
+            "D8": {
+              "decision": "No",
+              "statement": "Markets case (POC default: NO)"
+            },
+            "D9": {
+              "decision": "Yes",
+              "statement": "Client has valid email"
+            }
+          },
+          "processing_details": {
+            "nostro_result": {
+              "found": true,
+              "match_type": "partial",
+              "nostro_entry": "StatementEntry(statement_id='NST-USD-20251002-01', value_date='2025-10-02', currency='USD', amount='1000.00', dr_cr='CR', description=':61:2510021002C1000', reference='00NTRFNONREF :86:/TRN/E2EID-MATCHED-001/UETR/123e4567-e89b-12d3-a456-426614174000/REMI/Return due to invalid account')"
+            },
+            "decision_engine_result": "RefundProcessingResult(success=True, decision_path=[DecisionResult(node=<DecisionNode.D1_FOREIGN_CURRENCY: 'D1'>, decision=True, reason='Currency USD is foreign', next_node=<DecisionNode.D2_NOSTRO_FOUND: 'D2'>, action_taken='ATTACH_SC_LC', data=None), DecisionResult(node=<DecisionNode.D2_NOSTRO_FOUND: 'D2'>, decision=True, reason='Nostro item found', next_node=<DecisionNode.D3_FCA_REFUND: 'D3'>, action_taken=None, data={'nostro_result': ReconciliationResult(found=True, match_type='exact', nostro_entry={'Statement ID': 'NST-USD-20251002-01', 'Value Date': '2025-10-02', 'Currency': 'USD', 'Amount': '1000.00', 'DR / CR': 'CR', 'Description': ':61:2510021002C1000', 'Reference': '00NTRFNONREF :86:/TRN/E2EID-MATCHED-001/UETR/123e4567-e89b-12d3-a456-426614174000/REMI/Return due to invalid account', None: ['/TRN/E2EID-MATCHED-001']}, vostro_entry=None, internal_entry=None, match_details={'reference_match': True, 'uetr_match': True, 'amount_match': True, 'currency_match': True, 'credit_match': True}, error=None)}), DecisionResult(node=<DecisionNode.D3_FCA_REFUND: 'D3'>, decision=False, reason='FCA refund not required', next_node=<DecisionNode.D7_BRANCH_PAYMENT: 'D7'>, action_taken='DEBIT_NOSTRO_PAYMENT_INPUT', data=None), DecisionResult(node=<DecisionNode.D7_BRANCH_PAYMENT: 'D7'>, decision=False, reason='Payment is client payment', next_node=<DecisionNode.D8_MARKETS_FINAL: 'D8'>, action_taken='CREDIT_CLIENT_ORIGINAL', data=None), DecisionResult(node=<DecisionNode.D8_MARKETS_FINAL: 'D8'>, decision=False, reason='Markets case (POC default: NO)', next_node=<DecisionNode.D9_VALID_EMAIL: 'D9'>, action_taken=None, data=None), DecisionResult(node=<DecisionNode.D9_VALID_EMAIL: 'D9'>, decision=True, reason='Client has valid email', next_node=None, action_taken='SUBMIT_CASE_TO_CLOSED', data=None)], final_action='SUBMIT_CASE_TO_CLOSED', accounts_affected=[], account_operations=[{'operation_type': 'DEBIT', 'account_number': '5005195062', 'account_name': 'USD Nostro Account', 'account_type': 'Nostro', 'currency': 'USD', 'amount': 1000.0, 'balance_before': 'USD 78,630.00', 'balance_after': 'USD 77,630.00', 'reason': 'Return processing - nostro debit', 'reference': 'E2EID-MATCHED-001', 'uetr': '123e4567-e89b-12d3-a456-426614174000'}, {'operation_type': 'CREDIT', 'account_number': 'GB29NWBK60161331926819', 'account_name': 'Alice Smith', 'account_type': 'Client', 'currency': 'USD', 'amount': 1000.0, 'balance_before': 'USD 15,975.00', 'balance_after': 'USD 16,975.00', 'reason': 'Return processing - credit client original account', 'reference': 'E2EID-MATCHED-001', 'uetr': '123e4567-e89b-12d3-a456-426614174000'}], audit_trail=[{'timestamp': '2025-11-06T11:27:16.871010', 'type': 'ACTION', 'action': 'ATTACH_SC_LC', 'description': 'Attached SC, LC, and supporting documents via Intellimatch'}, {'timestamp': '2025-11-06T11:27:16.871010', 'type': 'DECISION', 'node': 'D1', 'decision': True, 'reason': 'Currency USD is foreign', 'next_node': 'D2'}, {'timestamp': '2025-11-06T11:27:16.873023', 'type': 'DECISION', 'node': 'D2', 'decision': True, 'reason': 'Nostro item found', 'next_node': 'D3'}, {'timestamp': '2025-11-06T11:27:16.878032', 'type': 'ACTION', 'action': 'DEBIT_NOSTRO', 'description': 'Debited USD 1000.0 from nostro account 5005195062 (USD Nostro Account)'}, {'timestamp': '2025-11-06T11:27:16.878032', 'type': 'ACTION', 'action': 'DEBIT_NOSTRO_PAYMENT_INPUT', 'description': 'Processed payment input screen per SOP - nostro debit: True'}, {'timestamp': '2025-11-06T11:27:16.878032', 'type': 'ACTION', 'action': 'UPDATE_SNDR_REF', 'description': 'Updated SNDR reference: E2EID-MATCHED-001'}, {'timestamp': '2025-11-06T11:27:16.878032', 'type': 'DECISION', 'node': 'D3', 'decision': False, 'reason': 'FCA refund not required', 'next_node': 'D7'}, {'timestamp': '2025-11-06T11:27:16.880030', 'type': 'ACTION', 'action': 'CREDIT_CLIENT_ORIGINAL', 'description': 'Credited USD 1000.0 to client account GB29NWBK60161331926819 (Alice Smith)'}, {'timestamp': '2025-11-06T11:27:16.880030', 'type': 'DECISION', 'node': 'D7', 'decision': False, 'reason': 'Payment is client payment', 'next_node': 'D8'}, {'timestamp': '2025-11-06T11:27:16.880030', 'type': 'DECISION', 'node': 'D8', 'decision': False, 'reason': 'Markets case (POC default: NO)', 'next_node': 'D9'}, {'timestamp': '2025-11-06T11:27:16.880030', 'type': 'ACTION', 'action': 'SEND_REFUND_DAILY_LIST', 'description': 'Sent Refund Daily List/Full List (Saved_Name: 26)'}, {'timestamp': '2025-11-06T11:27:16.880030', 'type': 'ACTION', 'action': 'UPDATE_QF', 'description': 'Updated QF screen as per SOP'}, {'timestamp': '2025-11-06T11:27:16.880030', 'type': 'ACTION', 'action': 'SUBMIT_CASE_TO_CLOSED', 'description': 'Submitted case to closed - END OF THE PROCESS'}, {'timestamp': '2025-11-06T11:27:16.880030', 'type': 'DECISION', 'node': 'D9', 'decision': True, 'reason': 'Client has valid email', 'next_node': None}], error=None)"
+          }
+        },
+        "account_operations": [
+          {
+            "operation_type": "DEBIT",
+            "account_number": "5005195062",
+            "account_name": "USD Nostro Account",
+            "account_type": "Nostro",
+            "currency": "USD",
+            "amount": 1000.0,
+            "balance_before": "USD 78,630.00",
+            "balance_after": "USD 77,630.00",
+            "reason": "Return processing - nostro debit",
+            "reference": "E2EID-MATCHED-001",
+            "uetr": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          {
+            "operation_type": "CREDIT",
+            "account_number": "GB29NWBK60161331926819",
+            "account_name": "Alice Smith",
+            "account_type": "Client",
+            "currency": "USD",
+            "amount": 1000.0,
+            "balance_before": "USD 15,975.00",
+            "balance_after": "USD 16,975.00",
+            "reason": "Return processing - credit client original account",
+            "reference": "E2EID-MATCHED-001",
+            "uetr": "123e4567-e89b-12d3-a456-426614174000"
+          }
+        ]
+      },
+      "level": "INFO"
+    }
+  ],
+  "metadata": {
+    "processing_time": "2025-11-06T11:27:16.881028",
+    "version": "1.0",
+    "system": "CBA Refund Processing System"
+  }
+}

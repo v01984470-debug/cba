@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.004.001.09"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <PmtRtr>
+        <GrpHdr>
+            <MsgId>MSGID-PACS004-CURR-001</MsgId>
+            <CreDtTm>2025-01-30T11:20:00</CreDtTm>
+            <NbOfTxs>1</NbOfTxs>
+            <SttlmInf>
+                <SttlmMtd>CLRG</SttlmMtd>
+                <ClrSys>
+                    <Cd>TGT2</Cd>
+                </ClrSys>
+            </SttlmInf>
+        </GrpHdr>
+        <TxInf>
+            <RtrId>RTRID-CURR-001</RtrId>
+            <OrgnlGrpInf>
+                <OrgnlMsgId>MSGID-PACS008-CURR-001</OrgnlMsgId>
+                <OrgnlMsgNmId>pacs.008.001.08</OrgnlMsgNmId>
+            </OrgnlGrpInf>
+            <OrgnlEndToEndId>E2EID-CURR-001</OrgnlEndToEndId>
+            <OrgnlUETR>d4e5f6g7-8h9i-0j1k-2l3m-n4o5p6q7r8s9</OrgnlUETR>
+            <OrgnlIntrBkSttlmDt>2025-01-30</OrgnlIntrBkSttlmDt>
+            <RtrdIntrBkSttlmAmt Ccy="EUR">485.00</RtrdIntrBkSttlmAmt>
+            <RtrRsnInf>
+                <Rsn>
+                    <Cd>CURR</Cd>
+                </Rsn>
+                <AddtlInf>Wrong Currency</AddtlInf>
+            </RtrRsnInf>
+            <IntrBkSttlmAmt Ccy="CHF">500.00</IntrBkSttlmAmt>
+            <IntrBkSttlmDt>2025-01-30</IntrBkSttlmDt>
+            <ReqdExctnDt>2025-01-30</ReqdExctnDt>
+            <CdtrAgt>
+                <FinInstnId>
+                    <BICFI>UBSWCHZHXXX</BICFI>
+                </FinInstnId>
+            </CdtrAgt>
+            <Cdtr>
+                <Pty>
+                    <Nm>Swiss Trading AG</Nm>
+                </Pty>
+            </Cdtr>
+            <CdtrAcct>
+                <Id>
+                    <IBAN>CH9300762011623852957</IBAN>
+                </Id>
+            </CdtrAcct>
+        </TxInf>
+    </PmtRtr>
+</Document>

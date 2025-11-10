@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08">
+  <FIToFICstmrCdtTrf>
+    <GrpHdr>
+      <MsgId>MSGID20250130001</MsgId>
+      <CreDtTm>2025-01-30T10:00:00Z</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <IntrBkSttlmDt>2025-01-30</IntrBkSttlmDt>
+      <SttlmInf>
+        <SttlmMtd>CLRG</SttlmMtd>
+        <ClrSys>
+          <Cd>EBA</Cd>
+        </ClrSys>
+      </SttlmInf>
+    </GrpHdr>
+    <CdtTrfTxInf>
+      <PmtId>
+        <InstrId>INSTRID-CURR-001</InstrId>
+        <EndToEndId>E2EID-CURR-001</EndToEndId>
+        <UETR>d4e5f6g7-8h9i-0j1k-2l3m-n4o5p6q7r8s9</UETR>
+      </PmtId>
+      <PmtTpInf>
+        <CtgyPurp>
+          <Cd>CASH</Cd>
+        </CtgyPurp>
+      </PmtTpInf>
+      <IntrBkSttlmAmt Ccy="CHF">500.00</IntrBkSttlmAmt>
+      <ChrgBr>DEBT</ChrgBr>
+      <InstgAgt>
+        <FinInstnId>
+          <BICFI>UBSWCHZHXXX</BICFI>
+        </FinInstnId>
+      </InstgAgt>
+      <InstdAgt>
+        <FinInstnId>
+          <BICFI>BANKAADEFF</BICFI>
+        </FinInstnId>
+      </InstdAgt>
+      <Dbtr>
+        <Nm>Swiss Trading AG</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>CH9300762011623852957</IBAN>
+        </Id>
+      </DbtrAcct>
+      <Cdtr>
+        <Nm>European Importer Ltd</Nm>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+      </CdtrAcct>
+      <RmtInf>
+        <Ustrd>Payment for precision instruments - Invoice 2025-004</Ustrd>
+      </RmtInf>
+    </CdtTrfTxInf>
+  </FIToFICstmrCdtTrf>
+</Document>

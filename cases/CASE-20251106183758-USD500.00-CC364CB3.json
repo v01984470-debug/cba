@@ -1,0 +1,45 @@
+{
+  "case_id": "CASE-20251106183758-USD500.00-CC364CB3",
+  "description": "PACS File Pair - Alice Smith",
+  "amount": "100.00",
+  "currency": "USD",
+  "status": "completed",
+  "created_at": "2025-11-06T18:37:58.758894",
+  "pacs004_data": {
+    "message_id": "MSG-HIGH-FX-NO-FCA-001",
+    "transaction_id": "RTRID-HIGH-FX-NO-FCA-001",
+    "return_reason": "TGT2",
+    "uetr": "UETR-HIGH-FX-NO-FCA-001",
+    "e2e": "E2EID-HIGH-FX-NO-FCA-001",
+    "amount": "100.00",
+    "currency": "USD",
+    "debtor_name": "Alice Smith",
+    "debtor_account": "GB29NWBK60161331926819"
+  },
+  "pacs008_data": {
+    "message_id": "MSG-HIGH-FX-NO-FCA-001",
+    "transaction_id": null,
+    "uetr": "UETR-HIGH-FX-NO-FCA-001",
+    "e2e": "E2EID-HIGH-FX-NO-FCA-001",
+    "amount": "500.00",
+    "currency": "USD",
+    "debtor_name": "Alice Smith",
+    "debtor_account": "\n          ",
+    "creditor_name": "Test Recipient",
+    "creditor_account": null
+  },
+  "email_data": {
+    "case_id": "CASE-20251106183758-USD500.00-CC364CB3",
+    "email_subject": "return of funds",
+    "email_recipient": "Intelli Processing",
+    "email_body": "Reference: CASE-20251106183758-USD500.00-CC364CB3\nSubject: return of funds\nTransaction reference: E2EID-HIGH-FX-NO-FCA-001\n\n:20:E2EID-HIGH-FX-NO-FCA-001\n:23B:CRED\n:32A:251106USD100.00\n:33B:USD100.00\n:50K:A*********h\n:52A:BOSPGBPMXXXX\n:57A:CBAAU2SXXXX\n:59A:CBAAU2SXXXX\n:71F:USD0,00\n:71F:USD0,00\n:72:/BEN/99\n/R99/MS01/MREF/E2EID-HIGH-FX-NO-FCA-001/TEX\n/MREF/OL_REFERENCE\n/TEXT/IT/Return due to invalid account",
+    "transaction_ref": "E2EID-HIGH-FX-NO-FCA-001",
+    "generated_at": "2025-11-06T18:37:58.758894"
+  },
+  "pacs004_content": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Document xmlns=\"urn:iso:std:iso:20022:tech:xsd:pacs.004.001.09\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n  <PmtRtr>\n    <GrpHdr>\n      <MsgId>MSG-HIGH-FX-NO-FCA-001</MsgId>\n      <CreDtTm>2025-01-15T10:30:00</CreDtTm>\n      <NbOfTxs>1</NbOfTxs>\n      <SttlmInf>\n        <SttlmMtd>CLRG</SttlmMtd>\n        <ClrSys>\n          <Cd>TGT2</Cd>\n        </ClrSys>\n      </SttlmInf>\n      <InstgAgt>\n        <FinInstnId>\n          <BICFI>DEUTDEFF</BICFI>\n        </FinInstnId>\n      </InstgAgt>\n      <InstdAgt>\n        <FinInstnId>\n          <BICFI>COMMAU2S</BICFI>\n        </FinInstnId>\n      </InstdAgt>\n    </GrpHdr>\n    <TxInf>\n      <RtrId>RTRID-HIGH-FX-NO-FCA-001</RtrId>\n      <OrgnlGrpInf>\n        <OrgnlMsgId>MSG-HIGH-FX-NO-FCA-001</OrgnlMsgId>\n        <OrgnlMsgNmId>pacs.008.001.08</OrgnlMsgNmId>\n      </OrgnlGrpInf>\n      <OrgnlEndToEndId>E2EID-HIGH-FX-NO-FCA-001</OrgnlEndToEndId>\n      <OrgnlUETR>UETR-HIGH-FX-NO-FCA-001</OrgnlUETR>\n      <RtrRsnInf>\n        <Rsn>\n          <Cd>AC01</Cd>\n        </Rsn>\n        <AddtlInf>Return due to invalid account</AddtlInf>\n      </RtrRsnInf>\n      <OrgnlIntrBkSttlmDt>2025-01-15</OrgnlIntrBkSttlmDt>\n      <OrgnlTxRef>\n        <IntrBkSttlmAmt>\n          <Amt Ccy=\"USD\">100.00</Amt>\n        </IntrBkSttlmAmt>\n        <IntrBkSttlmDt>2025-01-15</IntrBkSttlmDt>\n        <SttlmPrty>NORM</SttlmPrty>\n        <SttlmMtd>INDA</SttlmMtd>\n        <MndtRltdInf>\n          <MndtId>MANDATE-HIGH-FX-NO-FCA-001</MndtId>\n          <DtOfSgntr>2025-01-10</DtOfSgntr>\n        </MndtRltdInf>\n        <RmtInf>\n          <Ustrd>Return due to invalid account - High FX Loss Test</Ustrd>\n        </RmtInf>\n        <Dbtr>\n          <Nm>Alice Smith</Nm>\n          <Id>\n            <OrgId>\n              <Othr>\n                <Id>GB29NWBK60161331926819</Id>\n                <SchmeNm>\n                  <Cd>CUST</Cd>\n                </SchmeNm>\n              </Othr>\n            </OrgId>\n          </Id>\n        </Dbtr>\n        <DbtrAcct>\n          <Id>\n            <IBAN>GB29NWBK60161331926819</IBAN>\n          </Id>\n        </DbtrAcct>\n        <DbtrAgt>\n          <FinInstnId>\n            <BICFI>NWBKGB2L</BICFI>\n          </FinInstnId>\n        </DbtrAgt>\n        <CdtrAgt>\n          <FinInstnId>\n            <BICFI>DEUTDEFF</BICFI>\n          </FinInstnId>\n        </CdtrAgt>\n        <Cdtr>\n          <Nm>Test Recipient</Nm>\n        </Cdtr>\n        <CdtrAcct>\n          <Id>\n            <IBAN>DE89370400440532013000</IBAN>\n          </Id>\n        </CdtrAcct>\n      </OrgnlTxRef>\n      <RtrdIntrBkSttlmAmt Ccy=\"USD\">100.00</RtrdIntrBkSttlmAmt>\n    </TxInf>\n  </PmtRtr>\n</Document>\n",
+  "pacs008_content": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Document xmlns=\"urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n  <FIToFICstmrCdtTrf>\n    <GrpHdr>\n      <MsgId>MSG-HIGH-FX-NO-FCA-001</MsgId>\n      <CreDtTm>2025-01-15T10:30:00</CreDtTm>\n      <NbOfTxs>1</NbOfTxs>\n      <SttlmInf>\n        <SttlmMtd>INDA</SttlmMtd>\n      </SttlmInf>\n      <InstgAgt>\n        <FinInstnId>\n          <BICFI>NWBKGB2L</BICFI>\n        </FinInstnId>\n      </InstgAgt>\n      <InstdAgt>\n        <FinInstnId>\n          <BICFI>DEUTDEFF</BICFI>\n        </FinInstnId>\n      </InstdAgt>\n    </GrpHdr>\n    <CdtTrfTxInf>\n      <PmtId>\n        <InstrId>INSTR-HIGH-FX-NO-FCA-001</InstrId>\n        <EndToEndId>E2EID-HIGH-FX-NO-FCA-001</EndToEndId>\n        <UETR>UETR-HIGH-FX-NO-FCA-001</UETR>\n      </PmtId>\n      <IntrBkSttlmAmt Ccy=\"USD\">500.00</IntrBkSttlmAmt>\n      <IntrBkSttlmDt>2025-01-15</IntrBkSttlmDt>\n      <SttlmPrty>NORM</SttlmPrty>\n      <SttlmMtd>INDA</SttlmMtd>\n      <MndtRltdInf>\n        <MndtId>MANDATE-HIGH-FX-NO-FCA-001</MndtId>\n        <DtOfSgntr>2025-01-10</DtOfSgntr>\n      </MndtRltdInf>\n      <ChrgBr>SLEV</ChrgBr>\n      <Dbtr>\n        <Nm>Alice Smith</Nm>\n        <Id>\n          <OrgId>\n            <Othr>\n              <Id>GB29NWBK60161331926819</Id>\n              <SchmeNm>\n                <Cd>CUST</Cd>\n              </SchmeNm>\n            </Othr>\n          </OrgId>\n        </Id>\n      </Dbtr>\n      <DbtrAcct>\n        <Id>\n          <IBAN>GB29NWBK60161331926819</IBAN>\n        </Id>\n      </DbtrAcct>\n      <DbtrAgt>\n        <FinInstnId>\n          <BICFI>NWBKGB2L</BICFI>\n        </FinInstnId>\n      </DbtrAgt>\n      <CdtrAgt>\n        <FinInstnId>\n          <BICFI>DEUTDEFF</BICFI>\n        </FinInstnId>\n      </CdtrAgt>\n      <Cdtr>\n        <Nm>Test Recipient</Nm>\n      </Cdtr>\n      <CdtrAcct>\n        <Id>\n          <IBAN>DE89370400440532013000</IBAN>\n        </Id>\n      </CdtrAcct>\n      <RmtInf>\n        <Ustrd>High FX Loss Test - No FCA Account</Ustrd>\n      </RmtInf>\n    </CdtTrfTxInf>\n  </FIToFICstmrCdtTrf>\n</Document>\n",
+  "pacs004_filename": "test_scenario_7_high_fx_no_fca.xml",
+  "pacs008_filename": "test_scenario_7_high_fx_no_fca_pacs008.xml",
+  "run_id": "0965863f-e09c-4068-b416-72074ccec1fe",
+  "processed_at": "2025-11-06T18:38:17.659368"
+}
