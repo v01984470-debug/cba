@@ -497,7 +497,7 @@ const ModeAndUploadSection: React.FC<{
                 : "text-gray-600 dark:text-gray-300"
             }`}
           >
-            Manual
+            Sequential
           </button>
           <button
             onClick={() => onModeChange("automated")}
@@ -507,7 +507,7 @@ const ModeAndUploadSection: React.FC<{
                 : "text-gray-600 dark:text-gray-300"
             }`}
           >
-            Automated
+            Bulk
           </button>
         </div>
       </div>
